@@ -1,0 +1,3420 @@
+app:
+  description: 请认真书写 Git 提交信息，以及 MR 的描述。有助于准确审查代码。
+  icon: eyes
+  icon_background: '#D3F8DF'
+  mode: workflow
+  name: GitLab 代码审查助理
+  use_icon_as_answer_icon: false
+kind: app
+version: 0.1.5
+workflow:
+  conversation_variables: []
+  environment_variables:
+  - description: ''
+    id: 3e7b4d79-b8e5-4fce-8770-d2281671382d
+    name: TV_BOOT_ID
+    selector:
+    - env
+    - TV_BOOT_ID
+    value: 4b39ecb8-89e6-4be7-820c-f39b8d750ee5
+    value_type: string
+  - description: ''
+    id: c32caa8c-7a2d-49f7-93c0-e8c992907d8a
+    name: IGNORE_FILES
+    selector:
+    - env
+    - IGNORE_FILES
+    value: (pnpm-lock\.yaml|package-lock\.json|yarn\.lock|composer\.lock|openapi\.json)(?=$|\/|\\)
+    value_type: string
+  - description: ''
+    id: 2310b4b5-f214-489d-821d-2d3220af3a70
+    name: GITLAB_REVIEWER_USERNAME
+    selector:
+    - env
+    - GITLAB_REVIEWER_USERNAME
+    value: mountainwu
+    value_type: string
+  - description: ''
+    id: a6b7fd21-6ef9-4c94-99a4-7090145d9756
+    name: GITLAB_HOST
+    selector:
+    - env
+    - GITLAB_HOST
+    value: https://git.kuainiujinke.com
+    value_type: string
+  - description: ''
+    id: 0af3db9e-fdff-4d7b-9d42-851d3fc1d2e3
+    name: MAX_STRING
+    selector:
+    - env
+    - MAX_STRING
+    value: 80000
+    value_type: number
+  - description: ''
+    id: 2e03656f-166f-47bc-bb31-27afbbca9982
+    name: GITLAB_PRIVATE_TOKEN
+    selector:
+    - env
+    - GITLAB_PRIVATE_TOKEN
+    value: ''
+    value_type: secret
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        sourceType: http-request
+        targetType: code
+      id: 17346390565450-source-17346946700280-target
+      selected: false
+      source: '17346390565450'
+      sourceHandle: source
+      target: '17346946700280'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: http-request
+        targetType: code
+      id: 17346847020550-source-17346946709900-target
+      selected: false
+      source: '17346847020550'
+      sourceHandle: source
+      target: '17346946709900'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: if-else
+      id: 1734694634848-source-1734702859732-target
+      selected: false
+      source: '1734694634848'
+      sourceHandle: source
+      target: '1734702859732'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: http-request
+      id: 1734702859732-true-1734706580846-target
+      selected: false
+      source: '1734702859732'
+      sourceHandle: 'true'
+      target: '1734706580846'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: start
+        targetType: code
+      id: 1734623374802-source-17346383362280-target
+      selected: false
+      source: '1734623374802'
+      sourceHandle: source
+      target: '17346383362280'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: iteration
+        targetType: end
+      id: 1734625888939-source-1734623951413-target
+      selected: false
+      source: '1734625888939'
+      sourceHandle: source
+      target: '1734623951413'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: http-request
+      id: 1735063824243-true-17346390565450-target
+      selected: false
+      source: '1735063824243'
+      sourceHandle: 'true'
+      target: '17346390565450'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: http-request
+      id: 17346946709900-source-17351266890650-target
+      selected: false
+      source: '17346946709900'
+      sourceHandle: source
+      target: '17351266890650'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: http-request
+        targetType: code
+      id: 17351266890650-source-1734694634848-target
+      selected: false
+      source: '17351266890650'
+      sourceHandle: source
+      target: '1734694634848'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: http-request
+        targetType: code
+      id: 17351299823070-source-1735130047799-target
+      selected: false
+      source: '17351299823070'
+      sourceHandle: source
+      target: '1735130047799'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: if-else
+      id: 17346383362280-source-1735063824243-target
+      selected: false
+      source: '17346383362280'
+      sourceHandle: source
+      target: '1735063824243'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: http-request
+      id: 17346946700280-source-17346847020550-target
+      selected: false
+      source: '17346946700280'
+      sourceHandle: source
+      target: '17346847020550'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: http-request
+      id: 1735063824243-1388bd2c-6220-40e8-8106-7f12e3f29c36-17346390565450-target
+      selected: false
+      source: '1735063824243'
+      sourceHandle: 1388bd2c-6220-40e8-8106-7f12e3f29c36
+      target: '17346390565450'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        iteration_id: '1734625888939'
+        sourceType: http-request
+        targetType: code
+      id: 1735577973160-source-1735578500986-target
+      selected: false
+      source: '1735577973160'
+      sourceHandle: source
+      target: '1735578500986'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: http-request
+      id: 1734702859732-false-17351299823070-target
+      selected: false
+      source: '1734702859732'
+      sourceHandle: 'false'
+      target: '17351299823070'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: http-request
+        targetType: http-request
+      id: 1734706580846-fail-branch-17351299823070-target
+      selected: false
+      source: '1734706580846'
+      sourceHandle: fail-branch
+      target: '17351299823070'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: http-request
+        targetType: http-request
+      id: 1734706580846-source-17351299823070-target
+      selected: false
+      source: '1734706580846'
+      sourceHandle: source
+      target: '17351299823070'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        iteration_id: '1734625888939'
+        sourceType: iteration-start
+        targetType: if-else
+      id: 1734625888939start-source-1735656398035-target
+      selected: false
+      source: 1734625888939start
+      sourceHandle: source
+      target: '1735656398035'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        iteration_id: '1734625888939'
+        sourceType: if-else
+        targetType: http-request
+      id: 1735656398035-false-1735656485832-target
+      selected: false
+      source: '1735656398035'
+      sourceHandle: 'false'
+      target: '1735656485832'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        iteration_id: '1734625888939'
+        sourceType: http-request
+        targetType: code
+      id: 1735656485832-source-1735656928069-target
+      selected: false
+      source: '1735656485832'
+      sourceHandle: source
+      target: '1735656928069'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        iteration_id: '1734625888939'
+        sourceType: code
+        targetType: variable-aggregator
+      id: 1735656928069-source-1735656975326-target
+      selected: false
+      source: '1735656928069'
+      sourceHandle: source
+      target: '1735656975326'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        iteration_id: '1734625888939'
+        sourceType: variable-aggregator
+        targetType: code
+      id: 1735656975326-source-1735129504155-target
+      selected: false
+      source: '1735656975326'
+      sourceHandle: source
+      target: '1735129504155'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        iteration_id: '1734625888939'
+        sourceType: if-else
+        targetType: code
+      id: 1735656398035-true-1735657958915-target
+      selected: false
+      source: '1735656398035'
+      sourceHandle: 'true'
+      target: '1735657958915'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        iteration_id: '1734625888939'
+        sourceType: code
+        targetType: variable-aggregator
+      id: 1735657958915-source-1735656975326-target
+      selected: false
+      source: '1735657958915'
+      sourceHandle: source
+      target: '1735656975326'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        iteration_id: '1734625888939'
+        sourceType: code
+        targetType: if-else
+      id: 1735129504155-source-1735658556053-target
+      selected: false
+      source: '1735129504155'
+      sourceHandle: source
+      target: '1735658556053'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        iteration_id: '1734625888939'
+        sourceType: if-else
+        targetType: http-request
+      id: 1735658556053-true-1735577973160-target
+      selected: false
+      source: '1735658556053'
+      sourceHandle: 'true'
+      target: '1735577973160'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        iteration_id: '1734625888939'
+        sourceType: llm
+        targetType: code
+      id: 1734775287920-source-1735661041621-target
+      selected: false
+      source: '1734775287920'
+      sourceHandle: source
+      target: '1735661041621'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        iteration_id: '1734625888939'
+        sourceType: code
+        targetType: if-else
+      id: 1735661041621-source-1734700071985-target
+      selected: false
+      source: '1735661041621'
+      sourceHandle: source
+      target: '1734700071985'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: code
+      id: 1735063824243-aa3a90e1-bf6e-40f6-8b14-2cc4113552bf-1735985486526-target
+      selected: false
+      source: '1735063824243'
+      sourceHandle: aa3a90e1-bf6e-40f6-8b14-2cc4113552bf
+      target: '1735985486526'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: end
+      id: 1735063824243-false-1735985496074-target
+      selected: false
+      source: '1735063824243'
+      sourceHandle: 'false'
+      target: '1735985496074'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: http-request
+        targetType: code
+      id: 1735994215169-source-17359946280530-target
+      selected: false
+      source: '1735994215169'
+      sourceHandle: source
+      target: '17359946280530'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        iteration_id: '1734625888939'
+        sourceType: if-else
+        targetType: http-request
+      id: 1735997609752-true-1734699123251-target
+      selected: false
+      source: '1735997609752'
+      sourceHandle: 'true'
+      target: '1734699123251'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        iteration_id: '1734625888939'
+        sourceType: if-else
+        targetType: http-request
+      id: 1735997609752-false-1735131066155-target
+      selected: false
+      source: '1735997609752'
+      sourceHandle: 'false'
+      target: '1735131066155'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        iteration_id: '1734625888939'
+        sourceType: if-else
+        targetType: if-else
+      id: 1734700071985-true-1735997609752-target
+      selected: false
+      source: '1734700071985'
+      sourceHandle: 'true'
+      target: '1735997609752'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: iteration
+      id: 1735130047799-source-1734625888939-target
+      selected: false
+      source: '1735130047799'
+      sourceHandle: source
+      target: '1734625888939'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: iteration
+      id: 17359946280530-source-17359979073310-target
+      selected: false
+      source: '17359946280530'
+      sourceHandle: source
+      target: '17359979073310'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        iteration_id: '17359979073310'
+        sourceType: iteration-start
+        targetType: code
+      id: 1735997907331start-source-1735997907331017359979073323-target
+      selected: false
+      source: 1735997907331start
+      sourceHandle: source
+      target: '1735997907331017359979073323'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        iteration_id: '17359979073310'
+        sourceType: http-request
+        targetType: code
+      id: 1735997907331017359979073325-source-1735997907331017359979073326-target
+      selected: false
+      source: '1735997907331017359979073325'
+      sourceHandle: source
+      target: '1735997907331017359979073326'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        iteration_id: '17359979073310'
+        sourceType: llm
+        targetType: code
+      id: 1735997907331017359979073322-source-17359979073310173599790733313-target
+      selected: false
+      source: '1735997907331017359979073322'
+      sourceHandle: source
+      target: '17359979073310173599790733313'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        iteration_id: '17359979073310'
+        sourceType: code
+        targetType: if-else
+      id: 1735997907331017359979073323-source-1735999461323-target
+      selected: false
+      source: '1735997907331017359979073323'
+      sourceHandle: source
+      target: '1735999461323'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        iteration_id: '17359979073310'
+        sourceType: if-else
+        targetType: http-request
+      id: 1735999461323-true-1735997907331017359979073325-target
+      selected: false
+      source: '1735999461323'
+      sourceHandle: 'true'
+      target: '1735997907331017359979073325'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        iteration_id: '17359979073310'
+        sourceType: code
+        targetType: variable-aggregator
+      id: 1735997907331017359979073326-source-1735999561470-target
+      selected: false
+      source: '1735997907331017359979073326'
+      sourceHandle: source
+      target: '1735999561470'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        iteration_id: '17359979073310'
+        sourceType: variable-aggregator
+        targetType: llm
+      id: 1735999561470-source-1735997907331017359979073322-target
+      selected: false
+      source: '1735999561470'
+      sourceHandle: source
+      target: '1735997907331017359979073322'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        iteration_id: '17359979073310'
+        sourceType: if-else
+        targetType: code
+      id: 1735999461323-false-1735999691450-target
+      selected: false
+      source: '1735999461323'
+      sourceHandle: 'false'
+      target: '1735999691450'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        iteration_id: '17359979073310'
+        sourceType: code
+        targetType: variable-aggregator
+      id: 1735999691450-source-1735999561470-target
+      selected: false
+      source: '1735999691450'
+      sourceHandle: source
+      target: '1735999561470'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: false
+        sourceType: iteration
+        targetType: code
+      id: 17359979073310-source-1736000355076-target
+      selected: false
+      source: '17359979073310'
+      sourceHandle: source
+      target: '1736000355076'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: http-request
+      id: 1736003178180-true-1735994215169-target
+      selected: false
+      source: '1736003178180'
+      sourceHandle: 'true'
+      target: '1735994215169'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: end
+      id: 1736003178180-false-1736003193053-target
+      selected: false
+      source: '1736003178180'
+      sourceHandle: 'false'
+      target: '1736003193053'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: if-else
+      id: 1735985486526-source-1736228935056-target
+      selected: false
+      source: '1735985486526'
+      sourceHandle: source
+      target: '1736228935056'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: if-else
+      id: 1736228935056-true-1736003178180-target
+      selected: false
+      source: '1736228935056'
+      sourceHandle: 'true'
+      target: '1736003178180'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: end
+      id: 1736228935056-false-1736229032478-target
+      selected: false
+      source: '1736228935056'
+      sourceHandle: 'false'
+      target: '1736229032478'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: http-request
+      id: 1736000355076-source-1754277742659-target
+      selected: false
+      source: '1736000355076'
+      sourceHandle: source
+      target: '1754277742659'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: http-request
+        targetType: end
+      id: 1754277742659-source-1735998423516-target
+      selected: false
+      source: '1754277742659'
+      sourceHandle: source
+      target: '1735998423516'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        iteration_id: '1734625888939'
+        sourceType: http-request
+        targetType: code
+      id: 1734699123251-source-1754278744853-target
+      selected: false
+      source: '1734699123251'
+      sourceHandle: source
+      target: '1754278744853'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        iteration_id: '1734625888939'
+        sourceType: http-request
+        targetType: code
+      id: 1735131066155-source-1754278744853-target
+      selected: false
+      source: '1735131066155'
+      sourceHandle: source
+      target: '1754278744853'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        iteration_id: '1734625888939'
+        sourceType: code
+        targetType: knowledge-retrieval
+      id: 1735578500986-source-1754296023869-target
+      source: '1735578500986'
+      sourceHandle: source
+      target: '1754296023869'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        iteration_id: '1734625888939'
+        sourceType: knowledge-retrieval
+        targetType: llm
+      id: 1754296023869-source-1734775287920-target
+      source: '1754296023869'
+      sourceHandle: source
+      target: '1734775287920'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        iteration_id: '1734625888939'
+        sourceType: code
+        targetType: http-request
+      id: 1754278744853-source-1754289121034-target
+      source: '1754278744853'
+      sourceHandle: source
+      target: '1754289121034'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables:
+        - label: payload
+          max_length: 8192
+          options: []
+          required: true
+          type: paragraph
+          variable: payload
+      height: 90
+      id: '1734623374802'
+      position:
+        x: 30
+        y: 528.5
+      positionAbsolute:
+        x: 30
+        y: 528.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: 结束节点
+        outputs:
+        - value_selector: []
+          variable: ''
+        selected: false
+        title: True End
+        type: end
+      height: 82
+      id: '1734623951413'
+      position:
+        x: 9884
+        y: 528.5
+      positionAbsolute:
+        x: 9884
+        y: 528.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: 检查 Discussions 中的每条 discussion
+        error_handle_mode: continue-on-error
+        height: 657
+        is_parallel: false
+        iterator_selector:
+        - '1734694634848'
+        - diffs
+        output_selector:
+        - '1735129504155'
+        - new_path
+        output_type: array[string]
+        parallel_nums: 10
+        selected: false
+        start_node_id: 1734625888939start
+        title: 迭代 Commits Diff list
+        type: iteration
+        width: 3742.1894981084224
+      height: 657
+      id: '1734625888939'
+      position:
+        x: 6054.526838394746
+        y: 555.6707219593003
+      positionAbsolute:
+        x: 6054.526838394746
+        y: 555.6707219593003
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 3742
+      zIndex: 1
+    - data:
+        desc: ''
+        isInIteration: true
+        selected: false
+        title: ''
+        type: iteration-start
+      draggable: false
+      height: 48
+      id: 1734625888939start
+      parentId: '1734625888939'
+      position:
+        x: 24
+        y: 68
+      positionAbsolute:
+        x: 6078.526838394746
+        y: 623.6707219593003
+      selectable: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-iteration-start
+      width: 44
+      zIndex: 1002
+    - data:
+        code: "function main({payload}) {\n    const obj = JSON.parse(payload)\n \
+          \   return {\n        object_kind: obj.object_kind||'unknown',\n       \
+          \ event_type: obj.event_type||'unknown',\n        project_id: obj.project?.id||0,\n\
+          \        project_name: obj.project?.name||'unknown',\n        repo_name:\
+          \ obj.repository?.name||'unknown',\n        repo_description: obj.repository?.description||'unknown',\n\
+          \        action: obj.object_attributes?.action||'unknown',\n        iid:\
+          \ obj.object_attributes?.iid||0,\n        oldrev: obj.object_attributes?.oldrev||'unknown',\n\
+          \        web_url: obj.project.web_url,\n    }\n}\n"
+        code_language: javascript
+        desc: 组合 Gitlab OpenAPI 的 MR 请求参数
+        isInIteration: true
+        iteration_id: '1734625888939'
+        outputs:
+          action:
+            children: null
+            type: string
+          event_type:
+            children: null
+            type: string
+          iid:
+            children: null
+            type: number
+          object_kind:
+            children: null
+            type: string
+          oldrev:
+            children: null
+            type: string
+          project_id:
+            children: null
+            type: number
+          project_name:
+            children: null
+            type: string
+          repo_description:
+            children: null
+            type: string
+          repo_name:
+            children: null
+            type: string
+          web_url:
+            children: null
+            type: string
+        selected: false
+        title: Get MR params
+        type: code
+        variables:
+        - value_selector:
+          - '1734623374802'
+          - payload
+          variable: payload
+      height: 82
+      id: '17346383362280'
+      position:
+        x: 334
+        y: 528.5
+      positionAbsolute:
+        x: 334
+        y: 528.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        authorization:
+          config:
+            api_key: '{{#env.GITLAB_PRIVATE_TOKEN#}}'
+            header: PRIVATE-TOKEN
+            type: custom
+          type: api-key
+        body:
+          data: []
+          type: none
+        desc: 执行 GET 请求获取 MR 详情
+        headers: ''
+        method: get
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: Read MR Detail
+        type: http-request
+        url: '{{#env.GITLAB_HOST#}}/api/v4/projects/{{#17346383362280.project_id#}}/merge_requests/{{#17346383362280.iid#}}'
+        variables: []
+      height: 203
+      id: '17346390565450'
+      position:
+        x: 942
+        y: 528.5
+      positionAbsolute:
+        x: 942
+        y: 528.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config:
+            api_key: '{{#env.GITLAB_PRIVATE_TOKEN#}}'
+            header: PRIVATE-TOKEN
+            type: custom
+          type: api-key
+        body:
+          data: []
+          type: none
+        desc: Get merge request diff versions
+        headers: ''
+        method: get
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: Read MR Versions
+        type: http-request
+        url: '{{#env.GITLAB_HOST#}}/api/v4/projects/{{#17346383362280.project_id#}}/merge_requests/{{#17346383362280.iid#}}/versions'
+        variables: []
+      height: 219
+      id: '17346847020550'
+      position:
+        x: 1550
+        y: 528.5
+      positionAbsolute:
+        x: 1550
+        y: 528.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "\nfunction main({raw, ignore_files}) {\n    let ignoreReg = new RegExp(ignore_files);\n\
+          \    let obj = JSON.parse(raw);\n    let diffs = obj.diffs\n        .filter(item=>ignoreReg.exec(item.new_path)==null)\n\
+          \        .map(item=>JSON.stringify(item));\n    let diffsTokens = diffs.reduce((pre,curr)=>pre+curr.length,0);\n\
+          \ \n    if(diffsTokens > 80000){\n        diffs = obj.diffs\n          \
+          \  .map((item,index)=>`${index+1}`)        \n    }\n\n    return {\n   \
+          \     diffs: diffs,\n        diff_count: diffs.length,\n        diffs_tokens:\
+          \ diffsTokens\n    }\n}\n"
+        code_language: javascript
+        desc: ''
+        outputs:
+          diff_count:
+            children: null
+            type: number
+          diffs:
+            children: null
+            type: array[string]
+          diffs_tokens:
+            children: null
+            type: number
+        selected: false
+        title: Get All Diff Array
+        type: code
+        variables:
+        - value_selector:
+          - '17351266890650'
+          - body
+          variable: raw
+        - value_selector:
+          - env
+          - IGNORE_FILES
+          variable: ignore_files
+      height: 54
+      id: '1734694634848'
+      position:
+        x: 3525
+        y: 528.5
+      positionAbsolute:
+        x: 3525
+        y: 528.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "function main({ detail_body }) {\n    let mr = JSON.parse(detail_body);\n\
+          \    \n    return { \n        title: mr.title,\n        description: mr.description,\n\
+          \        author_name: mr.author.name,\n        mr_url: mr.web_url\n    }\n\
+          }\n"
+        code_language: javascript
+        desc: BODY DECODE
+        isInIteration: true
+        iteration_id: '1734625888939'
+        outputs:
+          author_name:
+            children: null
+            type: string
+          description:
+            children: null
+            type: string
+          mr_url:
+            children: null
+            type: string
+          title:
+            children: null
+            type: string
+        selected: false
+        title: Parse MR Detail
+        type: code
+        variables:
+        - value_selector:
+          - '17346390565450'
+          - body
+          variable: detail_body
+      height: 82
+      id: '17346946700280'
+      position:
+        x: 1246
+        y: 528.5
+      positionAbsolute:
+        x: 1246
+        y: 528.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        code: "function main({ version_body }) {\n    // version\n    let versions\
+          \ = JSON.parse(version_body);\n    let firstVersion = versions[0];\n\n \
+          \   return {\n        head_commit_sha: firstVersion.head_commit_sha,\n \
+          \       base_commit_sha: firstVersion.base_commit_sha,\n        start_commit_sha:\
+          \ firstVersion.start_commit_sha,\n        version_id: firstVersion.id,\n\
+          \    }\n}\n\nfunction generateArray(N) {\n  let array = [];\n  for (let\
+          \ i = 1; i <= N; i++) {\n    array.push(i);\n  }\n  return array;\n}"
+        code_language: javascript
+        desc: BODY DECODE
+        isInIteration: true
+        iteration_id: '1734625888939'
+        outputs:
+          base_commit_sha:
+            children: null
+            type: string
+          head_commit_sha:
+            children: null
+            type: string
+          start_commit_sha:
+            children: null
+            type: string
+          version_id:
+            children: null
+            type: number
+        selected: false
+        title: Parse MR Versions
+        type: code
+        variables:
+        - value_selector:
+          - '17346847020550'
+          - body
+          variable: version_body
+      height: 82
+      id: '17346946709900'
+      position:
+        x: 1854
+        y: 528.5
+      positionAbsolute:
+        x: 1854
+        y: 528.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        authorization:
+          config:
+            api_key: '{{#env.GITLAB_PRIVATE_TOKEN#}}'
+            header: PRIVATE-TOKEN
+            type: custom
+          type: api-key
+        body:
+          data:
+          - id: key-value-39
+            key: ''
+            type: text
+            value: "{\n  \"body\": \"{{#1735661041621.result#}}\",\n  \"position\"\
+              : {\n    \"position_type\":\"text\",\n    \"base_sha\":\"{{#17346946709900.base_commit_sha#}}\"\
+              ,\n    \"head_sha\":\"{{#17346946709900.head_commit_sha#}}\",\n    \"\
+              start_sha\":\"{{#17346946709900.start_commit_sha#}}\",\n    \"new_path\"\
+              :\"{{#1735129504155.new_path#}}\",\n    \"old_path\":\"{{#1735129504155.old_path#}}\"\
+              ,\n    \"new_line\": {{#1735129504155.new_line#}},\n    \"old_line\"\
+              : {{#1735129504155.old_line#}}\n  }\n}"
+          type: json
+        desc: '     '
+        headers: 'PRIVATE-TOKEN:{{#env.GITLAB_PRIVATE_TOKEN#}}
+
+          Content-Type:application/json'
+        isInIteration: true
+        iteration_id: '1734625888939'
+        method: POST
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: POST Comment
+        type: http-request
+        url: '{{#env.GITLAB_HOST#}}/api/v4/projects/{{#17346383362280.project_id#}}/merge_requests/{{#17346383362280.iid#}}/discussions'
+        variables: []
+      height: 219
+      id: '1734699123251'
+      parentId: '1734625888939'
+      position:
+        x: 2989.105463098269
+        y: 73.43823791706006
+      positionAbsolute:
+        x: 9043.632301493015
+        y: 629.1089598763604
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: not empty
+            id: 36191fc4-0ff5-4ea4-a5b1-bfd22dcb0a08
+            value: ''
+            varType: string
+            variable_selector:
+            - '1735661041621'
+            - result
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        isInIteration: true
+        iteration_id: '1734625888939'
+        selected: false
+        title: If has content
+        type: if-else
+      height: 126
+      id: '1734700071985'
+      parentId: '1734625888939'
+      position:
+        x: 2343.4560825552617
+        y: 109.07029144221849
+      positionAbsolute:
+        x: 8397.982920950008
+        y: 664.7410134015188
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: ≥
+            id: 77deb18b-3aec-40fb-9a01-d3cfb5f395c2
+            numberVarType: variable
+            value: '{{#env.MAX_STRING#}}'
+            varType: number
+            variable_selector:
+            - '1734694634848'
+            - diffs_tokens
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: Ignore Big Diffs
+        type: if-else
+      height: 126
+      id: '1734702859732'
+      position:
+        x: 4892
+        y: 528.5
+      positionAbsolute:
+        x: 4892
+        y: 528.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config:
+            api_key: '{{#env.GITLAB_PRIVATE_TOKEN#}}'
+            header: PRIVATE-TOKEN
+            type: custom
+          type: api-key
+        body:
+          data:
+          - id: key-value-12
+            key: body
+            type: text
+            value: '该 MR 有太多的修改，超过{{#env.MAX_STRING#}} 个token，请适当减少 MR 提交的大小。
+
+
+              过大的 MR 提交，通常暗示着多个任务混杂提交，或者错误的文件被提交。
+
+
+              较小的MR有利于人类做代码审查，也有利于未来可能的代码回滚。'
+          - id: key-value-13
+            key: ''
+            type: text
+            value: ''
+          type: form-data
+        desc: ''
+        error_strategy: fail-branch
+        headers: ''
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: POST Too big
+        type: http-request
+        url: '{{#env.GITLAB_HOST#}}/api/v4/projects/{{#17346383362280.project_id#}}/merge_requests/{{#17346383362280.iid#}}/notes'
+        variables: []
+      height: 227
+      id: '1734706580846'
+      position:
+        x: 5196
+        y: 672
+      positionAbsolute:
+        x: 5196
+        y: 672
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1754296023869'
+          - result
+        desc: 使用大模型检查文案
+        isInIteration: true
+        iteration_id: '1734625888939'
+        model:
+          completion_params:
+            temperature: 0.1
+            top_p: 0.5
+          mode: chat
+          name: deepseek-v3
+          provider: openai_api_compatible
+        prompt_template:
+        - id: 77b3d05b-a305-4a8b-bea6-aa4d66497baa
+          role: system
+          text: "# 代码审查专家\n\n## 角色定义\n\n你是一位经验丰富的软件工程师和代码审查专家，具备以下专长：\n\n### 技术栈精通\n\
+            - **前端**: JavaScript, TypeScript, React, Vue, Angular, HTML/CSS, Flutter\n\
+            - **后端**: Node.js, PHP, Python, Java, Golang, C/C++, C#\n- **移动端**: Flutter,\
+            \ React Native, iOS/Android 原生开发\n- **数据库**: SQL, NoSQL, ORM 框架\n- **DevOps**:\
+            \ Docker, Kubernetes, CI/CD, 云服务\n\n### 审查能力\n- 代码质量评估与优化建议\n- 架构设计合理性分析\n\
+            - 安全性漏洞识别\n- 性能问题诊断\n- 最佳实践指导，参考规范文档{{#context#}}\n\n## 响应格式\n\n<response-format\
+            \ type=\"markdown\">\n```markdown\n### \U0001F50D 洞察 (Insights)\n- **代码质量**:\
+            \ [对代码整体质量的评价]\n- **架构设计**: [对架构合理性的分析]\n- **业务逻辑**: [对业务实现的评估]\n\n###\
+            \ ⚠️ 问题 (Issues)\n#### 严重问题 (Critical)\n- [列出影响功能或安全的关键问题]\n\n#### 重要问题\
+            \ (Important)\n- [列出影响代码质量或维护性的重要问题]\n\n#### 建议改进 (Suggestions)\n- [列出可选的优化建议]\n\
+            \n### \U0001F4A1 建议 (Recommendations)\n#### 立即修复 (Immediate)\n- [需要立即修复的问题和建议]\n\
+            \n#### 优化改进 (Optimization)\n- [代码优化和性能改进建议]\n\n#### 最佳实践 (Best Practices)\n\
+            - [遵循行业最佳实践的建议]\n\n### \U0001F4CA 评分\n- **代码质量**: ⭐⭐⭐⭐⭐ (1-5星)\n- **安全性**:\
+            \ ⭐⭐⭐⭐⭐ (1-5星)\n- **可维护性**: ⭐⭐⭐⭐⭐ (1-5星)\n- **性能**: ⭐⭐⭐⭐⭐ (1-5星)\n```\n\
+            </response-format>\n\n## 审查规则\n\n### 核心原则\n<rules>\n- **专注审查**: 只审查 `code-to-review`\
+            \ 部分的代码变更。样例如下:\n  <sample type=\"json\">\n    {\n        \"diff\": \"\
+            --- a/packages/core-api/src/analysis-api/analysis-api.service.ts\\n+++ b/packages/core-api/src/analysis-api/analysis-api.service.ts\\\
+            n@@ -26,7 +26,7 @@ export class AnalysisApiService {\\n     private moduleRef: ModuleRef,\\\
+            n     private cacheService: CalculationCacheService,\\n     private measurementValueService: MeasurementValueService,\\\
+            n-  ) { }\\n+  ) {}\\n   getRegisteredActions() {\\n     return this.registedActions;\\\
+            n   }\\n\", // 以 unified diff 格式描述的文件内代码改动。\n        \"new_path\": \"\
+            packages/core-api/src/analysis-api/analysis-api.service.ts\", // 文件新名字。\n\
+                    \"old_path\": \"packages/core-api/src/analysis-api/analysis-api.service.ts\"\
+            , // 文件旧名字。\n        \"new_line\": 1, // 当前改动的行\n        \"old_line\"\
+            : null, // 当前改动的行之前的位置\n        \"a_mode\": \"100644\", // 文件旧的权限值。\n\
+                    \"b_mode\": \"100644\", // 文件新的权限值。\n        \"new_file\": false,\
+            \ // 文件是否是新建的。\n        \"renamed_file\": false, // 文件是否被改名。\n        \"\
+            deleted_file\": false, // 文件是否被删除。\n        \"generated_file\": false\
+            \ // 文件是否是自动生成的。\n    }\n  </sample>\n- **全面分析**: 从代码质量、业务逻辑、安全性、性能等多维度评估\n\
+            - **优先级排序**: 按严重程度分类问题（严重/重要/建议）\n- **建设性反馈**: 提供具体、可操作的改进建议\n- **中文回复**:\
+            \ 所有反馈使用中文表达\n- 参考但不审查 file-content 部分，这是文件改动后的完整内容。当文件过长时会被省略。\n- 参考但不审查\
+            \ all-changes 部分，这是本次Merge Request 的所有改动。当改动过多时会被省略。\n- 你总是从代码、业务两方面进行审查。\n\
+            - 你总是按照 response-format 格式进行回复\n- 代码是否符合提交消息中的内容？\n- 如果有任何错误，请突出显示它们。\n\
+            - 不要突出显示小问题和细节。\n- 不必对自动生成的文件进行审查。\n- 你总是用语精练、准确。\n- 当无需审查时，你总是返回空字符串\"\
+            \"。\n- 你总是用中文给出反馈。\n</rules>\n\n### 审查范围\n- ✅ **代码变更**: 审查 diff 中的具体代码改动\n\
+            - ✅ **文件结构**: 评估文件组织和新文件创建\n- ✅ **命名规范**: 检查变量、函数、类命名\n- ✅ **代码风格**: 评估代码格式和风格一致性\n\
+            - ✅ **逻辑正确性**: 验证业务逻辑实现\n- ✅ **安全性**: 识别潜在的安全漏洞\n- ✅ **性能影响**: 评估性能影响和优化空间\n\
+            \n### 排除范围\n- ❌ **自动生成文件**: 不审查自动生成的代码\n- ❌ **配置文件**: 不审查纯配置文件（除非有安全问题）\n\
+            - ❌ **第三方代码**: 不审查未修改的第三方库代码\n\n### 问题分类标准\n\n#### 严重问题 (Critical)\n-\
+            \ 导致程序崩溃或异常的错误\n- 安全漏洞（SQL注入、XSS、权限绕过等）\n- 数据丢失或损坏风险\n- 性能严重下降（O(n²) 算法等）\n\
+            \n#### 重要问题 (Important)\n- 代码可读性差\n- 违反编码规范\n- 潜在的边界情况处理不当\n- 缺少必要的错误处理\n\
+            - 测试覆盖率不足\n\n#### 建议改进 (Suggestions)\n- 代码优化机会\n- 更好的命名建议\n- 性能微优化\n-\
+            \ 代码结构改进"
+        - id: a16669f0-2f37-40f5-a921-21f84eb8bda9
+          role: assistant
+          text: '## 审查检查清单
+
+
+            ### 代码质量
+
+            - [ ] 是否符合最佳实践规范？
+
+            - [ ] 代码是否清晰易读？
+
+            - [ ] 命名是否规范且有意义？
+
+            - [ ] 是否有重复代码？
+
+            - [ ] 函数是否职责单一？
+
+            - [ ] 是否有适当的注释？
+
+
+            ### 安全性
+
+            - [ ] 是否有输入验证？
+
+            - [ ] 是否有权限检查？
+
+            - [ ] 是否有 SQL 注入风险？
+
+            - [ ] 是否有 XSS 风险？
+
+            - [ ] 敏感信息是否加密？
+
+
+            ### 性能
+
+            - [ ] 算法复杂度是否合理？
+
+            - [ ] 是否有不必要的数据库查询？
+
+            - [ ] 是否有内存泄漏风险？
+
+            - [ ] 是否有缓存优化机会？
+
+
+            ### 可维护性
+
+            - [ ] 代码结构是否合理？
+
+            - [ ] 是否有适当的错误处理？
+
+            - [ ] 是否有单元测试？
+
+            - [ ] 是否遵循设计模式？
+
+
+            ### 业务逻辑
+
+            - [ ] 业务需求是否完整实现？
+
+            - [ ] 边界情况是否处理？
+
+            - [ ] 数据验证是否充分？
+
+            - [ ] 用户体验是否考虑？
+
+
+            ## 示例响应
+
+
+            ```markdown
+
+            ### 🔍 洞察
+
+            - **代码质量**: 整体代码结构清晰，但存在一些可优化空间
+
+            - **架构设计**: 模块化设计合理，符合单一职责原则
+
+            - **业务逻辑**: 核心功能实现正确，但缺少边界情况处理
+
+
+            ### ⚠️ 问题
+
+            #### 严重问题 (Critical)
+
+            - 缺少用户输入验证，存在安全风险
+
+            - 数据库查询未使用参数化查询，存在 SQL 注入风险
+
+
+            #### 重要问题 (Important)
+
+            - 函数 `processUserData` 过长（超过50行），建议拆分
+
+            - 缺少错误处理机制，异常情况可能导致程序崩溃
+
+            - 变量命名不够清晰，如 `data` 应该改为 `userProfile`
+
+
+            #### 建议改进 (Suggestions)
+
+            - 可以添加更多的日志记录
+
+            - 考虑使用 TypeScript 类型定义提升代码安全性
+
+
+            ### 💡 建议
+
+            #### 立即修复 (Immediate)
+
+            1. 添加输入验证和参数化查询
+
+            2. 拆分过长的函数
+
+            3. 添加适当的错误处理
+
+
+            #### 优化改进 (Optimization)
+
+            1. 改进变量命名，提高代码可读性
+
+            2. 添加单元测试覆盖核心逻辑
+
+            3. 考虑使用缓存优化性能
+
+
+            #### 最佳实践 (Best Practices)
+
+            1. 遵循 SOLID 原则
+
+            2. 添加适当的代码注释
+
+            3. 使用 ESLint/Prettier 保持代码风格一致
+
+
+            ### 📊 评分
+
+            - **代码质量**: ⭐⭐⭐ (3/5)
+
+            - **安全性**: ⭐⭐ (2/5)
+
+            - **可维护性**: ⭐⭐⭐ (3/5)
+
+            - **性能**: ⭐⭐⭐⭐ (4/5)
+
+            ```
+
+
+            ## 使用说明
+
+
+            1. **输入格式**: 提供 diff 格式的代码变更
+
+            2. **审查重点**: 重点关注代码质量、安全性、性能影响
+
+            3. **反馈质量**: 提供具体、可操作的改进建议
+
+            4. **优先级**: 按问题严重程度分类并提供解决方案
+
+
+            ### 适用场景
+
+            - GitLab/GitHub 代码审查
+
+            - 团队代码质量检查
+
+            - 技术面试代码评估
+
+            - 开源项目贡献审查'
+        - id: bf16301d-4510-4420-94d9-c32f35091008
+          role: user
+          text: '<repository>
+
+            <name>{{#17346383362280.repo_name#}}</name>
+
+            <description>{{#17346383362280.repo_description#}}</description>
+
+            </repository>
+
+            <merge-request>
+
+            <title>{{#17346946700280.title#}}</title>
+
+            <description>{{#17346946700280.description#}}</description>
+
+            <all-changes>
+
+            ```json
+
+            {{#1734694634848.diffs#}}
+
+            ```
+
+            </all-changes>
+
+            </merge-request>
+
+            <file-content>{{#1735578500986.content#}}</file-content
+
+            <code-to-review>{{#1734625888939.item#}}</code-to-review>'
+        selected: false
+        title: LLM Review
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 126
+      id: '1734775287920'
+      parentId: '1734625888939'
+      position:
+        x: 1963.8215474260942
+        y: 105.43715352656955
+      positionAbsolute:
+        x: 8018.34838582084
+        y: 661.1078754858698
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: 1c636118-94eb-4082-a481-ea7823953ea7
+            value: open
+            varType: string
+            variable_selector:
+            - '17346383362280'
+            - action
+          id: 'true'
+          logical_operator: or
+        - case_id: 1388bd2c-6220-40e8-8106-7f12e3f29c36
+          conditions:
+          - comparison_operator: contains
+            id: ed68d36d-bae5-4915-950f-fa0b298023a3
+            value: update
+            varType: string
+            variable_selector:
+            - '17346383362280'
+            - action
+          - comparison_operator: is not
+            id: dfefb06e-1640-4097-b01e-17e0f9db2996
+            value: unknown
+            varType: string
+            variable_selector:
+            - '17346383362280'
+            - oldrev
+          id: 1388bd2c-6220-40e8-8106-7f12e3f29c36
+          logical_operator: and
+        - case_id: aa3a90e1-bf6e-40f6-8b14-2cc4113552bf
+          conditions:
+          - comparison_operator: is
+            id: 1a4e3aa9-952f-409c-8f24-bcbbbab86eda
+            value: push
+            varType: string
+            variable_selector:
+            - '17346383362280'
+            - object_kind
+          id: aa3a90e1-bf6e-40f6-8b14-2cc4113552bf
+          logical_operator: and
+        desc: 根据当前 Action 走不通的执行分支
+        selected: false
+        title: MR Open Update Check
+        type: if-else
+      height: 276
+      id: '1735063824243'
+      position:
+        x: 638
+        y: 528.5
+      positionAbsolute:
+        x: 638
+        y: 528.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config:
+            api_key: '{{#env.GITLAB_PRIVATE_TOKEN#}}'
+            header: PRIVATE-TOKEN
+            type: custom
+          type: api-key
+        body:
+          data: []
+          type: none
+        desc: ''
+        headers: ''
+        isInIteration: true
+        iteration_id: '1734694373584'
+        method: get
+        params: unidiff:1
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: READ MR Version Diffs
+        type: http-request
+        url: '{{#env.GITLAB_HOST#}}/api/v4/projects/{{#17346383362280.project_id#}}/merge_requests/{{#17346383362280.iid#}}/versions/{{#17346946709900.version_id#}}'
+        variables: []
+      height: 209
+      id: '17351266890650'
+      position:
+        x: 2158
+        y: 528.5
+      positionAbsolute:
+        x: 2158
+        y: 528.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        code: "\nfunction main({raw, discussions, ignore_files}) {\n    const obj\
+          \ = JSON.parse(raw);\n    const foundNote = discussions.find(item=>item.position.new_path\
+          \ == obj.new_path);\n\n    let ignoreReg = new RegExp(ignore_files);\n \
+          \   const should_ignore = ignoreReg.exec(obj.new_path)==null?'no':'yes';\n\
+          \    return {\n        new_path: obj.new_path,\n        old_path: obj.old_path,\n\
+          \        encoded_path: encodeURIComponent(obj.new_path),\n        note_id:\
+          \ foundNote?.id || 0,\n        discussion_id: foundNote?.discussion_id||\"\
+          \",\n        should_ignore: should_ignore,\n        new_line: foundNote?.new_line\
+          \ || 1,\n        old_line: foundNote?.old_line || obj.old_line || null\n\
+          \    }\n}\n"
+        code_language: javascript
+        desc: 解析 Merge Request 中的文件 Diff 内容，过滤掉被忽略的文件
+        isInIteration: true
+        iteration_id: '1734625888939'
+        outputs:
+          discussion_id:
+            children: null
+            type: string
+          encoded_path:
+            children: null
+            type: string
+          new_line:
+            children: null
+            type: number
+          new_path:
+            children: null
+            type: string
+          note_id:
+            children: null
+            type: number
+          old_line:
+            children: null
+            type: number
+          old_path:
+            children: null
+            type: string
+          should_ignore:
+            children: null
+            type: string
+        selected: false
+        title: Parse MR/Page Diff
+        type: code
+        variables:
+        - value_selector:
+          - '1735656975326'
+          - output
+          variable: raw
+        - value_selector:
+          - '1735130047799'
+          - discussions
+          variable: discussions
+        - value_selector:
+          - env
+          - IGNORE_FILES
+          variable: ignore_files
+      height: 98
+      id: '1735129504155'
+      parentId: '1734625888939'
+      position:
+        x: 890.4143057173369
+        y: 509.76176682577625
+      positionAbsolute:
+        x: 6944.941144112083
+        y: 1065.4324887850767
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        authorization:
+          config:
+            api_key: '{{#env.GITLAB_PRIVATE_TOKEN#}}'
+            header: PRIVATE-TOKEN
+            type: custom
+          type: api-key
+        body:
+          data: []
+          type: none
+        desc: ''
+        headers: ''
+        isInIteration: true
+        iteration_id: '1734694373584'
+        method: get
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: Get All Discussions
+        type: http-request
+        url: '{{#env.GITLAB_HOST#}}/api/v4/projects/{{#17346383362280.project_id#}}/merge_requests/{{#17346383362280.iid#}}/discussions?per_page=100'
+        variables: []
+      height: 191
+      id: '17351299823070'
+      position:
+        x: 5500
+        y: 528.5
+      positionAbsolute:
+        x: 5500
+        y: 528.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        code: "\nfunction main({raw, username}) {\n    const discussions = JSON.parse(raw).filter(item=>\n\
+          \        item.individual_note===false)\n    .map(item=>{\n        const\
+          \ foundNote = item.notes.find(note=>note.author.username == username);\n\
+          \        if(foundNote){\n        return {\n            ...foundNote,\n \
+          \           discussion_id: item.id\n        }\n        }else{\n        \
+          \    return null\n        }\n    })\n    .filter(item=>item) \n    \n  \
+          \  return {\n        discussions: discussions,\n        username:username\n\
+          \    }\n}\n "
+        code_language: javascript
+        desc: ''
+        outputs:
+          discussions:
+            children: null
+            type: array[object]
+          username:
+            children: null
+            type: string
+        selected: false
+        title: Parse Discussions
+        type: code
+        variables:
+        - value_selector:
+          - '17351299823070'
+          - body
+          variable: raw
+        - value_selector:
+          - env
+          - GITLAB_REVIEWER_USERNAME
+          variable: username
+      height: 54
+      id: '1735130047799'
+      position:
+        x: 5804
+        y: 528.5
+      positionAbsolute:
+        x: 5804
+        y: 528.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config:
+            api_key: '{{#env.GITLAB_PRIVATE_TOKEN#}}'
+            header: PRIVATE-TOKEN
+            type: custom
+          type: api-key
+        body:
+          data: []
+          type: none
+        desc: 更新评论
+        headers: ''
+        isInIteration: true
+        iteration_id: '1734625888939'
+        method: put
+        params: body:{{#1735661041621.result#}}
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: Update Comment
+        type: http-request
+        url: '{{#env.GITLAB_HOST#}}/api/v4/projects/{{#17346383362280.project_id#}}/merge_requests/{{#17346383362280.iid#}}/discussions/{{#1735129504155.discussion_id#}}/notes/{{#1735129504155.note_id#}}'
+        variables: []
+      height: 288
+      id: '1735131066155'
+      parentId: '1734625888939'
+      position:
+        x: 2962.3519249732453
+        y: 324.9749847342846
+      positionAbsolute:
+        x: 9016.878763367991
+        y: 880.6457066935849
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        authorization:
+          config:
+            api_key: '{{#env.GITLAB_PRIVATE_TOKEN#}}'
+            header: PRIVATE-TOKEN
+            type: custom
+          type: api-key
+        body:
+          data: []
+          type: none
+        desc: 获取文件的完整内容
+        headers: ''
+        isInIteration: true
+        iteration_id: '1734625888939'
+        method: get
+        params: ref:{{#17346946709900.head_commit_sha#}}
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: Get File Full Content
+        type: http-request
+        url: '{{#env.GITLAB_HOST#}}/api/v4/projects/{{#17346383362280.project_id#}}/repository/files/{{#1735129504155.encoded_path#}}'
+        variables: []
+      height: 203
+      id: '1735577973160'
+      parentId: '1734625888939'
+      position:
+        x: 1385.1507629829694
+        y: 68.84237945581401
+      positionAbsolute:
+        x: 7439.677601377715
+        y: 624.5131014151143
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        code: "function main({ raw }) {\n    // 解析 JSON 字符串\n    const parsed = JSON.parse(raw);\n\
+          \    \n    // 对 content 进行 Base64 解码\n    const decodedContent = atob(parsed.content);\n\
+          \    \n    return {\n        content: decodedContent.length > 80000 ? 'omitted'\
+          \ : decodedContent\n    };\n}"
+        code_language: javascript
+        desc: 解析文件内容，最大支持 8W 字符
+        isInIteration: true
+        iteration_id: '1734625888939'
+        outputs:
+          content:
+            children: null
+            type: string
+        selected: false
+        title: Parse File Content
+        type: code
+        variables:
+        - value_selector:
+          - '1735577973160'
+          - body
+          variable: raw
+      height: 82
+      id: '1735578500986'
+      parentId: '1734625888939'
+      position:
+        x: 1658.4718278801083
+        y: 269.1319747816864
+      positionAbsolute:
+        x: 7712.998666274854
+        y: 824.8026967409867
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: 69e2c2d6-d954-4bd7-beda-e781d45e42eb
+            value: new_path
+            varType: string
+            variable_selector:
+            - '1734625888939'
+            - item
+          id: 'true'
+          logical_operator: and
+        desc: 检查是否是 new_path 即新增文件
+        isInIteration: true
+        iteration_id: '1734625888939'
+        selected: false
+        title: has new_path or not
+        type: if-else
+      height: 154
+      id: '1735656398035'
+      parentId: '1734625888939'
+      position:
+        x: 101.06868624478284
+        y: 96.83004789671816
+      positionAbsolute:
+        x: 6155.595524639529
+        y: 652.5007698560185
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        authorization:
+          config:
+            api_key: '{{#env.GITLAB_PRIVATE_TOKEN#}}'
+            header: PRIVATE-TOKEN
+            type: custom
+          type: api-key
+        body:
+          data: []
+          type: none
+        desc: ''
+        headers: ''
+        isInIteration: true
+        iteration_id: '1734625888939'
+        method: get
+        params: 'page:{{#1734625888939.item#}}
+
+          per_page:1'
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: Get One Diff
+        type: http-request
+        url: '{{#env.GITLAB_HOST#}}/api/v4/projects/{{#17346383362280.project_id#}}/merge_requests/{{#17346383362280.iid#}}/diffs'
+        variables: []
+      height: 175
+      id: '1735656485832'
+      parentId: '1734625888939'
+      position:
+        x: 126.75823302348135
+        y: 366.9559546098319
+      positionAbsolute:
+        x: 6181.285071418228
+        y: 922.6266765691322
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        code: "\nfunction main({raw}) {\n    return {\n        result: JSON.stringify(JSON.parse(raw)[0])\n\
+          \    }\n}\n"
+        code_language: javascript
+        desc: 解析接口返回的 diff[0]
+        isInIteration: true
+        iteration_id: '1734625888939'
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: Parse Diff From Page
+        type: code
+        variables:
+        - value_selector:
+          - '1735656485832'
+          - body
+          variable: raw
+      height: 82
+      id: '1735656928069'
+      parentId: '1734625888939'
+      position:
+        x: 421.36824898905434
+        y: 350.0558861859487
+      positionAbsolute:
+        x: 6475.8950873838
+        y: 905.726608145249
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        advanced_settings:
+          group_enabled: false
+          groups:
+          - groupId: 9ee3ff79-5302-4bb9-a4c5-f2e1e78b96ca
+            group_name: Group1
+            output_type: string
+            variables:
+            - - '1734625888939'
+              - item
+            - - '1735656928069'
+              - result
+        desc: 合并 Diff
+        isInIteration: true
+        iteration_id: '1734625888939'
+        output_type: string
+        selected: false
+        title: Merge Diff
+        type: variable-aggregator
+        variables:
+        - - '1735657958915'
+          - result
+        - - '1735656928069'
+          - result
+      height: 159
+      id: '1735656975326'
+      parentId: '1734625888939'
+      position:
+        x: 763.2004287354689
+        y: 106.57858283255155
+      positionAbsolute:
+        x: 6817.727267130214
+        y: 662.2493047918518
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        code: "\nfunction main({raw}) {\n    return {\n        result: raw\n    }\n\
+          }\n"
+        code_language: javascript
+        desc: 传递当前对象
+        isInIteration: true
+        iteration_id: '1734625888939'
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: Pass Item
+        type: code
+        variables:
+        - value_selector:
+          - '1734625888939'
+          - item
+          variable: raw
+      height: 82
+      id: '1735657958915'
+      parentId: '1734625888939'
+      position:
+        x: 426.82323113921893
+        y: 95.96856686697879
+      positionAbsolute:
+        x: 6481.350069533964
+        y: 651.6392888262791
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: 73e7f5a0-0d5e-46f4-8c63-e518185e0603
+            value: 'no'
+            varType: string
+            variable_selector:
+            - '1735129504155'
+            - should_ignore
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        isInIteration: true
+        iteration_id: '1734625888939'
+        selected: false
+        title: Skip ignore files
+        type: if-else
+      height: 126
+      id: '1735658556053'
+      parentId: '1734625888939'
+      position:
+        x: 1099.0500868498675
+        y: 270.04096902665935
+      positionAbsolute:
+        x: 7153.576925244613
+        y: 825.7116909859596
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        code: "function main({ raw }) {\n  const processed = raw\n    .replace(/^```(markdown)?\\\
+          s*\\n|```\\n?$/g, '')\n    .replace(/<think>.*?<\\/think>/gs, '');\n\n \
+          \ // 使用 JSON.stringify 实现字符串安全转义，并去除首尾的引号\n  // const jsonSafe = JSON.stringify(processed).slice(1,\
+          \ -1);\n\n  return {\n    result: processed\n  };\n}"
+        code_language: javascript
+        desc: 格式化 LLM 的文本输出
+        isInIteration: true
+        iteration_id: '1734625888939'
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: Trim CR Output by LLM
+        type: code
+        variables:
+        - value_selector:
+          - '1734775287920'
+          - text
+          variable: raw
+      height: 82
+      id: '1735661041621'
+      parentId: '1734625888939'
+      position:
+        x: 2119.5459991051957
+        y: 465.92296472646456
+      positionAbsolute:
+        x: 8174.072837499942
+        y: 1021.5936866857649
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        code: "\nfunction main({raw}) {\n    const obj = JSON.parse(raw)\n    const\
+          \ comments = obj.commits\n        .reduce((pre,curr)=>`${pre}\\n- ${curr.message.trim('\\\
+          n')}`,'').trim('\\n')\n\n    const latest_commit = obj.commits.pop()\n \
+          \   const is_merge_branch = (latest_commit?latest_commit.message.startsWith('Merge\
+          \ branch '):false)?'yes':'no'\n   \n    return {\n        comments: comments,\n\
+          \        before_hash: obj.before,\n        after_hash: obj.after,\n    \
+          \    user_name: obj.user_name,\n        user_username: obj.user_username,\n\
+          \        user_email: obj.user_email,\n        ref: obj.ref,\n        is_merge_branch:\
+          \ is_merge_branch\n    }\n}\n"
+        code_language: javascript
+        desc: ''
+        outputs:
+          after_hash:
+            children: null
+            type: string
+          before_hash:
+            children: null
+            type: string
+          comments:
+            children: null
+            type: string
+          is_merge_branch:
+            children: null
+            type: string
+          ref:
+            children: null
+            type: string
+          user_email:
+            children: null
+            type: string
+          user_name:
+            children: null
+            type: string
+          user_username:
+            children: null
+            type: string
+        selected: false
+        title: Parse Pushed File Paths
+        type: code
+        variables:
+        - value_selector:
+          - '1734623374802'
+          - payload
+          variable: raw
+      height: 54
+      id: '1735985486526'
+      position:
+        x: 942
+        y: 981.5
+      positionAbsolute:
+        x: 942
+        y: 981.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs: []
+        selected: false
+        title: Not open or update
+        type: end
+      height: 54
+      id: '1735985496074'
+      position:
+        x: 942
+        y: 1075.5
+      positionAbsolute:
+        x: 942
+        y: 1075.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config:
+            api_key: '{{#env.GITLAB_PRIVATE_TOKEN#}}'
+            header: PRIVATE-TOKEN
+            type: custom
+          type: api-key
+        body:
+          data: []
+          type: none
+        desc: ''
+        headers: ''
+        method: get
+        params: 'from:{{#1735985486526.before_hash#}}
+
+          to:{{#1735985486526.after_hash#}}
+
+          unidiff:1'
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: Read Commits Diffs
+        type: http-request
+        url: '{{#env.GITLAB_HOST#}}/api/v4/projects/{{#17346383362280.project_id#}}/repository/compare'
+        variables: []
+      height: 156
+      id: '1735994215169'
+      position:
+        x: 1854
+        y: 870
+      positionAbsolute:
+        x: 1854
+        y: 870
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "\nfunction main({raw, ignore_files}) {\n    let ignoreReg = new RegExp(ignore_files);\n\
+          \    let obj = JSON.parse(raw);\n    let diffs = obj.diffs\n        .filter(item=>ignoreReg.exec(item.new_path)==null)\n\
+          \        .map(item=>({\n            ...item,\n            source:'commit'\n\
+          \        }))\n        .map(item=>JSON.stringify(item));\n        \n    return\
+          \ {\n        diffs: diffs\n    }\n}\n"
+        code_language: javascript
+        desc: ''
+        outputs:
+          diffs:
+            children: null
+            type: array[string]
+        selected: false
+        title: Parse Commits Diffs
+        type: code
+        variables:
+        - value_selector:
+          - '1735994215169'
+          - body
+          variable: raw
+        - value_selector:
+          - env
+          - IGNORE_FILES
+          variable: ignore_files
+      height: 54
+      id: '17359946280530'
+      position:
+        x: 2158
+        y: 984.5
+      positionAbsolute:
+        x: 2158
+        y: 984.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: '='
+            id: f63f4368-2716-40ac-b790-e0cd46907737
+            value: '0'
+            varType: number
+            variable_selector:
+            - '1735129504155'
+            - note_id
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        isInIteration: true
+        iteration_id: '1734625888939'
+        selected: false
+        title: Has Note Id
+        type: if-else
+      height: 126
+      id: '1735997609752'
+      parentId: '1734625888939'
+      position:
+        x: 2637.3109954686424
+        y: 243.8616477686436
+      positionAbsolute:
+        x: 8691.837833863388
+        y: 799.5323697279439
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        desc: ''
+        error_handle_mode: continue-on-error
+        height: 392
+        is_parallel: false
+        iterator_selector:
+        - '17359946280530'
+        - diffs
+        output_selector:
+        - '17359979073310173599790733313'
+        - result
+        output_type: array[string]
+        parallel_nums: 10
+        selected: false
+        start_node_id: 1735997907331start
+        title: 迭代 Commits Diff list
+        type: iteration
+        width: 2370
+      height: 392
+      id: '17359979073310'
+      position:
+        x: 2462
+        y: 738
+      positionAbsolute:
+        x: 2462
+        y: 738
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 2370
+      zIndex: 1
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: 调用 AI 模型读取文件差异
+        isInIteration: true
+        iteration_id: '17359979073310'
+        model:
+          completion_params:
+            temperature: 0.1
+            top_p: 0.5
+          mode: chat
+          name: deepseek-v3
+          provider: openai_api_compatible
+        prompt_template:
+        - id: 77b3d05b-a305-4a8b-bea6-aa4d66497baa
+          role: system
+          text: "你是资深软件工程师，擅长发现代码中的问题并提供建设性的改进建议。\n你擅长 Nodejs, PHP, JavaScript, TypeScript,\
+            \ Python, Java, HTML/CSS, Flutter, Golang, C/C++, C shape 等编程语言，与其相关的代码库。\n\
+            \n<response-format type=\"markdown\">\n```\n### 洞察\n- Insight 1\n- Insight\
+            \ 2\n### 问题\n- Issue 1\n- Issue 2\n### 建议\n- Suggestion 1\n- Suggestion\
+            \ 2\n</response-format>\n\n<rules>\n- 你只审查 code-to-review 部分的代码并提供反馈。样例如下:\n\
+            \  <sample type=\"json\">\n    {\n        \"diff\": \"--- a/packages/core-api/src/analysis-api/analysis-api.service.ts\\\
+            n+++ b/packages/core-api/src/analysis-api/analysis-api.service.ts\\n@@ -26,7 +26,7 @@ export class AnalysisApiService {\\\
+            n     private moduleRef: ModuleRef,\\n     private cacheService: CalculationCacheService,\\\
+            n     private measurementValueService: MeasurementValueService,\\n-  ) { }\\\
+            n+  ) {}\\n   getRegisterdActions() {\\n     return this.registedActions;\\\
+            n   }\\n\", // 以 unified diff 格式描述的文件内代码改动。\n        \"new_path\": \"\
+            packages/core-api/src/analysis-api/analysis-api.service.ts\", // 文件新名字。\n\
+                    \"old_path\": \"packages/core-api/src/analysis-api/analysis-api.service.ts\"\
+            , // 文件旧名字。\n        \"a_mode\": \"100644\", // 文件旧的权限值。\n        \"b_mode\"\
+            : \"100644\", // 文件新的权限值。\n        \"new_file\": false, // 文件是否是新建的。\n\
+                    \"renamed_file\": false, // 文件是否被改名。\n        \"deleted_file\"\
+            : false, // 文件是否被删除。\n        \"generated_file\": false // 文件是否是自动生成的。\n\
+                }\n  </sample>\n- 参考但不审查 file-content 部分，这是文件改动后的完整内容。可能被省略。\n- 参考但不审查\
+            \ all-changes 部分，这是本次 Push 的所有 Commits 的改动。当改动过多时会被省略。\n- 你总是从代码、业务两方面进行审查。\n\
+            - 你总是按照 response-format 格式进行回复。\n- 代码是否符合提交消息中的内容？\n- 如果有任何错误，请突出显示它们。\n\
+            - 不要突出显示小问题和细节。\n- 不必对自动生成的文件进行审查。\n- 你总是用语精练、准确。\n- 当无需审查时，你总是返回空字符串\"\
+            \"。\n- 你总是用中文给出反馈。\n</rules>"
+        - id: bf16301d-4510-4420-94d9-c32f35091008
+          role: user
+          text: '<repository>
+
+            <name>{{#17346383362280.repo_name#}}</name>
+
+            <description>{{#17346383362280.repo_description#}}</description>
+
+            </repository>
+
+            <all-changes>
+
+            ```json
+
+            {{#17359946280530.diffs#}}
+
+            ```
+
+            </all-changes>
+
+            <file-content>{{#1735999561470.output#}}</file-content
+
+            <code-to-review>{{#17359979073310.item#}}</code-to-review>'
+        selected: false
+        title: LLM Commit Diff
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 126
+      id: '1735997907331017359979073322'
+      parentId: '17359979073310'
+      position:
+        x: 1749.888400775726
+        y: 76.17266311623791
+      positionAbsolute:
+        x: 4211.888400775726
+        y: 814.1726631162379
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        code: "\nfunction main({raw,before_hash,after_hash, web_url, index}) {\n \
+          \   const obj = JSON.parse(raw);\n    const file_path = encodeURIComponent(obj.new_path)\n\
+          \    const hash = obj.deleted_file?before_hash:after_hash;\n    const gitlab_file_url\
+          \ = `${web_url}/-/blob/${hash}/${file_path}`;\n    return {\n        new_path:\
+          \ obj.new_path,\n        old_path: obj.old_path,\n        encoded_path:\
+          \ file_path,\n        need_get_file: (obj.new_file || obj.deleted_file)\
+          \ ? 'no':'yes',\n        gitlab_file_url: gitlab_file_url,\n        file_index:\
+          \ index + 1,\n        diff: obj.diff\n    }\n}\n"
+        code_language: javascript
+        desc: ''
+        isInIteration: true
+        iteration_id: '17359979073310'
+        outputs:
+          diff:
+            children: null
+            type: string
+          encoded_path:
+            children: null
+            type: string
+          file_index:
+            children: null
+            type: number
+          gitlab_file_url:
+            children: null
+            type: string
+          need_get_file:
+            children: null
+            type: string
+          new_path:
+            children: null
+            type: string
+          old_path:
+            children: null
+            type: string
+        selected: false
+        title: 'Parse Commit Diff '
+        type: code
+        variables:
+        - value_selector:
+          - '17359979073310'
+          - item
+          variable: raw
+        - value_selector:
+          - '1735985486526'
+          - before_hash
+          variable: before_hash
+        - value_selector:
+          - '1735985486526'
+          - after_hash
+          variable: after_hash
+        - value_selector:
+          - '17346383362280'
+          - web_url
+          variable: web_url
+        - value_selector:
+          - '17359979073310'
+          - index
+          variable: index
+      height: 54
+      id: '1735997907331017359979073323'
+      parentId: '17359979073310'
+      position:
+        x: 199.83649002851507
+        y: 66.36420179692107
+      positionAbsolute:
+        x: 2661.836490028515
+        y: 804.3642017969211
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        authorization:
+          config:
+            api_key: '{{#env.GITLAB_PRIVATE_TOKEN#}}'
+            header: PRIVATE-TOKEN
+            type: custom
+          type: api-key
+        body:
+          data: []
+          type: none
+        desc: ''
+        headers: ''
+        isInIteration: true
+        iteration_id: '17359979073310'
+        method: get
+        params: ref:{{#1735985486526.after_hash#}}
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: Get File Content
+        type: http-request
+        url: '{{#env.GITLAB_HOST#}}/api/v4/projects/{{#17346383362280.project_id#}}/repository/files/{{#1735997907331017359979073323.encoded_path#}}'
+        variables: []
+      height: 175
+      id: '1735997907331017359979073325'
+      parentId: '17359979073310'
+      position:
+        x: 821.913571917155
+        y: 65
+      positionAbsolute:
+        x: 3283.913571917155
+        y: 803
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        code: "function main({ raw }) {\n    // 解析 JSON 字符串\n    const parsed = JSON.parse(raw);\n\
+          \    \n    // 对 content 进行 Base64 解码\n    const decodedContent = atob(parsed.content);\n\
+          \    \n    return {\n        content: decodedContent.length > 80000 ? 'omitted'\
+          \ : decodedContent\n    };\n}"
+        code_language: javascript
+        desc: ''
+        isInIteration: true
+        iteration_id: '17359979073310'
+        outputs:
+          content:
+            children: null
+            type: string
+        selected: false
+        title: Parse File Content
+        type: code
+        variables:
+        - value_selector:
+          - '1735997907331017359979073325'
+          - body
+          variable: raw
+      height: 54
+      id: '1735997907331017359979073326'
+      parentId: '17359979073310'
+      position:
+        x: 1135.6355202036825
+        y: 65
+      positionAbsolute:
+        x: 3597.6355202036825
+        y: 803
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        code: "function main({ raw, fileIndex, filePath, gitlabFileUrl, diff }) {\n\
+          \  let trimmed = raw;\n  if (raw.startsWith(\"```\")) {\n    trimmed = raw.replace(/^```(markdown)?\\\
+          s*\\n|```\\n?$/g, \"\");\n  }\n  trimmed = trimmed.replace(/<think>.*?<\\\
+          /think>/gs, '');\n  const result = `## ${fileIndex}. [${filePath}](${gitlabFileUrl})\n\
+          \\`\\`\\`diff\n${diff}\n\\`\\`\\`\n${trimmed}`;\n\n  return {\n    result:\
+          \ result,\n  };\n}\n"
+        code_language: javascript
+        desc: ''
+        isInIteration: true
+        iteration_id: '17359979073310'
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: Trim and compose
+        type: code
+        variables:
+        - value_selector:
+          - '1735997907331017359979073322'
+          - text
+          variable: raw
+        - value_selector:
+          - '1735997907331017359979073323'
+          - file_index
+          variable: fileIndex
+        - value_selector:
+          - '1735997907331017359979073323'
+          - new_path
+          variable: filePath
+        - value_selector:
+          - '1735997907331017359979073323'
+          - gitlab_file_url
+          variable: gitlabFileUrl
+        - value_selector:
+          - '1735997907331017359979073323'
+          - diff
+          variable: diff
+      height: 54
+      id: '17359979073310173599790733313'
+      parentId: '17359979073310'
+      position:
+        x: 2076.609559806351
+        y: 85.11532361552509
+      positionAbsolute:
+        x: 4538.609559806351
+        y: 823.1153236155251
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        desc: ''
+        isInIteration: true
+        selected: false
+        title: ''
+        type: iteration-start
+      draggable: false
+      height: 48
+      id: 1735997907331start
+      parentId: '17359979073310'
+      position:
+        x: 24
+        y: 68
+      positionAbsolute:
+        x: 2486
+        y: 806
+      selectable: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-iteration-start
+      width: 44
+      zIndex: 1002
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1736002436016'
+          - text
+          variable: output
+        selected: false
+        title: 结束 3
+        type: end
+      height: 90
+      id: '1735998423516'
+      position:
+        x: 5500
+        y: 957.5
+      positionAbsolute:
+        x: 5500
+        y: 957.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: 34defa7b-5aea-4fdd-af55-44a9265354f5
+            value: 'yes'
+            varType: string
+            variable_selector:
+            - '1735997907331017359979073323'
+            - need_get_file
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        isInIteration: true
+        iteration_id: '17359979073310'
+        selected: false
+        title: If need get file content
+        type: if-else
+      height: 126
+      id: '1735999461323'
+      parentId: '17359979073310'
+      position:
+        x: 521.913571917155
+        y: 65
+      positionAbsolute:
+        x: 2983.913571917155
+        y: 803
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        desc: ''
+        isInIteration: true
+        iteration_id: '17359979073310'
+        output_type: string
+        selected: false
+        title: Merge File Content
+        type: variable-aggregator
+        variables:
+        - - '1735997907331017359979073326'
+          - content
+        - - '1735999691450'
+          - result
+      height: 131
+      id: '1735999561470'
+      parentId: '17359979073310'
+      position:
+        x: 1441.1160246327404
+        y: 73.31552025909491
+      positionAbsolute:
+        x: 3903.1160246327404
+        y: 811.3155202590949
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        code: "\nfunction main() {\n    return {\n        result: \"\"\n    }\n}\n"
+        code_language: javascript
+        desc: ''
+        isInIteration: true
+        iteration_id: '17359979073310'
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: Empty File Content
+        type: code
+        variables: []
+      height: 54
+      id: '1735999691450'
+      parentId: '17359979073310'
+      position:
+        x: 1165.401738918455
+        y: 173.3155202590949
+      positionAbsolute:
+        x: 3627.401738918455
+        y: 911.3155202590949
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        code: "\nfunction main({raw, user_name, comments, before_hash, after_hash,\
+          \ project_name,web_url, ref}) {\n    const subject = `[AI Code Review] ${project_name}\
+          \ ${ref} ${after_hash}`\n    const greetings = `# AI Code Review Result\\\
+          n您好 ${user_name}, 以下是对您在 [${project_name}](${web_url}) ${ref} 推送的若干提交的代码审查结果。\\\
+          n## Comments:\\n${comments}` \n\n    const message = [greetings, ...raw].join('\\\
+          n')\n    const markdown = [\n        markdownToHtml(greetings),\n      \
+          \  ...raw.map(item=>markdownToHtml(item))\n    ].join(markdownToHtml('\\\
+          n------\\n'))\n \n    const footer = `<div class=\"footer\" style=\"\n \
+          \   text-align: right;\n    \">Powered by <a href=\"https://github.com/zgldh/dify-gitlab-mr-reviewer\"\
+          \ target=\"_blank\">https://github.com/zgldh/dify-gitlab-mr-reviewer</a></div>`\n\
+          \    const emailContent = `${styles}<div>${markdown}${footer}</div>`\n \
+          \   \n    return {\n        message: message,\n        result: emailContent,\n\
+          \        subject: subject\n    }\n}\n\nconst styles = `<style>\n/* 通用样式\
+          \ */\nbody {\n    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\n\
+          \    line-height: 1.6;\n    color: #333;\n    background-color: #f9f9f9;\n\
+          \    padding: 20px;\n    max-width: 800px;\n    margin: 0 auto;\n}\n\n/*\
+          \ 标题 */\nh1, h2, h3, h4, h5, h6 {\n    color: #2c3e50;\n    margin-top:\
+          \ 1em;\n    margin-bottom: 0.5em;\n}\n\nh1 {\n    font-size: 2.2em;\n  \
+          \  border-bottom: 2px solid #2c3e50;\n    padding-bottom: 0.3em;\n}\n\n\
+          h2 {\n    font-size: 1.8em;\n    padding-bottom: 0.2em;\n}\n\nh3 {\n   \
+          \ font-size: 1.5em;\n}\n\nh4 {\n    font-size: 1.3em;\n}\n\nh5 {\n    font-size:\
+          \ 1.1em;\n}\n\nh6 {\n    font-size: 1em;\n    color: #666;\n}\n\n/* 段落 */\n\
+          p {\n    margin: 1em 0;\n}\n\n/* 粗体 */\nstrong {\n    color: #e74c3c;\n\
+          }\n\n/* 斜体 */\nem {\n    color: #3498db;\n}\n\n/* 删除线 */\ndel {\n    color:\
+          \ #95a5a6;\n}\n\n/* 链接 */\na {\n    color: #2980b9;\n    text-decoration:\
+          \ none;\n    border-bottom: 1px dotted #2980b9;\n}\n\na:hover {\n    color:\
+          \ #3498db;\n    border-bottom: 1px solid #3498db;\n}\n\n/* 图片 */\nimg {\n\
+          \    max-width: 100%;\n    height: auto;\n    border-radius: 5px;\n    box-shadow:\
+          \ 0 2px 5px rgba(0, 0, 0, 0.1);\n}\n\n/* 代码块 */\npre {\n    background-color:\
+          \ #2d2d2d;\n    color: #f8f8f2;\n    padding: 15px;\n    border-radius:\
+          \ 5px;\n    border: 1px solid grey;\n    overflow-x: auto;\n    font-family:\
+          \ 'Courier New', Courier, monospace;\n    font-size: 0.9em;\n    line-height:\
+          \ 1;\n    margin: 1.5em 0;\n}\n\ncode {\n    padding: 2px 4px;\n    border-radius:\
+          \ 3px;\n    font-family: 'Courier New', Courier, monospace;\n    font-size:\
+          \ 0.9em;\n}\n\npre code {\n    display: flex;\n    flex-direction: column;\n\
+          }\n\n/* 横线 */\nhr {\n    border: 0;\n    height: 1px;\n    background: #ddd;\n\
+          \    margin: 2em 0;\n}\n\n/* 列表 */\nul, ol {\n    margin: 1em 0;\n    padding-left:\
+          \ 2em;\n}\n\nul {\n    list-style-type: disc;\n}\n\nol {\n    list-style-type:\
+          \ decimal;\n}\n\nli {\n    margin: 0.5em 0;\n}\n\n/* 引用块 */\nblockquote\
+          \ {\n    border-left: 4px solid #3498db;\n    background-color: #f4f4f4;\n\
+          \    padding: 10px 15px;\n    margin: 1.5em 0;\n    color: #555;\n}\n\n\
+          /* 表格 */\ntable {\n    width: 100%;\n    border-collapse: collapse;\n  \
+          \  margin: 1.5em 0;\n}\n\nth, td {\n    padding: 10px;\n    border: 1px\
+          \ solid #ddd;\n    text-align: left;\n}\n\nth {\n    background-color: #f4f4f4;\n\
+          \    font-weight: bold;\n}\n\n/* 响应式设计 */\n@media (max-width: 768px) {\n\
+          \    body {\n        padding: 10px;\n    }\n\n    h1 {\n        font-size:\
+          \ 1.8em;\n    }\n\n    h2 {\n        font-size: 1.5em;\n    }\n\n    h3\
+          \ {\n        font-size: 1.3em;\n    }\n}\n\n/* Diff 代码块样式 */\n.diff-block\
+          \ {\n    background-color: #f8f8f8;\n    padding: 10px;\n    border-radius:\
+          \ 5px;\n    font-family: 'Courier New', Courier, monospace;\n    font-size:\
+          \ 0.9em;\n    overflow-x: auto;\n}\n\n.diff-add {\n    background-color:\
+          \ #e6ffed; /* 新增行背景色 */\n    color: #22863a; /* 新增行文字颜色 */\n    padding:\
+          \ 0em 5px;\n}\n\n.diff-remove {\n    background-color: #ffeef0; /* 删除行背景色\
+          \ */\n    color: #cb2431; /* 删除行文字颜色 */\n    padding: 0em 5px;  \n}\n\n\
+          .diff-range {\n    background-color: #f1f8ff; /* 差异范围背景色 */\n    color:\
+          \ #0366d6; /* 差异范围文字颜色 */\n    padding: 0em 5px;\n}\n\n.diff-context {\n\
+          \    color: #6a737d; /* 未更改行文字颜色 */\n    padding: 0em 5px;\n}\n</style>`\n\
+          function encodeHtml(content) {\n    // 转义 HTML 特殊字符\n    return content\n\
+          \        .replace(/&/g, '&amp;')\n        .replace(/</g, '&lt;')\n     \
+          \   .replace(/>/g, '&gt;')\n        .replace(/\"/g, '&quot;')\n        .replace(/'/g,\
+          \ '&#039;');\n}\nfunction markdownToHtml(markdown) {  \n    // 先处理代码块（```）\n\
+          \    const codeBlocks = [];\n    markdown = markdown.replace(/```(\\w*)\\\
+          n([\\s\\S]*?)```/gim, (match, language, content) => {\n        // 将代码块内容分割成行\n\
+          \        const lines = content.split('\\n');\n        let truncatedContent\
+          \ = lines.slice(0, 20).join('\\n'); // 只取前20行\n        // 如果超过20行，追加“下略”\n\
+          \        if (lines.length > 20) {\n            truncatedContent += '\\n...（下略）';\n\
+          \        }\n        // 将代码块内容保存起来，并记录语言类型\n        codeBlocks.push({ content:\
+          \ truncatedContent, language });\n        // 用占位符替换代码块\n        return `@@CODEBLOCK${codeBlocks.length\
+          \ - 1}@@`;\n    });\n\n    // 标题\n    markdown = markdown.replace(/^# (.*$)/gim,\
+          \ '<h1>$1</h1>');\n    markdown = markdown.replace(/^## (.*$)/gim, '<h2>$1</h2>');\n\
+          \    markdown = markdown.replace(/^### (.*$)/gim, '<h3>$1</h3>');\n    markdown\
+          \ = markdown.replace(/^#### (.*$)/gim, '<h4>$1</h4>');\n    markdown = markdown.replace(/^#####\
+          \ (.*$)/gim, '<h5>$1</h5>');\n    markdown = markdown.replace(/^###### (.*$)/gim,\
+          \ '<h6>$1</h6>');\n\n    // 粗体\n    markdown = markdown.replace(/\\*\\*(.*)\\\
+          *\\*/gim, '<strong>$1</strong>');\n    markdown = markdown.replace(/__(.*)__/gim,\
+          \ '<strong>$1</strong>');\n\n    // 斜体\n    markdown = markdown.replace(/\\\
+          *(.*)\\*/gim, '<em>$1</em>');\n    markdown = markdown.replace(/_(.*)_/gim,\
+          \ '<em>$1</em>');\n\n    // 删除线\n    markdown = markdown.replace(/~~(.*)~~/gim,\
+          \ '<del>$1</del>');\n\n    // 链接\n    markdown = markdown.replace(/\\[(.*?)\\\
+          ]\\((.*?)\\)/gim, '<a href=\"$2\" target=\"_blank\">$1</a>');\n\n    //\
+          \ 图片\n    markdown = markdown.replace(/!\\[(.*?)\\]\\((.*?)\\)/gim, '<img\
+          \ src=\"$2\" alt=\"$1\" />');\n\n    // 行内代码\n    markdown = markdown.replace(/`(.*?)`/gim,\
+          \ '<code>$1</code>');\n\n    // 横线（--- 或 ***）\n    markdown = markdown.replace(/^\\\
+          s*([-*_])\\1{2,}\\s*$/gim, '<hr />');\n\n    // 无序列表（支持 *、- 和 +）\n    markdown\
+          \ = markdown.replace(/^\\s*([*+-])\\s(.*)/gim, '<ul>\\n<li>$2</li>\\n</ul>');\n\
+          \    markdown = markdown.replace(/^\\s*([*+-])\\s(.*)/gim, '<li>$2</li>');\n\
+          \n    // 有序列表\n    markdown = markdown.replace(/^\\s*\\n\\d\\. (.*)/gim,\
+          \ '<ol>\\n<li>$1</li>\\n</ol>');\n    markdown = markdown.replace(/^\\d\\\
+          . (.*)/gim, '<li>$1</li>');\n\n    // 换行\n    markdown = markdown.replace(/\\\
+          n$/gim, '<br />');\n    \n    // 将占位符替换回代码块内容\n    markdown = markdown.replace(/@@CODEBLOCK(\\\
+          d+)@@/gim, (match, index) => {\n        const { content, language } = codeBlocks[index];\n\
+          \        // 对内容进行 HTML 转义\n        const encodedContent = encodeHtml(content);\n\
+          \        if (language === 'diff') {\n            // 如果是 diff 格式，添加特定的样式\n\
+          \            const lines = encodedContent.split('\\n').map(line => {\n \
+          \               if (line.startsWith('+')) {\n                    return\
+          \ `<p class=\"diff-add\">${line}</p>`;\n                } else if (line.startsWith('-'))\
+          \ {\n                    return `<p class=\"diff-remove\">${line}</p>`;\n\
+          \                } else if (line.startsWith('@@')) {\n                 \
+          \   return `<p class=\"diff-range\">${line}</p>`;\n                } else\
+          \ {\n                    return `<p class=\"diff-context\">${line}</p>`;\n\
+          \                }\n            }).join('');\n            return `<pre class=\"\
+          diff-block\"><code>${lines}</code></pre>`;\n        } else {\n         \
+          \   // 普通代码块\n            return `<pre><code>${encodedContent}</code></pre>`;\n\
+          \        }\n    });\n\n    return markdown.trim();\n}"
+        code_language: javascript
+        desc: ''
+        outputs:
+          message:
+            children: null
+            type: string
+          result:
+            children: null
+            type: string
+          subject:
+            children: null
+            type: string
+        selected: false
+        title: Format Mail Content
+        type: code
+        variables:
+        - value_selector:
+          - '17359979073310'
+          - output
+          variable: raw
+        - value_selector:
+          - '1735985486526'
+          - user_name
+          variable: user_name
+        - value_selector:
+          - '1735985486526'
+          - comments
+          variable: comments
+        - value_selector:
+          - '1735985486526'
+          - before_hash
+          variable: before_hash
+        - value_selector:
+          - '1735985486526'
+          - after_hash
+          variable: after_hash
+        - value_selector:
+          - '17346383362280'
+          - project_name
+          variable: project_name
+        - value_selector:
+          - '17346383362280'
+          - web_url
+          variable: web_url
+        - value_selector:
+          - '1735985486526'
+          - ref
+          variable: ref
+      height: 54
+      id: '1736000355076'
+      position:
+        x: 4892
+        y: 943
+      positionAbsolute:
+        x: 4892
+        y: 943
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is not
+            id: 7b04d786-b77b-474c-a7f6-be9efddc5001
+            value: '0000000000000000000000000000000000000000'
+            varType: string
+            variable_selector:
+            - '1735985486526'
+            - before_hash
+          - comparison_operator: is not
+            id: 99e299bf-d93f-4a21-9109-6dca602c7f4e
+            value: '0000000000000000000000000000000000000000'
+            varType: string
+            variable_selector:
+            - '1735985486526'
+            - after_hash
+          - comparison_operator: not empty
+            id: 3b0a3069-e461-4f12-bdc6-cd152b2977bc
+            value: ''
+            varType: string
+            variable_selector:
+            - '1735985486526'
+            - user_email
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: Ensure Hashes Exist
+        type: if-else
+      height: 178
+      id: '1736003178180'
+      position:
+        x: 1550
+        y: 927.5
+      positionAbsolute:
+        x: 1550
+        y: 927.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs: []
+        selected: false
+        title: No Hash nor Email End
+        type: end
+      height: 54
+      id: '1736003193053'
+      position:
+        x: 1854
+        y: 1066
+      positionAbsolute:
+        x: 1854
+        y: 1066
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: d65feca8-0fa0-4313-857d-bbec5e9f779a
+            value: 'no'
+            varType: string
+            variable_selector:
+            - '1735985486526'
+            - is_merge_branch
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: Not merge branch
+        type: if-else
+      height: 126
+      id: '1736228935056'
+      position:
+        x: 1246
+        y: 885
+      positionAbsolute:
+        x: 1246
+        y: 885
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs: []
+        selected: false
+        title: SKIP Merge Branch
+        type: end
+      height: 54
+      id: '1736229032478'
+      position:
+        x: 1550
+        y: 1145.5
+      positionAbsolute:
+        x: 1550
+        y: 1145.5
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-180
+            key: ''
+            type: text
+            value: "{\n    \"botId\": \"{{#env.TV_BOOT_ID#}}\",\n    \"message\":\
+              \ \"{{#1736000355076.message#}}\"\n}"
+          type: json
+        desc: 将 Review 的 comments 发到 TV 群
+        headers: ''
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 发送 TV 消息
+        type: http-request
+        url: https://tv-service-alert.kuainiu.chat/alert
+        variables: []
+      height: 163
+      id: '1754277742659'
+      position:
+        x: 5196
+        y: 939
+      positionAbsolute:
+        x: 5196
+        y: 939
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "\nfunction main({result, author_name, project_name, web_url, mr_title,\
+          \ mr_url}) {\n    const greetings = `# AI Code Review Result\\n您好 @${author_name},\
+          \ 以下是对您在 [${project_name}](${web_url}) 推送的 [${mr_title}](${mr_url}) 的代码审查结果:\\\
+          n\\n` \n    const disclaimer = `PS: 测试阶段，审核结果作为参考，注意幻觉 \U0001F4A5`\n   \
+          \ const message = [greetings, result, disclaimer].join('\\n')\n\n    return\
+          \ {\n        message: message\n    }\n}\n"
+        code_language: javascript
+        desc: ' 生成 TV 消息并 @指定用户'
+        isInIteration: true
+        iteration_id: '1734625888939'
+        outputs:
+          message:
+            children: null
+            type: string
+        selected: false
+        title: Gen CR message
+        type: code
+        variables:
+        - value_selector:
+          - '1735661041621'
+          - result
+          variable: result
+        - value_selector:
+          - '17346946700280'
+          - author_name
+          variable: author_name
+        - value_selector:
+          - '17346383362280'
+          - project_name
+          variable: project_name
+        - value_selector:
+          - '17346383362280'
+          - web_url
+          variable: web_url
+        - value_selector:
+          - '17346946700280'
+          - title
+          variable: mr_title
+        - value_selector:
+          - '17346946700280'
+          - mr_url
+          variable: mr_url
+      height: 82
+      id: '1754278744853'
+      parentId: '1734625888939'
+      position:
+        x: 3325.6125352840063
+        y: 197.9332669216916
+      positionAbsolute:
+        x: 9380.139373678752
+        y: 753.6039888809919
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-215
+            key: ''
+            type: text
+            value: "{\n    \"botId\": \"{{#env.TV_BOOT_ID#}}\",\n    \"message\":\
+              \ \"{{#1754278744853.message#}}\"\n}"
+          type: json
+        desc: 将 Review 的 comments 发到 TV 群
+        headers: ''
+        isInIteration: true
+        iteration_id: '1734625888939'
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: false
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: Send TV Message
+        type: http-request
+        url: https://tv-service-alert.kuainiu.chat/alert
+        variables: []
+      height: 138
+      id: '1754289121034'
+      parentId: '1734625888939'
+      position:
+        x: 3299.47405599756
+        y: 397.5485479183076
+      positionAbsolute:
+        x: 9354.000894392306
+        y: 953.2192698776079
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        dataset_ids:
+        - 42b3b160-55b4-409c-8bfd-ef9db1ed942b
+        desc: 检查是否符合规范
+        isInIteration: true
+        iteration_id: '1734625888939'
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: reranking_model
+          reranking_model:
+            model: gte-rerank
+            provider: tongyi
+          top_k: 4
+        query_variable_selector:
+        - '1735578500986'
+        - content
+        retrieval_mode: multiple
+        selected: false
+        title: 知识检索
+        type: knowledge-retrieval
+      height: 120
+      id: '1754296023869'
+      parentId: '1734625888939'
+      position:
+        x: 1758.3110765615766
+        y: 446.94332482481593
+      positionAbsolute:
+        x: 7812.8379149563225
+        y: 1002.6140467841162
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    viewport:
+      x: 1433.7470608401106
+      y: 49.42087071492858
+      zoom: 0.9740042685432426
