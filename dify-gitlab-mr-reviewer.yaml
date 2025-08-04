@@ -862,10 +862,10 @@ workflow:
       height: 82
       id: '1734623951413'
       position:
-        x: 9884
+        x: 9910
         y: 528.5
       positionAbsolute:
-        x: 9884
+        x: 9910
         y: 528.5
       selected: false
       sourcePosition: right
@@ -893,11 +893,11 @@ workflow:
       height: 657
       id: '1734625888939'
       position:
-        x: 6054.526838394746
-        y: 555.6707219593003
+        x: 6071.873958080817
+        y: 629.215025956511
       positionAbsolute:
-        x: 6054.526838394746
-        y: 555.6707219593003
+        x: 6071.873958080817
+        y: 629.215025956511
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -918,8 +918,8 @@ workflow:
         x: 24
         y: 68
       positionAbsolute:
-        x: 6078.526838394746
-        y: 623.6707219593003
+        x: 6095.873958080817
+        y: 697.215025956511
       selectable: false
       sourcePosition: right
       targetPosition: left
@@ -1217,21 +1217,49 @@ workflow:
           type: api-key
         body:
           data:
+          - id: key-value-1
+            key: position[position_type]
+            type: text
+            value: text
+          - id: key-value-3
+            key: position[base_sha]
+            type: text
+            value: '{{#17346946709900.base_commit_sha#}}'
+          - id: key-value-4
+            key: position[head_sha]
+            type: text
+            value: '{{#17346946709900.head_commit_sha#}}'
+          - id: key-value-16
+            key: position[start_sha]
+            type: text
+            value: '{{#17346946709900.start_commit_sha#}}'
+          - id: key-value-32
+            key: position[new_line]
+            type: text
+            value: '{{#1735129504155.new_line#}}'
+          - id: key-value-33
+            key: position[old_line]
+            type: text
+            value: '{{#1735129504155.old_line#}}'
+          - id: key-value-34
+            key: position[new_path]
+            type: text
+            value: '{{#1735129504155.new_path#}}'
+          - id: key-value-38
+            key: position[old_path]
+            type: text
+            value: '{{#1735129504155.old_path#}}'
           - id: key-value-39
+            key: body
+            type: text
+            value: '{{#1735661041621.result#}}'
+          - id: key-value-40
             key: ''
             type: text
-            value: "{\n  \"body\": \"{{#1735661041621.result#}}\",\n  \"position\"\
-              : {\n    \"position_type\":\"text\",\n    \"base_sha\":\"{{#17346946709900.base_commit_sha#}}\"\
-              ,\n    \"head_sha\":\"{{#17346946709900.head_commit_sha#}}\",\n    \"\
-              start_sha\":\"{{#17346946709900.start_commit_sha#}}\",\n    \"new_path\"\
-              :\"{{#1735129504155.new_path#}}\",\n    \"old_path\":\"{{#1735129504155.old_path#}}\"\
-              ,\n    \"new_line\": {{#1735129504155.new_line#}},\n    \"old_line\"\
-              : {{#1735129504155.old_line#}}\n  }\n}"
-          type: json
+            value: ''
+          type: form-data
         desc: '     '
-        headers: 'PRIVATE-TOKEN:{{#env.GITLAB_PRIVATE_TOKEN#}}
-
-          Content-Type:application/json'
+        headers: ''
         isInIteration: true
         iteration_id: '1734625888939'
         method: POST
@@ -1253,12 +1281,12 @@ workflow:
       id: '1734699123251'
       parentId: '1734625888939'
       position:
-        x: 2989.105463098269
+        x: 2988.004647229188
         y: 73.43823791706006
       positionAbsolute:
-        x: 9043.632301493015
-        y: 629.1089598763604
-      selected: false
+        x: 9059.878605310005
+        y: 702.6532638735711
+      selected: true
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -1290,8 +1318,8 @@ workflow:
         x: 2343.4560825552617
         y: 109.07029144221849
       positionAbsolute:
-        x: 8397.982920950008
-        y: 664.7410134015188
+        x: 8415.33004063608
+        y: 738.2853173987295
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1403,26 +1431,26 @@ workflow:
         prompt_template:
         - id: 77b3d05b-a305-4a8b-bea6-aa4d66497baa
           role: system
-          text: "# 代码审查专家\n\n## 角色定义\n\n你是一位经验丰富的软件工程师和代码审查专家，具备以下专长：\n\n### 技术栈精通\n\
-            - **前端**: JavaScript, TypeScript, React, Vue, Angular, HTML/CSS, Flutter\n\
-            - **后端**: Node.js, PHP, Python, Java, Golang, C/C++, C#\n- **移动端**: Flutter,\
-            \ React Native, iOS/Android 原生开发\n- **数据库**: SQL, NoSQL, ORM 框架\n- **DevOps**:\
-            \ Docker, Kubernetes, CI/CD, 云服务\n\n### 审查能力\n- 代码质量评估与优化建议\n- 架构设计合理性分析\n\
-            - 安全性漏洞识别\n- 性能问题诊断\n- 最佳实践指导，参考规范文档{{#context#}}\n\n## 响应格式\n\n<response-format\
-            \ type=\"markdown\">\n```markdown\n### \U0001F50D 洞察 (Insights)\n- **代码质量**:\
-            \ [对代码整体质量的评价]\n- **架构设计**: [对架构合理性的分析]\n- **业务逻辑**: [对业务实现的评估]\n\n###\
-            \ ⚠️ 问题 (Issues)\n#### 严重问题 (Critical)\n- [列出影响功能或安全的关键问题]\n\n#### 重要问题\
-            \ (Important)\n- [列出影响代码质量或维护性的重要问题]\n\n#### 建议改进 (Suggestions)\n- [列出可选的优化建议]\n\
-            \n### \U0001F4A1 建议 (Recommendations)\n#### 立即修复 (Immediate)\n- [需要立即修复的问题和建议]\n\
-            \n#### 优化改进 (Optimization)\n- [代码优化和性能改进建议]\n\n#### 最佳实践 (Best Practices)\n\
-            - [遵循行业最佳实践的建议]\n\n### \U0001F4CA 评分\n- **代码质量**: ⭐⭐⭐⭐⭐ (1-5星)\n- **安全性**:\
-            \ ⭐⭐⭐⭐⭐ (1-5星)\n- **可维护性**: ⭐⭐⭐⭐⭐ (1-5星)\n- **性能**: ⭐⭐⭐⭐⭐ (1-5星)\n```\n\
-            </response-format>\n\n## 审查规则\n\n### 核心原则\n<rules>\n- **专注审查**: 只审查 `code-to-review`\
-            \ 部分的代码变更。样例如下:\n  <sample type=\"json\">\n    {\n        \"diff\": \"\
-            --- a/packages/core-api/src/analysis-api/analysis-api.service.ts\\n+++ b/packages/core-api/src/analysis-api/analysis-api.service.ts\\\
-            n@@ -26,7 +26,7 @@ export class AnalysisApiService {\\n     private moduleRef: ModuleRef,\\\
-            n     private cacheService: CalculationCacheService,\\n     private measurementValueService: MeasurementValueService,\\\
-            n-  ) { }\\n+  ) {}\\n   getRegisteredActions() {\\n     return this.registedActions;\\\
+          text: "# 代码审查专家\n你是一位经验丰富的软件工程师和代码审查专家，具备以下专长：\n## 技术栈精通\n- **前端**: JavaScript,\
+            \ TypeScript, React, Vue, Angular, HTML/CSS, Flutter\n- **后端**: Node.js,\
+            \ PHP, Python, Java, Golang, C/C++, C#\n- **移动端**: Flutter, React Native,\
+            \ iOS/Android 原生开发\n- **数据库**: SQL, NoSQL, ORM 框架\n- **DevOps**: Docker,\
+            \ Kubernetes, CI/CD, 云服务\n## 审查能力\n- 代码质量评估与优化建议\n- 架构设计合理性分析\n- 安全性漏洞识别\n\
+            - 性能问题诊断\n- 最佳实践指导，参考规范文档{{#context#}}\n## 响应格式\n<response-format type=\"\
+            markdown\">\n```markdown\n### \U0001F50D 洞察 (Insights)\n- **代码质量**: [对代码整体质量的评价]\n\
+            - **架构设计**: [对架构合理性的分析]\n- **业务逻辑**: [对业务实现的评估]\n### ⚠️ 问题 (Issues)\n\
+            #### 严重问题 (Critical)\n- [列出影响功能或安全的关键问题]\n#### 重要问题 (Important)\n- [列出影响代码质量或维护性的重要问题]\n\
+            #### 建议改进 (Suggestions)\n- [列出可选的优化建议]\n### \U0001F4A1 建议 (Recommendations)\n\
+            #### 立即修复 (Immediate)\n- [需要立即修复的问题和建议]\n#### 优化改进 (Optimization)\n- [代码优化和性能改进建议]\n\
+            #### 最佳实践 (Best Practices)\n- [遵循行业最佳实践的建议]\n### \U0001F4CA 评分\n- **代码质量**:\
+            \ ⭐⭐⭐⭐⭐ (1-5星)\n- **安全性**: ⭐⭐⭐⭐⭐ (1-5星)\n- **可维护性**: ⭐⭐⭐⭐⭐ (1-5星)\n- **性能**:\
+            \ ⭐⭐⭐⭐⭐ (1-5星)\n```\n</response-format>\n## 审查规则\n### 核心原则\n<rules>\n\
+            - **专注审查**: 只审查 `code-to-review` 部分的代码变更。样例如下:\n  <sample type=\"json\"\
+            >\n    {\n        \"diff\": \"--- a/packages/core-api/src/analysis-api/analysis-api.service.ts\\\
+            n+++ b/packages/core-api/src/analysis-api/analysis-api.service.ts\\n@@ -26,7 +26,7 @@ export class AnalysisApiService {\\\
+            n     private moduleRef: ModuleRef,\\n     private cacheService: CalculationCacheService,\\\
+            n     private measurementValueService: MeasurementValueService,\\n-  ) { }\\\
+            n+  ) {}\\n   getRegisteredActions() {\\n     return this.registedActions;\\\
             n   }\\n\", // 以 unified diff 格式描述的文件内代码改动。\n        \"new_path\": \"\
             packages/core-api/src/analysis-api/analysis-api.service.ts\", // 文件新名字。\n\
                     \"old_path\": \"packages/core-api/src/analysis-api/analysis-api.service.ts\"\
@@ -1437,19 +1465,17 @@ workflow:
             \ all-changes 部分，这是本次Merge Request 的所有改动。当改动过多时会被省略。\n- 你总是从代码、业务两方面进行审查。\n\
             - 你总是按照 response-format 格式进行回复\n- 代码是否符合提交消息中的内容？\n- 如果有任何错误，请突出显示它们。\n\
             - 不要突出显示小问题和细节。\n- 不必对自动生成的文件进行审查。\n- 你总是用语精练、准确。\n- 当无需审查时，你总是返回空字符串\"\
-            \"。\n- 你总是用中文给出反馈。\n</rules>\n\n### 审查范围\n- ✅ **代码变更**: 审查 diff 中的具体代码改动\n\
+            \"。\n- 你总是用中文给出反馈。\n</rules>\n### 审查范围\n- ✅ **代码变更**: 审查 diff 中的具体代码改动\n\
             - ✅ **文件结构**: 评估文件组织和新文件创建\n- ✅ **命名规范**: 检查变量、函数、类命名\n- ✅ **代码风格**: 评估代码格式和风格一致性\n\
             - ✅ **逻辑正确性**: 验证业务逻辑实现\n- ✅ **安全性**: 识别潜在的安全漏洞\n- ✅ **性能影响**: 评估性能影响和优化空间\n\
-            \n### 排除范围\n- ❌ **自动生成文件**: 不审查自动生成的代码\n- ❌ **配置文件**: 不审查纯配置文件（除非有安全问题）\n\
-            - ❌ **第三方代码**: 不审查未修改的第三方库代码\n\n### 问题分类标准\n\n#### 严重问题 (Critical)\n-\
-            \ 导致程序崩溃或异常的错误\n- 安全漏洞（SQL注入、XSS、权限绕过等）\n- 数据丢失或损坏风险\n- 性能严重下降（O(n²) 算法等）\n\
-            \n#### 重要问题 (Important)\n- 代码可读性差\n- 违反编码规范\n- 潜在的边界情况处理不当\n- 缺少必要的错误处理\n\
-            - 测试覆盖率不足\n\n#### 建议改进 (Suggestions)\n- 代码优化机会\n- 更好的命名建议\n- 性能微优化\n-\
-            \ 代码结构改进"
+            ### 排除范围\n- ❌ **自动生成文件**: 不审查自动生成的代码\n- ❌ **配置文件**: 不审查纯配置文件（除非有安全问题）\n\
+            - ❌ **第三方代码**: 不审查未修改的第三方库代码\n### 问题分类标准\n#### 严重问题 (Critical)\n- 导致程序崩溃或异常的错误\n\
+            - 安全漏洞（SQL注入、XSS、权限绕过等）\n- 数据丢失或损坏风险\n- 性能严重下降（O(n²) 算法等）\n#### 重要问题 (Important)\n\
+            - 代码可读性差\n- 违反编码规范\n- 潜在的边界情况处理不当\n- 缺少必要的错误处理\n- 测试覆盖率不足\n#### 建议改进 (Suggestions)\n\
+            - 代码优化机会\n- 更好的命名建议\n- 性能微优化\n- 代码结构改进"
         - id: a16669f0-2f37-40f5-a921-21f84eb8bda9
           role: assistant
           text: '## 审查检查清单
-
 
             ### 代码质量
 
@@ -1465,7 +1491,6 @@ workflow:
 
             - [ ] 是否有适当的注释？
 
-
             ### 安全性
 
             - [ ] 是否有输入验证？
@@ -1478,7 +1503,6 @@ workflow:
 
             - [ ] 敏感信息是否加密？
 
-
             ### 性能
 
             - [ ] 算法复杂度是否合理？
@@ -1488,7 +1512,6 @@ workflow:
             - [ ] 是否有内存泄漏风险？
 
             - [ ] 是否有缓存优化机会？
-
 
             ### 可维护性
 
@@ -1500,7 +1523,6 @@ workflow:
 
             - [ ] 是否遵循设计模式？
 
-
             ### 业务逻辑
 
             - [ ] 业务需求是否完整实现？
@@ -1509,111 +1531,7 @@ workflow:
 
             - [ ] 数据验证是否充分？
 
-            - [ ] 用户体验是否考虑？
-
-
-            ## 示例响应
-
-
-            ```markdown
-
-            ### 🔍 洞察
-
-            - **代码质量**: 整体代码结构清晰，但存在一些可优化空间
-
-            - **架构设计**: 模块化设计合理，符合单一职责原则
-
-            - **业务逻辑**: 核心功能实现正确，但缺少边界情况处理
-
-
-            ### ⚠️ 问题
-
-            #### 严重问题 (Critical)
-
-            - 缺少用户输入验证，存在安全风险
-
-            - 数据库查询未使用参数化查询，存在 SQL 注入风险
-
-
-            #### 重要问题 (Important)
-
-            - 函数 `processUserData` 过长（超过50行），建议拆分
-
-            - 缺少错误处理机制，异常情况可能导致程序崩溃
-
-            - 变量命名不够清晰，如 `data` 应该改为 `userProfile`
-
-
-            #### 建议改进 (Suggestions)
-
-            - 可以添加更多的日志记录
-
-            - 考虑使用 TypeScript 类型定义提升代码安全性
-
-
-            ### 💡 建议
-
-            #### 立即修复 (Immediate)
-
-            1. 添加输入验证和参数化查询
-
-            2. 拆分过长的函数
-
-            3. 添加适当的错误处理
-
-
-            #### 优化改进 (Optimization)
-
-            1. 改进变量命名，提高代码可读性
-
-            2. 添加单元测试覆盖核心逻辑
-
-            3. 考虑使用缓存优化性能
-
-
-            #### 最佳实践 (Best Practices)
-
-            1. 遵循 SOLID 原则
-
-            2. 添加适当的代码注释
-
-            3. 使用 ESLint/Prettier 保持代码风格一致
-
-
-            ### 📊 评分
-
-            - **代码质量**: ⭐⭐⭐ (3/5)
-
-            - **安全性**: ⭐⭐ (2/5)
-
-            - **可维护性**: ⭐⭐⭐ (3/5)
-
-            - **性能**: ⭐⭐⭐⭐ (4/5)
-
-            ```
-
-
-            ## 使用说明
-
-
-            1. **输入格式**: 提供 diff 格式的代码变更
-
-            2. **审查重点**: 重点关注代码质量、安全性、性能影响
-
-            3. **反馈质量**: 提供具体、可操作的改进建议
-
-            4. **优先级**: 按问题严重程度分类并提供解决方案
-
-
-            ### 适用场景
-
-            - GitLab/GitHub 代码审查
-
-            - 团队代码质量检查
-
-            - 技术面试代码评估
-
-            - 开源项目贡献审查'
+            - [ ] 用户体验是否考虑？'
         - id: bf16301d-4510-4420-94d9-c32f35091008
           role: user
           text: '<repository>
@@ -1658,8 +1576,8 @@ workflow:
         x: 1963.8215474260942
         y: 105.43715352656955
       positionAbsolute:
-        x: 8018.34838582084
-        y: 661.1078754858698
+        x: 8035.695505506911
+        y: 734.6521794830805
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1777,8 +1695,8 @@ workflow:
           \        encoded_path: encodeURIComponent(obj.new_path),\n        note_id:\
           \ foundNote?.id || 0,\n        discussion_id: foundNote?.discussion_id||\"\
           \",\n        should_ignore: should_ignore,\n        new_line: foundNote?.new_line\
-          \ || 1,\n        old_line: foundNote?.old_line || obj.old_line || null\n\
-          \    }\n}\n"
+          \ || 1,\n        old_line: foundNote?.old_line || obj.old_line || 1\n  \
+          \  }\n}\n"
         code_language: javascript
         desc: 解析 Merge Request 中的文件 Diff 内容，过滤掉被忽略的文件
         isInIteration: true
@@ -1831,8 +1749,8 @@ workflow:
         x: 890.4143057173369
         y: 509.76176682577625
       positionAbsolute:
-        x: 6944.941144112083
-        y: 1065.4324887850767
+        x: 6962.288263798154
+        y: 1138.9767927822872
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1961,8 +1879,8 @@ workflow:
         x: 2962.3519249732453
         y: 324.9749847342846
       positionAbsolute:
-        x: 9016.878763367991
-        y: 880.6457066935849
+        x: 9034.225883054063
+        y: 954.1900106907956
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2005,8 +1923,8 @@ workflow:
         x: 1385.1507629829694
         y: 68.84237945581401
       positionAbsolute:
-        x: 7439.677601377715
-        y: 624.5131014151143
+        x: 7457.024721063786
+        y: 698.057405412325
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2041,8 +1959,8 @@ workflow:
         x: 1658.4718278801083
         y: 269.1319747816864
       positionAbsolute:
-        x: 7712.998666274854
-        y: 824.8026967409867
+        x: 7730.345785960925
+        y: 898.3470007381974
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2075,8 +1993,8 @@ workflow:
         x: 101.06868624478284
         y: 96.83004789671816
       positionAbsolute:
-        x: 6155.595524639529
-        y: 652.5007698560185
+        x: 6172.9426443256
+        y: 726.0450738532292
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2121,8 +2039,8 @@ workflow:
         x: 126.75823302348135
         y: 366.9559546098319
       positionAbsolute:
-        x: 6181.285071418228
-        y: 922.6266765691322
+        x: 6198.632191104298
+        y: 996.1709805663429
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2155,8 +2073,8 @@ workflow:
         x: 421.36824898905434
         y: 350.0558861859487
       positionAbsolute:
-        x: 6475.8950873838
-        y: 905.726608145249
+        x: 6493.242207069871
+        y: 979.2709121424597
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2194,8 +2112,8 @@ workflow:
         x: 763.2004287354689
         y: 106.57858283255155
       positionAbsolute:
-        x: 6817.727267130214
-        y: 662.2493047918518
+        x: 6835.074386816286
+        y: 735.7936087890625
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2228,8 +2146,8 @@ workflow:
         x: 426.82323113921893
         y: 95.96856686697879
       positionAbsolute:
-        x: 6481.350069533964
-        y: 651.6392888262791
+        x: 6498.697189220036
+        y: 725.1835928234898
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2262,8 +2180,8 @@ workflow:
         x: 1099.0500868498675
         y: 270.04096902665935
       positionAbsolute:
-        x: 7153.576925244613
-        y: 825.7116909859596
+        x: 7170.924044930684
+        y: 899.2559949831704
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2271,10 +2189,13 @@ workflow:
       width: 244
       zIndex: 1002
     - data:
-        code: "function main({ raw }) {\n  const processed = raw\n    .replace(/^```(markdown)?\\\
-          s*\\n|```\\n?$/g, '')\n    .replace(/<think>.*?<\\/think>/gs, '');\n\n \
-          \ // 使用 JSON.stringify 实现字符串安全转义，并去除首尾的引号\n  // const jsonSafe = JSON.stringify(processed).slice(1,\
-          \ -1);\n\n  return {\n    result: processed\n  };\n}"
+        code: "function main({ raw }) {\n  const processed = raw\n    // Remove markdown\
+          \ code block markers\n    .replace(/^```(markdown)?\\s*\\n|```\\n?$/g, '')\n\
+          \    // Remove think tags\n    .replace(/<think>.*?<\\/think>/gs, '')\n\
+          \    // Convert double quotes to single quotes in markdown content\n   \
+          \ .replace(/[\"\"]/g, \"'\")\n    // Convert standard double quotes to single\
+          \ quotes\n    .replace(/\"/g, \"'\");\n\n  return {\n    result: processed\n\
+          \  };\n}\n"
         code_language: javascript
         desc: 格式化 LLM 的文本输出
         isInIteration: true
@@ -2298,8 +2219,8 @@ workflow:
         x: 2119.5459991051957
         y: 465.92296472646456
       positionAbsolute:
-        x: 8174.072837499942
-        y: 1021.5936866857649
+        x: 8191.419957186013
+        y: 1095.1379906829757
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2490,8 +2411,8 @@ workflow:
         x: 2637.3109954686424
         y: 243.8616477686436
       positionAbsolute:
-        x: 8691.837833863388
-        y: 799.5323697279439
+        x: 8709.184953549458
+        y: 873.0766737251546
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -3325,8 +3246,8 @@ workflow:
         x: 3325.6125352840063
         y: 197.9332669216916
       positionAbsolute:
-        x: 9380.139373678752
-        y: 753.6039888809919
+        x: 9397.486493364824
+        y: 827.1482928782026
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -3371,8 +3292,8 @@ workflow:
         x: 3299.47405599756
         y: 397.5485479183076
       positionAbsolute:
-        x: 9354.000894392306
-        y: 953.2192698776079
+        x: 9371.348014078376
+        y: 1026.7635738748186
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -3403,11 +3324,11 @@ workflow:
       id: '1754296023869'
       parentId: '1734625888939'
       position:
-        x: 1758.3110765615766
-        y: 446.94332482481593
+        x: 1757.2102606924927
+        y: 446.94332482481605
       positionAbsolute:
-        x: 7812.8379149563225
-        y: 1002.6140467841162
+        x: 7829.08421877331
+        y: 1076.158350781327
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -3415,6 +3336,6 @@ workflow:
       width: 244
       zIndex: 1002
     viewport:
-      x: 1433.7470608401106
-      y: 49.42087071492858
-      zoom: 0.9740042685432426
+      x: -7914.240716953747
+      y: -13.34355944030682
+      zoom: 0.9084171368574308
