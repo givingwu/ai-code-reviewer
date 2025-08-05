@@ -14,4 +14,4 @@ This is a forked project from [dify-gitlab-mr-reviewer](https://github.com/zgldh
 - [侯含](https://git.kuainiujinke.com/echohou) - @echohou，我们一起规划了早期 [CI/CD 最佳实践方案](https://git.kuainiujinke.com/feoe/wiki/-/blob/master/2025%20%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E6%BC%94%E8%BF%9B%E6%96%B9%E5%90%91.md)
 - [范春波](https://git.kuainiujinke.com/robfan) - @robfan，教我如何接入 TV Bot
 - [Gitlab v4 OpenAPI](https://docs.gitlab.com/api/discussions/#create-new-merge-request-thread)
-- [dify-gitlab-mr-reviewer](https://github.com/zgldh/dify-gitlab-mr-reviewer) - 原作者 [zgldh](https://github.com/zgldh) 开源了 Gitlab 的工作流，让我少走了很多弯路
+- [dify-gitlab-mr-reviewer](https://github.com/zgldh/dify-gitlab-mr-reviewer) - 原作者 [zgldh](https://github.com/zgldh) 开源了 Gitlab 的工作流，让我们少走了很多弯路
