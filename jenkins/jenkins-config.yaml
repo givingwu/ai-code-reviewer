@@ -1,0 +1,47 @@
+# Jenkins 流水线配置文件
+# 用于配置 Jenkins 流水线的环境变量和参数
+
+# 阿里云容器镜像服务配置
+acr:
+  registry_url: "registry.cn-hangzhou.aliyuncs.com"  # 根据实际区域调整
+  namespace: "your-namespace"  # 替换为实际的命名空间
+  credentials_id: "aliyun-acr-credentials"  # Jenkins 中配置的凭据 ID
+
+# Kubernetes 集群配置
+kubernetes:
+  namespace: "test"
+  kubeconfig_credentials_id: "k8s-kubeconfig"  # Jenkins 中配置的 kubeconfig 凭据 ID
+  deployment_name: "ai-code-reviewer"
+  service_name: "ai-code-reviewer"
+
+# 构建配置
+build:
+  timeout_minutes: 10
+  docker_context: "docker"
+  dockerfile: "docker/Dockerfile"
+
+# 部署配置
+deploy:
+  timeout_minutes: 5
+  health_check_retries: 3
+  health_check_interval: 10
+
+# 测试配置
+test:
+  timeout_minutes: 3
+  health_endpoint: "/health"
+  ready_endpoint: "/ready"
+
+# 通知配置（可选）
+notifications:
+  dingtalk:
+    enabled: false
+    webhook_url: ""
+  email:
+    enabled: false
+    recipients: []
+
+# 清理配置
+cleanup:
+  keep_images: 3  # 保留最近的镜像数量
+  prune_dangling: true  # 清理悬空镜像

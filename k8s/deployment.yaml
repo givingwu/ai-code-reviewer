@@ -1,0 +1,156 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ai-code-reviewer
+  namespace: test
+  labels:
+    app: ai-code-reviewer
+    version: v1
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: ai-code-reviewer
+  template:
+    metadata:
+      labels:
+        app: ai-code-reviewer
+        version: v1
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+      - name: ai-code-reviewer
+        image: registry.cn-hangzhou.aliyuncs.com/your-namespace/ai-code-reviewer:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 4195
+          name: http
+          protocol: TCP
+        - containerPort: 8081
+          name: health
+          protocol: TCP
+        - containerPort: 9090
+          name: metrics
+          protocol: TCP
+        env:
+        # Secret-based environment variables
+        - name: GITLAB_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: ai-code-reviewer-secrets
+              key: gitlab-token
+        - name: GITLAB_WEBHOOK_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: ai-code-reviewer-secrets
+              key: gitlab-webhook-secret
+        - name: DIFY_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: ai-code-reviewer-secrets
+              key: dify-token
+        - name: DIFY_API_URL
+          valueFrom:
+            secretKeyRef:
+              name: ai-code-reviewer-secrets
+              key: dify-api-url
+        - name: TV_BOT_ID
+          valueFrom:
+            secretKeyRef:
+              name: ai-code-reviewer-secrets
+              key: tv-bot-id
+        - name: TV_BOT_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: ai-code-reviewer-secrets
+              key: tv-bot-token
+        - name: TV_BOT_WEBHOOK_URL
+          valueFrom:
+            secretKeyRef:
+              name: ai-code-reviewer-secrets
+              key: tv-bot-webhook-url
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: ai-code-reviewer-secrets
+              key: jwt-secret
+        - name: ENCRYPTION_KEY
+          valueFrom:
+            secretKeyRef:
+              name: ai-code-reviewer-secrets
+              key: encryption-key
+        # ConfigMap-based environment variables
+        envFrom:
+        - configMapRef:
+            name: ai-code-reviewer-env-config
+        volumeMounts:
+        - name: config-volume
+          mountPath: /app/config
+          readOnly: true
+        - name: env-config-volume
+          mountPath: /app/env-config
+          readOnly: true
+        - name: storage-volume
+          mountPath: /app/data
+        - name: logs-volume
+          mountPath: /app/logs
+        resources:
+          requests:
+            cpu: 200m
+            memory: 256Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8081
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8081
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+        startupProbe:
+          httpGet:
+            path: /startup
+            port: 8081
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 30
+      volumes:
+      - name: config-volume
+        configMap:
+          name: ai-code-reviewer-config
+          defaultMode: 0644
+          items:
+          - key: receiver.yaml
+            path: receiver.yaml
+          - key: app-config.yaml
+            path: app-config.yaml
+          - key: supervisord.conf
+            path: supervisord.conf
+      - name: env-config-volume
+        configMap:
+          name: ai-code-reviewer-env-config
+          defaultMode: 0644
+      - name: storage-volume
+        persistentVolumeClaim:
+          claimName: ai-code-reviewer-storage
+      - name: logs-volume
+        emptyDir: {}
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30

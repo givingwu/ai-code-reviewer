@@ -1,0 +1,116 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ai-code-reviewer-config
+  namespace: test
+  labels:
+    app: ai-code-reviewer
+    environment: test
+data:
+  receiver.yaml: |
+    input:
+      http_server:
+        address: "0.0.0.0:4195"
+        path: /webhook
+        allowed_verbs: [POST]
+        timeout: "30m"
+        cors:
+          enabled: true
+          allowed_origins: ["*"]
+        rate_limit: "100/1m"
+        
+    pipeline:
+      processors:
+        - log:
+            level: INFO
+            message: "Received GitLab webhook request"
+        - bloblang: |
+            root = {
+              "timestamp": timestamp_unix_nano(),
+              "headers": meta(),
+              "body": content().string(),
+              "request_id": uuid_v4()
+            }
+        - log:
+            level: INFO
+            message: "Storing GitLab webhook request with ID: ${! json(\"request_id\") }"
+        - catch:
+          - log:
+              level: ERROR
+              message: "Error processing webhook: ${! error() }"
+    
+    output:
+      file:
+        path: "/app/data/requests/request_${! json(\"request_id\") }.json"
+        codec: lines
+    
+    logger:
+      level: INFO
+      format: json
+      add_timestamp: true
+      static_fields:
+        '@service': ai-code-reviewer
+        'component': benthos-receiver
+        'environment': test
+  
+  app-config.yaml: |
+    # Application Configuration
+    timeout: 1800
+    max_payload_size: 102400
+    log_level: INFO
+    
+    # Health Check Configuration
+    health_check_port: 8081
+    metrics_port: 9090
+    
+    # Request Processing Configuration
+    requests_dir: "/app/data/requests"
+    processing_interval: 5
+    max_concurrent_requests: 10
+    
+    # Retry Configuration
+    max_retries: 3
+    retry_delay: 5
+    exponential_backoff: true
+    
+    # Environment Specific Settings
+    environment: test
+    debug_mode: false
+    
+    # External Service Configuration
+    dify_timeout: 1800
+    gitlab_api_timeout: 30
+    tv_bot_timeout: 10
+  
+  supervisord.conf: |
+    [supervisord]
+    nodaemon=true
+    user=root
+    logfile=/app/logs/supervisord.log
+    pidfile=/app/logs/supervisord.pid
+    
+    [program:benthos]
+    command=benthos -c /app/config/receiver.yaml
+    directory=/app
+    user=appuser
+    autostart=true
+    autorestart=true
+    stdout_logfile=/app/logs/benthos.out.log
+    stderr_logfile=/app/logs/benthos.err.log
+    stdout_logfile_maxbytes=10MB
+    stderr_logfile_maxbytes=10MB
+    stdout_logfile_backups=3
+    stderr_logfile_backups=3
+    
+    [program:processor]
+    command=/app/process_requests.sh
+    directory=/app
+    user=appuser
+    autostart=true
+    autorestart=true
+    stdout_logfile=/app/logs/process_requests.out.log
+    stderr_logfile=/app/logs/process_requests.err.log
+    stdout_logfile_maxbytes=10MB
+    stderr_logfile_maxbytes=10MB
+    stdout_logfile_backups=3
+    stderr_logfile_backups=3
