@@ -1,5 +1,16 @@
+# Local
 .DS_Store
-.kiro
+*.local
+*.log*
 
+# Dist
+node_modules
+dist/
 logs/
 data/
+
+# IDE
+.vscode/*
+!.vscode/extensions.json
+.idea
+.kiro
