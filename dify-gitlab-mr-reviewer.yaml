@@ -24,7 +24,7 @@ workflow:
     selector:
     - env
     - IGNORE_FILES
-    value: (pnpm-lock\.yaml|package-lock\.json|yarn\.lock|composer\.lock|openapi\.json)(?=$|\/|\\)
+    value: (pnpm-lock\.yaml|package-lock\.json|yarn\.lock|composer\.lock|openapi\.json|(translation|zh|en)\.json|\.env(\.\w*)?|\.gitignore|package\.json|page\.tsx|\w*\.md|\w\.test\.(j|t)sx?)(?=$|\/|\\)
     value_type: string
   - description: ''
     id: 2310b4b5-f214-489d-821d-2d3220af3a70
@@ -56,23 +56,17 @@ workflow:
     selector:
     - env
     - GITLAB_PRIVATE_TOKEN
-    value: ''
+    value: V2Lgo4UA2_-EHDyQHfqQ
     value_type: secret
   features:
     file_upload:
-      allowed_file_extensions:
-      - .JPG
-      - .JPEG
-      - .PNG
-      - .GIF
-      - .WEBP
-      - .SVG
+      allowed_file_extensions: []
       allowed_file_types:
       - image
       allowed_file_upload_methods:
-      - local_file
       - remote_url
-      enabled: false
+      - local_file
+      enabled: true
       fileUploadConfig:
         audio_file_size_limit: 50
         batch_count_limit: 5
@@ -86,7 +80,7 @@ workflow:
         transfer_methods:
         - local_file
         - remote_url
-      number_limits: 3
+      number_limits: 1
     opening_statement: ''
     retriever_resource:
       enabled: true
@@ -795,6 +789,7 @@ workflow:
         sourceType: code
         targetType: knowledge-retrieval
       id: 1735578500986-source-1754296023869-target
+      selected: false
       source: '1735578500986'
       sourceHandle: source
       target: '1754296023869'
@@ -807,6 +802,7 @@ workflow:
         sourceType: knowledge-retrieval
         targetType: llm
       id: 1754296023869-source-1734775287920-target
+      selected: false
       source: '1754296023869'
       sourceHandle: source
       target: '1734775287920'
@@ -819,6 +815,7 @@ workflow:
         sourceType: code
         targetType: http-request
       id: 1754278744853-source-1754289121034-target
+      selected: false
       source: '1754278744853'
       sourceHandle: source
       target: '1754289121034'
@@ -846,7 +843,7 @@ workflow:
       positionAbsolute:
         x: 30
         y: 528.5
-      selected: false
+      selected: true
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -893,11 +890,11 @@ workflow:
       height: 657
       id: '1734625888939'
       position:
-        x: 6071.873958080817
-        y: 629.215025956511
+        x: 6108
+        y: 528.5
       positionAbsolute:
-        x: 6071.873958080817
-        y: 629.215025956511
+        x: 6108
+        y: 528.5
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -918,8 +915,8 @@ workflow:
         x: 24
         y: 68
       positionAbsolute:
-        x: 6095.873958080817
-        y: 697.215025956511
+        x: 6132
+        y: 596.5
       selectable: false
       sourcePosition: right
       targetPosition: left
@@ -1077,11 +1074,11 @@ workflow:
           \    let obj = JSON.parse(raw);\n    let diffs = obj.diffs\n        .filter(item=>ignoreReg.exec(item.new_path)==null)\n\
           \        .map(item=>JSON.stringify(item));\n    let diffsTokens = diffs.reduce((pre,curr)=>pre+curr.length,0);\n\
           \ \n    if(diffsTokens > 80000){\n        diffs = obj.diffs\n          \
-          \  .map((item,index)=>`${index+1}`)        \n    }\n\n    return {\n   \
-          \     diffs: diffs,\n        diff_count: diffs.length,\n        diffs_tokens:\
-          \ diffsTokens\n    }\n}\n"
+          \  .map((item,index)=>`${index+1}`)        \n    }\n\n    diffs = diffs.slice(0,30)\n\
+          \n    return {\n        diffs,\n        diff_count: diffs.length,\n    \
+          \    diffs_tokens: diffsTokens\n    }\n}\n"
         code_language: javascript
-        desc: ''
+        desc: 获取本次 MR 修改的文件
         outputs:
           diff_count:
             children: null
@@ -1104,7 +1101,7 @@ workflow:
           - env
           - IGNORE_FILES
           variable: ignore_files
-      height: 54
+      height: 82
       id: '1734694634848'
       position:
         x: 3525
@@ -1266,7 +1263,7 @@ workflow:
         params: ''
         retry_config:
           max_retries: 3
-          retry_enabled: true
+          retry_enabled: false
           retry_interval: 100
         selected: false
         timeout:
@@ -1277,16 +1274,16 @@ workflow:
         type: http-request
         url: '{{#env.GITLAB_HOST#}}/api/v4/projects/{{#17346383362280.project_id#}}/merge_requests/{{#17346383362280.iid#}}/discussions'
         variables: []
-      height: 219
+      height: 194
       id: '1734699123251'
       parentId: '1734625888939'
       position:
         x: 2988.004647229188
         y: 73.43823791706006
       positionAbsolute:
-        x: 9059.878605310005
-        y: 702.6532638735711
-      selected: true
+        x: 9096.004647229187
+        y: 601.9382379170601
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -1318,8 +1315,8 @@ workflow:
         x: 2343.4560825552617
         y: 109.07029144221849
       positionAbsolute:
-        x: 8415.33004063608
-        y: 738.2853173987295
+        x: 8451.456082555262
+        y: 637.5702914422185
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1375,13 +1372,13 @@ workflow:
               过大的 MR 提交，通常暗示着多个任务混杂提交，或者错误的文件被提交。
 
 
-              较小的MR有利于人类做代码审查，也有利于未来可能的代码回滚。'
+              较小的 MR 有利于人类做代码审查，也有利于未来可能的代码回滚。'
           - id: key-value-13
             key: ''
             type: text
             value: ''
           type: form-data
-        desc: ''
+        desc: 发送 MR 内容体太大的 notes
         error_strategy: fail-branch
         headers: ''
         method: post
@@ -1395,18 +1392,18 @@ workflow:
           max_connect_timeout: 0
           max_read_timeout: 0
           max_write_timeout: 0
-        title: POST Too big
+        title: POST Too big comments
         type: http-request
         url: '{{#env.GITLAB_HOST#}}/api/v4/projects/{{#17346383362280.project_id#}}/merge_requests/{{#17346383362280.iid#}}/notes'
         variables: []
-      height: 227
+      height: 255
       id: '1734706580846'
       position:
         x: 5196
-        y: 672
+        y: 686
       positionAbsolute:
         x: 5196
-        y: 672
+        y: 686
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1436,17 +1433,14 @@ workflow:
             \ PHP, Python, Java, Golang, C/C++, C#\n- **移动端**: Flutter, React Native,\
             \ iOS/Android 原生开发\n- **数据库**: SQL, NoSQL, ORM 框架\n- **DevOps**: Docker,\
             \ Kubernetes, CI/CD, 云服务\n## 审查能力\n- 代码质量评估与优化建议\n- 架构设计合理性分析\n- 安全性漏洞识别\n\
-            - 性能问题诊断\n- 最佳实践指导，参考规范文档{{#context#}}\n## 响应格式\n<response-format type=\"\
-            markdown\">\n```markdown\n### \U0001F50D 洞察 (Insights)\n- **代码质量**: [对代码整体质量的评价]\n\
-            - **架构设计**: [对架构合理性的分析]\n- **业务逻辑**: [对业务实现的评估]\n### ⚠️ 问题 (Issues)\n\
+            - 性能问题诊断\n- 最佳实践指导，包括不限于（目录、文件、程序（Class/Interface/Method/Variable/Constant/Enum/Bool）等命名规范，图标、模块、组件、代码、格式等业界规范）参考规范文档{{#context#}}\n\
+            ## 响应格式\n<response-format type=\"markdown\">\n```markdown\n### ⚠️ 问题 (Issues)\n\
             #### 严重问题 (Critical)\n- [列出影响功能或安全的关键问题]\n#### 重要问题 (Important)\n- [列出影响代码质量或维护性的重要问题]\n\
             #### 建议改进 (Suggestions)\n- [列出可选的优化建议]\n### \U0001F4A1 建议 (Recommendations)\n\
             #### 立即修复 (Immediate)\n- [需要立即修复的问题和建议]\n#### 优化改进 (Optimization)\n- [代码优化和性能改进建议]\n\
-            #### 最佳实践 (Best Practices)\n- [遵循行业最佳实践的建议]\n### \U0001F4CA 评分\n- **代码质量**:\
-            \ ⭐⭐⭐⭐⭐ (1-5星)\n- **安全性**: ⭐⭐⭐⭐⭐ (1-5星)\n- **可维护性**: ⭐⭐⭐⭐⭐ (1-5星)\n- **性能**:\
-            \ ⭐⭐⭐⭐⭐ (1-5星)\n```\n</response-format>\n## 审查规则\n### 核心原则\n<rules>\n\
-            - **专注审查**: 只审查 `code-to-review` 部分的代码变更。样例如下:\n  <sample type=\"json\"\
-            >\n    {\n        \"diff\": \"--- a/packages/core-api/src/analysis-api/analysis-api.service.ts\\\
+            #### 最佳实践 (Best Practices)\n- [遵循行业最佳实践的建议]\n\n```\n</response-format>\n\
+            ## 审查规则\n### 核心原则\n<rules>\n- **专注审查**: 只审查 `code-to-review` 部分的代码变更。样例如下:\n\
+            \  <sample type=\"json\">\n    {\n        \"diff\": \"--- a/packages/core-api/src/analysis-api/analysis-api.service.ts\\\
             n+++ b/packages/core-api/src/analysis-api/analysis-api.service.ts\\n@@ -26,7 +26,7 @@ export class AnalysisApiService {\\\
             n     private moduleRef: ModuleRef,\\n     private cacheService: CalculationCacheService,\\\
             n     private measurementValueService: MeasurementValueService,\\n-  ) { }\\\
@@ -1459,15 +1453,16 @@ workflow:
                     \"b_mode\": \"100644\", // 文件新的权限值。\n        \"new_file\": false,\
             \ // 文件是否是新建的。\n        \"renamed_file\": false, // 文件是否被改名。\n        \"\
             deleted_file\": false, // 文件是否被删除。\n        \"generated_file\": false\
-            \ // 文件是否是自动生成的。\n    }\n  </sample>\n- **全面分析**: 从代码质量、业务逻辑、安全性、性能等多维度评估\n\
+            \ // 文件是否是自动生成的。\n    }\n  </sample>\n- **全面分析**: 从代码质量、业务逻辑、安全性、性能、规范等多维度评估\n\
             - **优先级排序**: 按严重程度分类问题（严重/重要/建议）\n- **建设性反馈**: 提供具体、可操作的改进建议\n- **中文回复**:\
             \ 所有反馈使用中文表达\n- 参考但不审查 file-content 部分，这是文件改动后的完整内容。当文件过长时会被省略。\n- 参考但不审查\
-            \ all-changes 部分，这是本次Merge Request 的所有改动。当改动过多时会被省略。\n- 你总是从代码、业务两方面进行审查。\n\
-            - 你总是按照 response-format 格式进行回复\n- 代码是否符合提交消息中的内容？\n- 如果有任何错误，请突出显示它们。\n\
+            \ all-changes 部分，这是本次Merge Request 的所有改动。当改动过多时会被省略。\n- 总是从代码、业务两方面进行审查。\n\
+            - 总是按照 response-format 格式进行回复\n- 代码是否符合提交消息中的内容？\n- 如果有任何错误，请突出显示它们。\n\
             - 不要突出显示小问题和细节。\n- 不必对自动生成的文件进行审查。\n- 你总是用语精练、准确。\n- 当无需审查时，你总是返回空字符串\"\
-            \"。\n- 你总是用中文给出反馈。\n</rules>\n### 审查范围\n- ✅ **代码变更**: 审查 diff 中的具体代码改动\n\
-            - ✅ **文件结构**: 评估文件组织和新文件创建\n- ✅ **命名规范**: 检查变量、函数、类命名\n- ✅ **代码风格**: 评估代码格式和风格一致性\n\
-            - ✅ **逻辑正确性**: 验证业务逻辑实现\n- ✅ **安全性**: 识别潜在的安全漏洞\n- ✅ **性能影响**: 评估性能影响和优化空间\n\
+            \"。\n- 你总是用中文给出反馈。\n- 你总是参考规范文档{{#context#}} 指导目录、文件、程序（Class/Interface/Method/Variable/Constant/Enum/Bool）等命名规范，图标、模块、组件、代码、格式等业界规范\n\
+            </rules>\n### 审查范围\n- ✅ **代码变更**: 审查 diff 中的具体代码改动\n- ✅ **文件结构**: 评估文件组织和新文件创建\n\
+            - ✅ **命名规范**: 检查变量、函数、类命名是否符合上下文中描述的规范\n- ✅ **代码风格**: 评估代码格式和风格一致性\n-\
+            \ ✅ **逻辑正确性**: 验证业务逻辑实现\n- ✅ **安全性**: 识别潜在的安全漏洞\n- ✅ **性能影响**: 评估性能影响和优化空间\n\
             ### 排除范围\n- ❌ **自动生成文件**: 不审查自动生成的代码\n- ❌ **配置文件**: 不审查纯配置文件（除非有安全问题）\n\
             - ❌ **第三方代码**: 不审查未修改的第三方库代码\n### 问题分类标准\n#### 严重问题 (Critical)\n- 导致程序崩溃或异常的错误\n\
             - 安全漏洞（SQL注入、XSS、权限绕过等）\n- 数据丢失或损坏风险\n- 性能严重下降（O(n²) 算法等）\n#### 重要问题 (Important)\n\
@@ -1576,8 +1571,8 @@ workflow:
         x: 1963.8215474260942
         y: 105.43715352656955
       positionAbsolute:
-        x: 8035.695505506911
-        y: 734.6521794830805
+        x: 8071.821547426094
+        y: 633.9371535265695
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1749,8 +1744,8 @@ workflow:
         x: 890.4143057173369
         y: 509.76176682577625
       positionAbsolute:
-        x: 6962.288263798154
-        y: 1138.9767927822872
+        x: 6998.414305717337
+        y: 1038.2617668257762
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1767,7 +1762,7 @@ workflow:
         body:
           data: []
           type: none
-        desc: ''
+        desc: 获取所有现有的讨论
         headers: ''
         isInIteration: true
         iteration_id: '1734694373584'
@@ -1786,7 +1781,7 @@ workflow:
         type: http-request
         url: '{{#env.GITLAB_HOST#}}/api/v4/projects/{{#17346383362280.project_id#}}/merge_requests/{{#17346383362280.iid#}}/discussions?per_page=100'
         variables: []
-      height: 191
+      height: 219
       id: '17351299823070'
       position:
         x: 5500
@@ -1879,8 +1874,8 @@ workflow:
         x: 2962.3519249732453
         y: 324.9749847342846
       positionAbsolute:
-        x: 9034.225883054063
-        y: 954.1900106907956
+        x: 9070.351924973245
+        y: 853.4749847342846
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1923,8 +1918,8 @@ workflow:
         x: 1385.1507629829694
         y: 68.84237945581401
       positionAbsolute:
-        x: 7457.024721063786
-        y: 698.057405412325
+        x: 7493.150762982969
+        y: 597.342379455814
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1959,8 +1954,8 @@ workflow:
         x: 1658.4718278801083
         y: 269.1319747816864
       positionAbsolute:
-        x: 7730.345785960925
-        y: 898.3470007381974
+        x: 7766.471827880108
+        y: 797.6319747816864
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1993,8 +1988,8 @@ workflow:
         x: 101.06868624478284
         y: 96.83004789671816
       positionAbsolute:
-        x: 6172.9426443256
-        y: 726.0450738532292
+        x: 6209.068686244783
+        y: 625.3300478967182
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2039,8 +2034,8 @@ workflow:
         x: 126.75823302348135
         y: 366.9559546098319
       positionAbsolute:
-        x: 6198.632191104298
-        y: 996.1709805663429
+        x: 6234.758233023482
+        y: 895.4559546098319
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2073,8 +2068,8 @@ workflow:
         x: 421.36824898905434
         y: 350.0558861859487
       positionAbsolute:
-        x: 6493.242207069871
-        y: 979.2709121424597
+        x: 6529.368248989054
+        y: 878.5558861859487
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2109,11 +2104,11 @@ workflow:
       id: '1735656975326'
       parentId: '1734625888939'
       position:
-        x: 763.2004287354689
-        y: 106.57858283255155
+        x: 889.4824792377531
+        y: 65
       positionAbsolute:
-        x: 6835.074386816286
-        y: 735.7936087890625
+        x: 6997.482479237753
+        y: 593.5
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2146,8 +2141,8 @@ workflow:
         x: 426.82323113921893
         y: 95.96856686697879
       positionAbsolute:
-        x: 6498.697189220036
-        y: 725.1835928234898
+        x: 6534.8232311392185
+        y: 624.4685668669788
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2180,8 +2175,8 @@ workflow:
         x: 1099.0500868498675
         y: 270.04096902665935
       positionAbsolute:
-        x: 7170.924044930684
-        y: 899.2559949831704
+        x: 7207.0500868498675
+        y: 798.5409690266594
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2216,11 +2211,11 @@ workflow:
       id: '1735661041621'
       parentId: '1734625888939'
       position:
-        x: 2119.5459991051957
-        y: 465.92296472646456
+        x: 2143.004452807656
+        y: 441.0846019826828
       positionAbsolute:
-        x: 8191.419957186013
-        y: 1095.1379906829757
+        x: 8251.004452807656
+        y: 969.5846019826828
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2276,10 +2271,10 @@ workflow:
       id: '1735985486526'
       position:
         x: 942
-        y: 981.5
+        y: 1009.5
       positionAbsolute:
         x: 942
-        y: 981.5
+        y: 1009.5
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2295,10 +2290,10 @@ workflow:
       id: '1735985496074'
       position:
         x: 942
-        y: 1075.5
+        y: 1103.5
       positionAbsolute:
         x: 942
-        y: 1075.5
+        y: 1103.5
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2339,10 +2334,10 @@ workflow:
       id: '1735994215169'
       position:
         x: 1854
-        y: 870
+        y: 898
       positionAbsolute:
         x: 1854
-        y: 870
+        y: 898
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2376,10 +2371,10 @@ workflow:
       id: '17359946280530'
       position:
         x: 2158
-        y: 984.5
+        y: 1012.5
       positionAbsolute:
         x: 2158
-        y: 984.5
+        y: 1012.5
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2411,8 +2406,8 @@ workflow:
         x: 2637.3109954686424
         y: 243.8616477686436
       positionAbsolute:
-        x: 8709.184953549458
-        y: 873.0766737251546
+        x: 8745.310995468642
+        y: 772.3616477686436
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2441,10 +2436,10 @@ workflow:
       id: '17359979073310'
       position:
         x: 2462
-        y: 738
+        y: 780
       positionAbsolute:
         x: 2462
-        y: 738
+        y: 780
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2468,28 +2463,48 @@ workflow:
         prompt_template:
         - id: 77b3d05b-a305-4a8b-bea6-aa4d66497baa
           role: system
-          text: "你是资深软件工程师，擅长发现代码中的问题并提供建设性的改进建议。\n你擅长 Nodejs, PHP, JavaScript, TypeScript,\
-            \ Python, Java, HTML/CSS, Flutter, Golang, C/C++, C shape 等编程语言，与其相关的代码库。\n\
-            \n<response-format type=\"markdown\">\n```\n### 洞察\n- Insight 1\n- Insight\
-            \ 2\n### 问题\n- Issue 1\n- Issue 2\n### 建议\n- Suggestion 1\n- Suggestion\
-            \ 2\n</response-format>\n\n<rules>\n- 你只审查 code-to-review 部分的代码并提供反馈。样例如下:\n\
-            \  <sample type=\"json\">\n    {\n        \"diff\": \"--- a/packages/core-api/src/analysis-api/analysis-api.service.ts\\\
+          text: "# 代码审查专家\n你是一位经验丰富的软件工程师和代码审查专家，具备以下专长：\n## 技术栈精通\n- **前端**: JavaScript,\
+            \ TypeScript, React, Vue, Angular, HTML/CSS, Flutter\n- **后端**: Node.js,\
+            \ PHP, Python, Java, Golang, C/C++, C#\n- **移动端**: Flutter, React Native,\
+            \ iOS/Android 原生开发\n- **数据库**: SQL, NoSQL, ORM 框架\n- **DevOps**: Docker,\
+            \ Kubernetes, CI/CD, 云服务\n## 审查能力\n- 代码质量评估与优化建议\n- 架构设计合理性分析\n- 安全性漏洞识别\n\
+            - 性能问题诊断\n- 最佳实践指导，参考规范文档{{#context#}}\n## 响应格式\n<response-format type=\"\
+            markdown\">\n```markdown\n### \U0001F50D 洞察 (Insights)\n- **代码质量**: [对代码整体质量的评价]\n\
+            - **架构设计**: [对架构合理性的分析]\n- **业务逻辑**: [对业务实现的评估]\n### ⚠️ 问题 (Issues)\n\
+            #### 严重问题 (Critical)\n- [列出影响功能或安全的关键问题]\n#### 重要问题 (Important)\n- [列出影响代码质量或维护性的重要问题]\n\
+            #### 建议改进 (Suggestions)\n- [列出可选的优化建议]\n### \U0001F4A1 建议 (Recommendations)\n\
+            #### 立即修复 (Immediate)\n- [需要立即修复的问题和建议]\n#### 优化改进 (Optimization)\n- [代码优化和性能改进建议]\n\
+            #### 最佳实践 (Best Practices)\n- [遵循行业最佳实践的建议]\n### \U0001F4CA 评分\n- **代码质量**:\
+            \ ⭐⭐⭐⭐⭐ (1-5星)\n- **安全性**: ⭐⭐⭐⭐⭐ (1-5星)\n- **可维护性**: ⭐⭐⭐⭐⭐ (1-5星)\n- **性能**:\
+            \ ⭐⭐⭐⭐⭐ (1-5星)\n```\n</response-format>\n## 审查规则\n### 核心原则\n<rules>\n\
+            - **专注审查**: 只审查 `code-to-review` 部分的代码变更。样例如下:\n  <sample type=\"json\"\
+            >\n    {\n        \"diff\": \"--- a/packages/core-api/src/analysis-api/analysis-api.service.ts\\\
             n+++ b/packages/core-api/src/analysis-api/analysis-api.service.ts\\n@@ -26,7 +26,7 @@ export class AnalysisApiService {\\\
             n     private moduleRef: ModuleRef,\\n     private cacheService: CalculationCacheService,\\\
             n     private measurementValueService: MeasurementValueService,\\n-  ) { }\\\
-            n+  ) {}\\n   getRegisterdActions() {\\n     return this.registedActions;\\\
+            n+  ) {}\\n   getRegisteredActions() {\\n     return this.registedActions;\\\
             n   }\\n\", // 以 unified diff 格式描述的文件内代码改动。\n        \"new_path\": \"\
             packages/core-api/src/analysis-api/analysis-api.service.ts\", // 文件新名字。\n\
                     \"old_path\": \"packages/core-api/src/analysis-api/analysis-api.service.ts\"\
-            , // 文件旧名字。\n        \"a_mode\": \"100644\", // 文件旧的权限值。\n        \"b_mode\"\
-            : \"100644\", // 文件新的权限值。\n        \"new_file\": false, // 文件是否是新建的。\n\
-                    \"renamed_file\": false, // 文件是否被改名。\n        \"deleted_file\"\
-            : false, // 文件是否被删除。\n        \"generated_file\": false // 文件是否是自动生成的。\n\
-                }\n  </sample>\n- 参考但不审查 file-content 部分，这是文件改动后的完整内容。可能被省略。\n- 参考但不审查\
-            \ all-changes 部分，这是本次 Push 的所有 Commits 的改动。当改动过多时会被省略。\n- 你总是从代码、业务两方面进行审查。\n\
-            - 你总是按照 response-format 格式进行回复。\n- 代码是否符合提交消息中的内容？\n- 如果有任何错误，请突出显示它们。\n\
+            , // 文件旧名字。\n        \"new_line\": 1, // 当前改动的行\n        \"old_line\"\
+            : null, // 当前改动的行之前的位置\n        \"a_mode\": \"100644\", // 文件旧的权限值。\n\
+                    \"b_mode\": \"100644\", // 文件新的权限值。\n        \"new_file\": false,\
+            \ // 文件是否是新建的。\n        \"renamed_file\": false, // 文件是否被改名。\n        \"\
+            deleted_file\": false, // 文件是否被删除。\n        \"generated_file\": false\
+            \ // 文件是否是自动生成的。\n    }\n  </sample>\n- **全面分析**: 从代码质量、业务逻辑、安全性、性能等多维度评估\n\
+            - **优先级排序**: 按严重程度分类问题（严重/重要/建议）\n- **建设性反馈**: 提供具体、可操作的改进建议\n- **中文回复**:\
+            \ 所有反馈使用中文表达\n- 参考但不审查 file-content 部分，这是文件改动后的完整内容。当文件过长时会被省略。\n- 参考但不审查\
+            \ all-changes 部分，这是本次Merge Request 的所有改动。当改动过多时会被省略。\n- 你总是从代码、业务两方面进行审查。\n\
+            - 你总是按照 response-format 格式进行回复\n- 代码是否符合提交消息中的内容？\n- 如果有任何错误，请突出显示它们。\n\
             - 不要突出显示小问题和细节。\n- 不必对自动生成的文件进行审查。\n- 你总是用语精练、准确。\n- 当无需审查时，你总是返回空字符串\"\
-            \"。\n- 你总是用中文给出反馈。\n</rules>"
+            \"。\n- 你总是用中文给出反馈。\n</rules>\n### 审查范围\n- ✅ **代码变更**: 审查 diff 中的具体代码改动\n\
+            - ✅ **文件结构**: 评估文件组织和新文件创建\n- ✅ **命名规范**: 检查变量、函数、类命名\n- ✅ **代码风格**: 评估代码格式和风格一致性\n\
+            - ✅ **逻辑正确性**: 验证业务逻辑实现\n- ✅ **安全性**: 识别潜在的安全漏洞\n- ✅ **性能影响**: 评估性能影响和优化空间\n\
+            ### 排除范围\n- ❌ **自动生成文件**: 不审查自动生成的代码\n- ❌ **配置文件**: 不审查纯配置文件（除非有安全问题）\n\
+            - ❌ **第三方代码**: 不审查未修改的第三方库代码\n### 问题分类标准\n#### 严重问题 (Critical)\n- 导致程序崩溃或异常的错误\n\
+            - 安全漏洞（SQL注入、XSS、权限绕过等）\n- 数据丢失或损坏风险\n- 性能严重下降（O(n²) 算法等）\n#### 重要问题 (Important)\n\
+            - 代码可读性差\n- 违反编码规范\n- 潜在的边界情况处理不当\n- 缺少必要的错误处理\n- 测试覆盖率不足\n#### 建议改进 (Suggestions)\n\
+            - 代码优化机会\n- 更好的命名建议\n- 性能微优化\n- 代码结构改进"
         - id: bf16301d-4510-4420-94d9-c32f35091008
           role: user
           text: '<repository>
@@ -2513,6 +2528,65 @@ workflow:
             <file-content>{{#1735999561470.output#}}</file-content
 
             <code-to-review>{{#17359979073310.item#}}</code-to-review>'
+        - id: 3ac91324-1c65-4e02-89dc-20161f83b579
+          role: assistant
+          text: '## 审查检查清单
+
+            ### 代码质量
+
+            - [ ] 是否符合最佳实践规范？
+
+            - [ ] 代码是否清晰易读？
+
+            - [ ] 命名是否规范且有意义？
+
+            - [ ] 是否有重复代码？
+
+            - [ ] 函数是否职责单一？
+
+            - [ ] 是否有适当的注释？
+
+            ### 安全性
+
+            - [ ] 是否有输入验证？
+
+            - [ ] 是否有权限检查？
+
+            - [ ] 是否有 SQL 注入风险？
+
+            - [ ] 是否有 XSS 风险？
+
+            - [ ] 敏感信息是否加密？
+
+            ### 性能
+
+            - [ ] 算法复杂度是否合理？
+
+            - [ ] 是否有不必要的数据库查询？
+
+            - [ ] 是否有内存泄漏风险？
+
+            - [ ] 是否有缓存优化机会？
+
+            ### 可维护性
+
+            - [ ] 代码结构是否合理？
+
+            - [ ] 是否有适当的错误处理？
+
+            - [ ] 是否有单元测试？
+
+            - [ ] 是否遵循设计模式？
+
+            ### 业务逻辑
+
+            - [ ] 业务需求是否完整实现？
+
+            - [ ] 边界情况是否处理？
+
+            - [ ] 数据验证是否充分？
+
+            - [ ] 用户体验是否考虑？'
         selected: false
         title: LLM Commit Diff
         type: llm
@@ -2527,7 +2601,7 @@ workflow:
         y: 76.17266311623791
       positionAbsolute:
         x: 4211.888400775726
-        y: 814.1726631162379
+        y: 856.1726631162379
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2601,7 +2675,7 @@ workflow:
         y: 66.36420179692107
       positionAbsolute:
         x: 2661.836490028515
-        y: 804.3642017969211
+        y: 846.3642017969211
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2645,7 +2719,7 @@ workflow:
         y: 65
       positionAbsolute:
         x: 3283.913571917155
-        y: 803
+        y: 845
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2681,7 +2755,7 @@ workflow:
         y: 65
       positionAbsolute:
         x: 3597.6355202036825
-        y: 803
+        y: 845
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2735,7 +2809,7 @@ workflow:
         y: 85.11532361552509
       positionAbsolute:
         x: 4538.609559806351
-        y: 823.1153236155251
+        y: 865.1153236155251
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2757,7 +2831,7 @@ workflow:
         y: 68
       positionAbsolute:
         x: 2486
-        y: 806
+        y: 848
       selectable: false
       sourcePosition: right
       targetPosition: left
@@ -2778,10 +2852,10 @@ workflow:
       id: '1735998423516'
       position:
         x: 5500
-        y: 957.5
+        y: 999.5
       positionAbsolute:
         x: 5500
-        y: 957.5
+        y: 999.5
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2814,7 +2888,7 @@ workflow:
         y: 65
       positionAbsolute:
         x: 2983.913571917155
-        y: 803
+        y: 845
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -2841,7 +2915,7 @@ workflow:
         y: 73.31552025909491
       positionAbsolute:
         x: 3903.1160246327404
-        y: 811.3155202590949
+        y: 853.3155202590949
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2870,7 +2944,7 @@ workflow:
         y: 173.3155202590949
       positionAbsolute:
         x: 3627.401738918455
-        y: 911.3155202590949
+        y: 953.3155202590949
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -3034,10 +3108,10 @@ workflow:
       id: '1736000355076'
       position:
         x: 4892
-        y: 943
+        y: 971
       positionAbsolute:
         x: 4892
-        y: 943
+        y: 971
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -3078,10 +3152,10 @@ workflow:
       id: '1736003178180'
       position:
         x: 1550
-        y: 927.5
+        y: 955.5
       positionAbsolute:
         x: 1550
-        y: 927.5
+        y: 955.5
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -3097,10 +3171,10 @@ workflow:
       id: '1736003193053'
       position:
         x: 1854
-        y: 1066
+        y: 1094
       positionAbsolute:
         x: 1854
-        y: 1066
+        y: 1094
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -3127,10 +3201,10 @@ workflow:
       id: '1736228935056'
       position:
         x: 1246
-        y: 885
+        y: 913
       positionAbsolute:
         x: 1246
-        y: 885
+        y: 913
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -3146,10 +3220,10 @@ workflow:
       id: '1736229032478'
       position:
         x: 1550
-        y: 1145.5
+        y: 1173.5
       positionAbsolute:
         x: 1550
-        y: 1145.5
+        y: 1173.5
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -3187,22 +3261,21 @@ workflow:
       id: '1754277742659'
       position:
         x: 5196
-        y: 939
+        y: 981
       positionAbsolute:
         x: 5196
-        y: 939
+        y: 981
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 244
     - data:
-        code: "\nfunction main({result, author_name, project_name, web_url, mr_title,\
-          \ mr_url}) {\n    const greetings = `# AI Code Review Result\\n您好 @${author_name},\
-          \ 以下是对您在 [${project_name}](${web_url}) 推送的 [${mr_title}](${mr_url}) 的代码审查结果:\\\
-          n\\n` \n    const disclaimer = `PS: 测试阶段，审核结果作为参考，注意幻觉 \U0001F4A5`\n   \
-          \ const message = [greetings, result, disclaimer].join('\\n')\n\n    return\
-          \ {\n        message: message\n    }\n}\n"
+        code: "function main({result, author_name, project_name, web_url, mr_title,\
+          \ mr_url, new_path}) {\n    const greetings = `# AI Code Review Result\\\
+          n @${author_name}, 以下是对您在 [${project_name}](${web_url}) 推送的 [${mr_title}](${mr_url})\
+          \ 的 ${new_path} 代码的审查结果:\\n\\n` \n    const message = [greetings, result].join('\\\
+          n\\n')\n\n    return {\n        message: message\n    }\n}\n"
         code_language: javascript
         desc: ' 生成 TV 消息并 @指定用户'
         isInIteration: true
@@ -3239,6 +3312,10 @@ workflow:
           - '17346946700280'
           - mr_url
           variable: mr_url
+        - value_selector:
+          - '1735129504155'
+          - new_path
+          variable: new_path
       height: 82
       id: '1754278744853'
       parentId: '1734625888939'
@@ -3246,8 +3323,8 @@ workflow:
         x: 3325.6125352840063
         y: 197.9332669216916
       positionAbsolute:
-        x: 9397.486493364824
-        y: 827.1482928782026
+        x: 9433.612535284006
+        y: 726.4332669216916
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -3266,7 +3343,7 @@ workflow:
             value: "{\n    \"botId\": \"{{#env.TV_BOOT_ID#}}\",\n    \"message\":\
               \ \"{{#1754278744853.message#}}\"\n}"
           type: json
-        desc: 将 Review 的 comments 发到 TV 群
+        desc: 将 review 的 comments 发到 TV 群
         headers: ''
         isInIteration: true
         iteration_id: '1734625888939'
@@ -3289,11 +3366,11 @@ workflow:
       id: '1754289121034'
       parentId: '1734625888939'
       position:
-        x: 3299.47405599756
-        y: 397.5485479183076
+        x: 3279.500767215135
+        y: 371.3336063913738
       positionAbsolute:
-        x: 9371.348014078376
-        y: 1026.7635738748186
+        x: 9387.500767215135
+        y: 899.8336063913738
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -3307,12 +3384,20 @@ workflow:
         isInIteration: true
         iteration_id: '1734625888939'
         multiple_retrieval_config:
-          reranking_enable: true
+          reranking_enable: false
           reranking_mode: reranking_model
           reranking_model:
             model: gte-rerank
             provider: tongyi
+          score_threshold: null
           top_k: 4
+          weights:
+            keyword_setting:
+              keyword_weight: 0
+            vector_setting:
+              embedding_model_name: text-embedding-v3
+              embedding_provider_name: tongyi
+              vector_weight: 1
         query_variable_selector:
         - '1735578500986'
         - content
@@ -3324,11 +3409,11 @@ workflow:
       id: '1754296023869'
       parentId: '1734625888939'
       position:
-        x: 1757.2102606924927
-        y: 446.94332482481605
+        x: 1798.6075319321299
+        y: 420.7250530397132
       positionAbsolute:
-        x: 7829.08421877331
-        y: 1076.158350781327
+        x: 7906.60753193213
+        y: 949.2250530397132
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -3336,6 +3421,6 @@ workflow:
       width: 244
       zIndex: 1002
     viewport:
-      x: -7914.240716953747
-      y: -13.34355944030682
-      zoom: 0.9084171368574308
+      x: -3626.0104365056677
+      y: 256.5825988112099
+      zoom: 0.6043376910020889
