@@ -56,7 +56,7 @@ workflow:
     selector:
     - env
     - GITLAB_PRIVATE_TOKEN
-    value: V2Lgo4UA2_-EHDyQHfqQ
+    value: ''
     value_type: secret
   features:
     file_upload:
@@ -843,7 +843,7 @@ workflow:
       positionAbsolute:
         x: 30
         y: 528.5
-      selected: true
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -1117,14 +1117,17 @@ workflow:
     - data:
         code: "function main({ detail_body }) {\n    let mr = JSON.parse(detail_body);\n\
           \    \n    return { \n        title: mr.title,\n        description: mr.description,\n\
-          \        author_name: mr.author.name,\n        mr_url: mr.web_url\n    }\n\
-          }\n"
+          \        author_name: mr.author.name,\n        author_username: mr.author.username,\n\
+          \        mr_url: mr.web_url\n    }\n}\n"
         code_language: javascript
         desc: BODY DECODE
         isInIteration: true
         iteration_id: '1734625888939'
         outputs:
           author_name:
+            children: null
+            type: string
+          author_username:
             children: null
             type: string
           description:
@@ -3271,11 +3274,12 @@ workflow:
       type: custom
       width: 244
     - data:
-        code: "function main({result, author_name, project_name, web_url, mr_title,\
-          \ mr_url, new_path}) {\n    const greetings = `# AI Code Review Result\\\
-          n @${author_name}, 以下是对您在 [${project_name}](${web_url}) 推送的 [${mr_title}](${mr_url})\
-          \ 的 ${new_path} 代码的审查结果:\\n\\n` \n    const message = [greetings, result].join('\\\
-          n\\n')\n\n    return {\n        message: message\n    }\n}\n"
+        code: "function main({result, author_username, project_name, web_url, mr_title,\
+          \ mr_url, new_path}) {\n    const usereamil = `${author_username}@kn.group`\n\
+          \    const greetings = `# AI Code Review Result\\n @${usereamil} , 以下是对您在\
+          \ [${project_name}](${web_url}) 推送的 [${mr_title}](${mr_url}) 的 ${new_path}\
+          \ 代码的审查结果:\\n\\n` \n    const message = [greetings, result].join('\\n\\\
+          n')\n\n    return {\n        message: message\n    }\n}\n"
         code_language: javascript
         desc: ' 生成 TV 消息并 @指定用户'
         isInIteration: true
@@ -3294,8 +3298,8 @@ workflow:
           variable: result
         - value_selector:
           - '17346946700280'
-          - author_name
-          variable: author_name
+          - author_username
+          variable: author_username
         - value_selector:
           - '17346383362280'
           - project_name
@@ -3320,12 +3324,12 @@ workflow:
       id: '1754278744853'
       parentId: '1734625888939'
       position:
-        x: 3325.6125352840063
-        y: 197.9332669216916
+        x: 3324.4521747177823
+        y: 196.77290635546842
       positionAbsolute:
-        x: 9433.612535284006
-        y: 726.4332669216916
-      selected: false
+        x: 9432.452174717782
+        y: 725.2729063554684
+      selected: true
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -3360,17 +3364,17 @@ workflow:
           max_write_timeout: 0
         title: Send TV Message
         type: http-request
-        url: https://tv-service-alert.kuainiu.chat/alert
+        url: https://tv-service-alert.kuainiu.chat/alert/v2/inline
         variables: []
       height: 138
       id: '1754289121034'
       parentId: '1734625888939'
       position:
-        x: 3279.500767215135
-        y: 371.3336063913738
+        x: 3324.1281054381707
+        y: 377.28391815444536
       positionAbsolute:
-        x: 9387.500767215135
-        y: 899.8336063913738
+        x: 9432.12810543817
+        y: 905.7839181544454
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -3421,6 +3425,6 @@ workflow:
       width: 244
       zIndex: 1002
     viewport:
-      x: -3626.0104365056677
-      y: 256.5825988112099
-      zoom: 0.6043376910020889
+      x: -6518.923549557103
+      y: 273.3435593779811
+      zoom: 0.8145075630702152
