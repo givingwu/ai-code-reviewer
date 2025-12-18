@@ -5,18 +5,32 @@ app:
   mode: workflow
   name: GitLab 代码审查助理
   use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/tongyi:0.1.3@dddcb77e49af30c7089baa305f2320cd40d4c3b931e035c80fce8a78c7b38639
+    version: null
 kind: app
-version: 0.1.5
+version: 0.4.0
 workflow:
   conversation_variables: []
   environment_variables:
-  - description: ''
+  - description: 调用 TV Bot 的接口发送 IM 消息
     id: 3e7b4d79-b8e5-4fce-8770-d2281671382d
     name: TV_BOOT_ID
     selector:
     - env
     - TV_BOOT_ID
-    value: 4b39ecb8-89e6-4be7-820c-f39b8d750ee5
+    value: fac78d42-fe63-4a00-877a-8cafe7a67445
+    value_type: string
+  - description: 是否在逐文件循环中发送 TV 消息（默认 true）
+    id: 9e5d0f4b-2a1b-4b6c-9e46-0d1a3b0f2c1d
+    name: ENABLE_LOOP_SEND_MESSAGE
+    selector:
+    - env
+    - ENABLE_LOOP_SEND_MESSAGE
+    value: 'true'
     value_type: string
   - description: ''
     id: c32caa8c-7a2d-49f7-93c0-e8c992907d8a
@@ -49,14 +63,14 @@ workflow:
     - env
     - MAX_STRING
     value: 80000
-    value_type: number
+    value_type: integer
   - description: ''
     id: 2e03656f-166f-47bc-bb31-27afbbca9982
     name: GITLAB_PRIVATE_TOKEN
     selector:
     - env
     - GITLAB_PRIVATE_TOKEN
-    value: ''
+    value: V2Lgo4UA2_-EHDyQHfqQ
     value_type: secret
   features:
     file_upload:
@@ -159,12 +173,96 @@ workflow:
       zIndex: 0
     - data:
         isInIteration: false
-        sourceType: iteration
+        sourceType: code
+        targetType: llm
+      id: 1757000000003-source-1757000000004-target
+      selected: false
+      source: '1757000000003'
+      sourceHandle: source
+      target: '1757000000004'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: http-request
+      id: 1757000000004-source-1757000000005-target
+      selected: false
+      source: '1757000000004'
+      sourceHandle: source
+      target: '1757000000005'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: http-request
         targetType: end
-      id: 1734625888939-source-1734623951413-target
+      id: 1757000000005-source-1734623951413-target
+      selected: false
+      source: '1757000000005'
+      sourceHandle: source
+      target: '1734623951413'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: iteration
+        targetType: code
+      id: 1734625888939-source-1757000000013-target
       selected: false
       source: '1734625888939'
       sourceHandle: source
+      target: '1757000000013'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: http-request
+        targetType: code
+      id: 1757000000013-source-1757000000014-target
+      selected: false
+      source: '1757000000013'
+      sourceHandle: source
+      target: '1757000000014'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: if-else
+      id: 1757000000014-source-1757000000015-target
+      selected: false
+      source: '1757000000014'
+      sourceHandle: source
+      target: '1757000000015'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: code
+      id: 1757000000015-true-1757000000003-target
+      selected: false
+      source: '1757000000015'
+      sourceHandle: 'true'
+      target: '1757000000003'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: end
+      id: 1757000000015-false-1734623951413-target
+      selected: false
+      source: '1757000000015'
+      sourceHandle: 'false'
       target: '1734623951413'
       targetHandle: target
       type: custom
@@ -185,10 +283,34 @@ workflow:
         isInIteration: false
         sourceType: code
         targetType: http-request
-      id: 17346946709900-source-17351266890650-target
+      id: 17346946709900-source-1757000000010-target
       selected: false
       source: '17346946709900'
       sourceHandle: source
+      target: '1757000000010'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: http-request
+      id: 1757000000010-true-1757000000011-target
+      selected: false
+      source: '1757000000010'
+      sourceHandle: 'true'
+      target: '1757000000011'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: http-request
+      id: 1757000000010-false-17351266890650-target
+      selected: false
+      source: '1757000000010'
+      sourceHandle: 'false'
       target: '17351266890650'
       targetHandle: target
       type: custom
@@ -197,9 +319,33 @@ workflow:
         isInIteration: false
         sourceType: http-request
         targetType: code
-      id: 17351266890650-source-1734694634848-target
+      id: 17351266890650-source-1757000000012-target
       selected: false
       source: '17351266890650'
+      sourceHandle: source
+      target: '1757000000012'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: http-request
+        targetType: code
+      id: 1757000000011-source-1757000000012-target
+      selected: false
+      source: '1757000000011'
+      sourceHandle: source
+      target: '1757000000012'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: code
+      id: 1757000000012-source-1734694634848-target
+      selected: false
+      source: '1757000000012'
       sourceHandle: source
       target: '1734694634848'
       targetHandle: target
@@ -269,11 +415,35 @@ workflow:
     - data:
         isInIteration: false
         sourceType: if-else
-        targetType: http-request
-      id: 1734702859732-false-17351299823070-target
+        targetType: code
+      id: 1734702859732-false-1757000000000-target
       selected: false
       source: '1734702859732'
       sourceHandle: 'false'
+      target: '1757000000000'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: knowledge-retrieval
+      id: 1757000000000-source-1757000000001-target
+      selected: false
+      source: '1757000000000'
+      sourceHandle: source
+      target: '1757000000001'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: knowledge-retrieval
+        targetType: http-request
+      id: 1757000000001-source-17351299823070-target
+      selected: false
+      source: '1757000000001'
+      sourceHandle: source
       target: '17351299823070'
       targetHandle: target
       type: custom
@@ -436,10 +606,23 @@ workflow:
         isInIteration: true
         iteration_id: '1734625888939'
         sourceType: code
-        targetType: if-else
-      id: 1735661041621-source-1734700071985-target
+        targetType: code
+      id: 1735661041621-source-1757000000002-target
       selected: false
       source: '1735661041621'
+      sourceHandle: source
+      target: '1757000000002'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        iteration_id: '1734625888939'
+        sourceType: code
+        targetType: if-else
+      id: 1757000000002-source-1734700071985-target
+      selected: false
+      source: '1757000000002'
       sourceHandle: source
       target: '1734700071985'
       targetHandle: target
@@ -787,23 +970,10 @@ workflow:
         isInIteration: true
         iteration_id: '1734625888939'
         sourceType: code
-        targetType: knowledge-retrieval
-      id: 1735578500986-source-1754296023869-target
+        targetType: llm
+      id: 1735578500986-source-1734775287920-target
       selected: false
       source: '1735578500986'
-      sourceHandle: source
-      target: '1754296023869'
-      targetHandle: target
-      type: custom
-      zIndex: 1002
-    - data:
-        isInIteration: true
-        iteration_id: '1734625888939'
-        sourceType: knowledge-retrieval
-        targetType: llm
-      id: 1754296023869-source-1734775287920-target
-      selected: false
-      source: '1754296023869'
       sourceHandle: source
       target: '1734775287920'
       targetHandle: target
@@ -814,11 +984,37 @@ workflow:
         iteration_id: '1734625888939'
         sourceType: code
         targetType: http-request
-      id: 1754278744853-source-1754289121034-target
+      id: 1754278744853-source-1757000000016-target
       selected: false
       source: '1754278744853'
       sourceHandle: source
+      target: '1757000000016'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        iteration_id: '1734625888939'
+        sourceType: if-else
+        targetType: http-request
+      id: 1757000000016-true-1754289121034-target
+      selected: false
+      source: '1757000000016'
+      sourceHandle: 'true'
       target: '1754289121034'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        iteration_id: '1734625888939'
+        sourceType: if-else
+        targetType: code
+      id: 1757000000016-false-1757000000017-target
+      selected: false
+      source: '1757000000016'
+      sourceHandle: 'false'
+      target: '1757000000017'
       targetHandle: target
       type: custom
       zIndex: 1002
@@ -835,19 +1031,19 @@ workflow:
           required: true
           type: paragraph
           variable: payload
-      height: 90
+      height: 88
       id: '1734623374802'
       position:
-        x: 30
-        y: 528.5
+        x: 0
+        y: 302
       positionAbsolute:
-        x: 30
-        y: 528.5
+        x: 0
+        y: 302
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
     - data:
         desc: 结束节点
         outputs:
@@ -856,50 +1052,848 @@ workflow:
         selected: false
         title: True End
         type: end
-      height: 82
+      height: 80
       id: '1734623951413'
       position:
-        x: 9910
-        y: 528.5
+        x: 11896
+        y: 292
       positionAbsolute:
-        x: 9910
-        y: 528.5
+        x: 11896
+        y: 292
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
+    - data:
+        code: "function main({mr_title, mr_description, author_name, author_username, mr_url, diffs, diff_count, file_reviews, reviewer_username}) {\n  const tryParse = (s) => {\n    try {\n      return JSON.parse(s);\n    } catch {\n      return null;\n    }\n  };\n\n  let additions = 0;\n  let deletions = 0;\n  const arr = Array.isArray(diffs) ? diffs : [];\n  for (const raw of arr) {\n    const obj = typeof raw === 'string' ? tryParse(raw) : raw;\n    const diffText = obj?.diff;\n    if (!diffText || typeof diffText !== 'string') continue;\n    for (const line of diffText.split('\\n')) {\n      if (line.startsWith('+++') || line.startsWith('---')) continue;\n      if (line.startsWith('+')) additions += 1;\n      else if (line.startsWith('-')) deletions += 1;\n    }\n  }\n\n  const fileCount = typeof diff_count === 'number' && diff_count > 0\n    ? diff_count\n    : (Array.isArray(file_reviews) ? file_reviews.length : 0);\n\n  const now = new Date();\n  const pad = (n) => String(n).padStart(2, '0');\n  const ts = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}`;\n\n  const reviewsJoined = (Array.isArray(file_reviews) ? file_reviews : [])\n    .filter(Boolean)\n    .join('\\n\\n---\\n\\n')\n    .slice(0, 120000);\n\n  const marker = '<!-- ai-mr-review-summary -->';\n\n  const summary_user_input = `以下是本次 MR 的信息与逐文件审查结果（请严格按提示词规定的 Markdown 结构输出，章节齐全、顺序固定）：\\n\\n` +\n    `MR 标题：${mr_title || ''}\\n` +\n    `MR 链接：${mr_url || ''}\\n` +\n    `提交者：${author_name || ''} (@${author_username || ''})\\n` +\n    `变更文件数：${fileCount} 个文件\\n` +\n    `变更代码行数：+${additions} -${deletions}\\n` +\n    `审查时间：${ts}\\n` +\n    `关联任务：N/A\\n\\n` +\n    `---\\n\\n` +\n    `MR 描述：\\n${(mr_description || '').slice(0, 8000)}\\n\\n` +\n    `---\\n\\n` +\n    `逐文件审查结果：\\n\\n${reviewsJoined}\\n`;\n\n  return { marker, summary_user_input };\n}\n"
+        code_language: javascript
+        desc: 汇总 MR 元信息与逐文件审查内容，生成汇总模型输入
+        outputs:
+          marker:
+            children: null
+            type: string
+          summary_user_input:
+            children: null
+            type: string
+        selected: false
+        title: Build MR Summary Input
+        type: code
+        variables:
+        - value_selector:
+          - '17346946700280'
+          - title
+          variable: mr_title
+        - value_selector:
+          - '17346946700280'
+          - description
+          variable: mr_description
+        - value_selector:
+          - '17346946700280'
+          - author_name
+          variable: author_name
+        - value_selector:
+          - '17346946700280'
+          - author_username
+          variable: author_username
+        - value_selector:
+          - '17346946700280'
+          - mr_url
+          variable: mr_url
+        - value_selector:
+          - '1734694634848'
+          - diffs
+          variable: diffs
+        - value_selector:
+          - '1734694634848'
+          - diff_count
+          variable: diff_count
+        - value_selector:
+          - '1734625888939'
+          - output
+          variable: file_reviews
+        - value_selector:
+          - env
+          - GITLAB_REVIEWER_USERNAME
+          variable: reviewer_username
+      height: 96
+      id: '1757000000003'
+      position:
+        x: 11480
+        y: 180
+      positionAbsolute:
+        x: 11480
+        y: 180
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 360
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1757000000001'
+          - result
+        desc: 使用 MR Review 提示词生成 MR 级汇总报告
+        model:
+          completion_params:
+            temperature: 0.1
+            top_p: 0.5
+          mode: chat
+          name: deepseek-v3.2-exp
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 1757000000004-system
+          role: system
+          text: |-
+            # MR Review 提示词
+
+            ## 角色设定
+
+            你是一位资深的前端架构师和代码审查专家，负责对 Fox-UI 项目的 Merge Request 进行专业的 Code Review。你精通 React 生态、微前端架构、TypeScript 以及现代化前端工程实践。
+
+            ---
+
+            ## 审查目标
+
+            对提交的代码变更进行**全面、严格、建设性**的审查,确保代码质量、可维护性、性能和安全性符合团队标准。
+
+            ---
+
+            ## 审查维度
+
+            ### 1. 代码规范与风格 (Code Style & Standards)
+
+            **检查项：**
+
+            - ✅ 代码是否符合 [前端开发规范文档](/spec/前端开发规范文档.md)
+            - ✅ 是否通过 Biome 格式化检查（空格缩进、80 字符换行、单/双引号规范）
+            - ✅ 命名是否规范：
+              - React 组件使用 PascalCase（如 `UserTable.tsx`）
+              - 函数/变量使用 camelCase
+              - 类型/接口使用 PascalCase
+              - 常量使用 UPPER_SNAKE_CASE
+            - ✅ 文件组织是否合理（组件、hooks、utils、services 分类清晰）
+            - ✅ 是否有不必要的注释或调试代码（console.log、debugger）
+
+            **重点关注：**
+
+            - 代码是否符合 Biome 配置：单引号（TS/JS）、双引号（JSX）、80 字符行宽
+            - 组件文件名与导出名是否一致
+            - 样式文件命名是否规范（如 `UserTable.module.less`）
+
+            ---
+
+            ### 2. TypeScript 类型安全 (Type Safety)
+
+            **检查项：**
+
+            - ✅ 是否正确定义类型，避免使用 `any`（除非必要且有注释说明）
+            - ✅ 接口定义是否完整、准确
+            - ✅ 泛型使用是否合理
+            - ✅ 类型导入/导出是否使用 `import type`
+            - ✅ 是否有类型断言滥用（`as`）
+            - ✅ Props 类型是否完整定义
+
+            **重点关注：**
+
+            - 避免隐式 `any`
+            - 接口定义应放在 `types.ts` 或组件文件顶部
+            - API 响应数据是否有完整类型定义
+
+            ---
+
+            ### 3. React 最佳实践 (React Best Practices)
+
+            **检查项：**
+
+            - ✅ 组件是否采用函数式写法
+            - ✅ Hooks 使用是否符合规范：
+              - 是否在顶层调用
+              - 依赖数组是否完整
+              - 是否有不必要的 useEffect
+            - ✅ 状态管理是否合理（本地 state vs Zustand）
+            - ✅ 是否有性能优化（useMemo、useCallback、React.memo）
+            - ✅ 组件拆分是否合理（单一职责原则）
+            - ✅ 是否有内存泄漏风险（未清理的订阅、定时器）
+
+            **重点关注：**
+
+            - useEffect 依赖数组完整性
+            - 避免在循环/条件中使用 Hooks
+            - 大列表是否考虑虚拟滚动
+            - 是否有不必要的重渲染
+
+            ---
+
+            ### 4. 微前端架构规范 (Micro-frontend Architecture)
+
+            **检查项：**
+
+            - ✅ 子应用路由是否符合 `/{domain}/*` 通配符规范
+            - ✅ 是否正确使用约定式路由（参考 Modern.js 约定式路由）
+            - ✅ Module Federation 配置是否正确
+            - ✅ 跨应用通信是否规范（避免全局变量污染）
+            - ✅ 共享依赖版本是否一致（检查 `pnpm.overrides`）
+            - ✅ 页面缓存使用是否合理（`@feoe/react-keepalive`）
+
+            **重点关注：**
+
+            - 子应用间是否有不合理的直接依赖
+            - 公共组件是否放在 `packages/components`
+            - 工具函数是否放在 `packages/shared`
+
+            ---
+
+            ### 5. 性能优化 (Performance)
+
+            **检查项：**
+
+            - ✅ 是否有大体积依赖未做按需加载
+            - ✅ 组件是否合理使用懒加载（`@loadable/component`）
+            - ✅ 图片/资源是否优化
+            - ✅ 列表渲染是否有 key 优化
+            - ✅ 是否有不必要的计算或渲染
+            - ✅ API 请求是否有缓存策略
+            - ✅ 是否有防抖/节流处理（搜索、滚动等）
+
+            **重点关注：**
+
+            - Bundle 体积是否合理（可通过 `pnpm analyze` 检查）
+            - 首屏加载性能
+            - 长列表性能
+
+            ---
+
+            ### 6. 错误处理与边界情况 (Error Handling & Edge Cases)
+
+            **检查项：**
+
+            - ✅ API 请求是否有错误处理
+            - ✅ 是否有 ErrorBoundary 保护关键组件
+            - ✅ 表单验证是否完善
+            - ✅ 空状态、加载状态、错误状态是否处理
+            - ✅ 边界条件是否考虑（空数组、null、undefined）
+            - ✅ 是否有合适的用户提示（Toast、Modal）
+
+            **重点关注：**
+
+            - 网络异常处理
+            - 用户输入校验
+            - 空数据展示
+
+            ---
+
+            ### 7. 安全性 (Security)
+
+            **检查项：**
+
+            - ✅ 是否有 XSS 风险（dangerouslySetInnerHTML）
+            - ✅ 敏感信息是否暴露（API Key、Token）
+            - ✅ 用户输入是否正确转义
+            - ✅ 权限校验是否完整
+            - ✅ 接口调用是否有鉴权
+
+            **重点关注：**
+
+            - 不要在代码中硬编码敏感信息
+            - 用户生成内容需要转义
+
+            ---
+
+            ### 8. 测试覆盖 (Testing)
+
+            **检查项：**
+
+            - ✅ 是否有对应的单元测试（关键逻辑）
+            - ✅ 测试用例是否完整（正常/异常/边界）
+            - ✅ Hooks 测试是否正确
+            - ✅ 是否需要集成测试
+
+            **重点关注：**
+
+            - 核心业务逻辑应有测试覆盖
+            - 建议核心模块保持 80% 以上覆盖率
+
+            ---
+
+            ### 9. 文档与注释 (Documentation)
+
+            **检查项：**
+
+            - ✅ 复杂逻辑是否有注释说明
+            - ✅ 公共组件是否有使用文档
+            - ✅ API 接口是否有注释
+            - ✅ README 是否需要更新
+            - ✅ 类型定义是否有 JSDoc 说明
+
+            **重点关注：**
+
+            - 注释应说明\"为什么\"而非\"做什么\"
+            - 公共组件需要有 Props 说明
+
+            ---
+
+            ### 10. Git 与提交规范 (Git & Commit)
+
+            **检查项：**
+
+            - ✅ Commit Message 是否符合规范（`feat:`、`fix:`、`chore:`、`hotfix:`）
+            - ✅ 是否关联任务单号
+            - ✅ MR 描述是否清晰（变更内容、影响范围、测试步骤）
+            - ✅ 是否有不相关的文件变更
+            - ✅ 是否有敏感信息提交（`.env`、密钥）
+
+            **重点关注：**
+
+            - 提交历史是否清晰
+            - 是否需要 rebase 或 squash
+
+            ---
+
+            ## 📋 标准输出格式（必须严格遵守）
+
+            **⚠️ 重要说明：每次 Code Review 必须完全按照以下格式输出，不得遗漏任何章节或改变结构顺序。**
+
+            ---
+
+            ### 第一部分：MR 基本信息
+
+            ```markdown
+            ## 📋 MR Review 报告
+
+            **MR 标题**：[从 MR 中提取]
+            **提交者**：[从 MR 中提取]
+            **变更文件数**：X 个文件
+            **变更代码行数**：+XXX -XXX
+            **关联任务**：[任务单号或 N/A]
+            **审查时间**：YYYY-MM-DD HH:mm
+
+            ---
+            ```
+
+            ### 第二部分：快速结论
+
+            ```markdown
+            ## 🎯 审查结论
+
+            **总体评分**：X/5 ⭐
+
+            | 维度     | 评分       | 说明       |
+            | -------- | ---------- | ---------- |
+            | 代码质量 | ⭐⭐⭐⭐⭐ | [简短说明] |
+            | 类型安全 | ⭐⭐⭐⭐⭐ | [简短说明] |
+            | 性能优化 | ⭐⭐⭐⭐⭐ | [简短说明] |
+            | 可维护性 | ⭐⭐⭐⭐⭐ | [简短说明] |
+            | 测试覆盖 | ⭐⭐⭐⭐⭐ | [简短说明] |
+
+            **合并建议**：
+
+            - ✅ **通过 - 可以直接合并**
+            - ⏸️ **条件通过 - 修改后可合并**（需修复 X 个 Blocker，X 个 Major）
+            - ❌ **不通过 - 需要重大修改**（存在严重问题）
+
+            ---
+            ```
+
+            ### 第三部分：问题汇总
+
+            ```markdown
+            ## 📊 问题统计
+
+            | 严重程度      | 数量 | 说明             |
+            | ------------- | ---- | ---------------- |
+            | 🔴 Blocker    | X    | 必须修改才能合并 |
+            | 🟡 Major      | X    | 强烈建议修改     |
+            | 🟢 Minor      | X    | 可选优化         |
+            | 💡 Suggestion | X    | 改进建议         |
+
+            ---
+            ```
+
+            ### 第四部分：优点表扬（必须有，哪怕只有一条）
+
+            ```markdown
+            ## ✅ 做得好的地方
+
+            1. **[具体优点标题]**
+
+               - [详细描述]
+               - 示例：代码位置或片段
+
+            2. **[具体优点标题]**
+               - [详细描述]
+
+            （至少列出 1-3 条优点）
+
+            ---
+            ```
+
+            ### 第五部分：问题详情（按严重程度分组）
+            
+            ````markdown
+            ## 🔴 Blocker - 必须修改（X 个）
+            
+            ### 问题 1：[问题标题]
+            
+            **文件**：`src/path/to/file.tsx` (行 XX-XX)
+            
+            **问题描述**：
+            [清晰描述问题]
+            
+            **当前代码**：
+            
+            ```typescript
+            // ❌ 问题代码
+            [粘贴问题代码片段];
+            ```
+            
+            **建议修改**：
+            
+            ```typescript
+            // ✅ 推荐写法
+            [提供修改后的代码];
+            ```
+            
+            **原因说明**：
+            [解释为什么这样改，可能导致的风险]
+            
+            ---
+            
+            ### 问题 2：[问题标题]
+            
+            [同样的格式...]
+            
+            ---
+            
+            ## 🟡 Major - 强烈建议修改（X 个）
+            
+            ### 问题 1：[问题标题]
+            
+            **文件**：`src/path/to/file.tsx` (行 XX-XX)
+            
+            **问题描述**：
+            [清晰描述问题]
+            
+            **当前代码**：
+            
+            ```typescript
+            // ⚠️ 可改进代码
+            [粘贴代码片段];
+            ```
+            
+            **建议修改**：
+            
+            ```typescript
+            // ✅ 更好的写法
+            [提供改进方案];
+            ```
+            
+            **原因说明**：
+            [解释改进理由和带来的好处]
+            
+            ---
+            
+            ## 🟢 Minor - 可选优化（X 个）
+            
+            ### 问题 1：[问题标题]
+            
+            **文件**：`src/path/to/file.tsx` (行 XX-XX)
+            
+            **建议**：
+            [简短描述优化建议]
+            
+            **示例**（可选）：
+            
+            ```typescript
+            // 💡 优化建议
+            [可选的代码示例];
+            ```
+            
+            ---
+            
+            ## 💡 Suggestion - 改进建议与学习
+            
+            ### 建议 1：[建议标题]
+            
+            **说明**：
+            [详细的改进思路或最佳实践分享]
+            
+            **参考资料**（如有）：
+            
+            - [相关文档链接]
+            
+            ---
+            
+            ````
+            
+            ### 第六部分：文件清单（变更文件超过 5 个时必须提供）
+            
+            ```markdown
+            ## 📁 变更文件清单
+            
+            | 文件路径 | 变更类型 | 问题数量 | 备注 |
+            |---------|---------|---------|------|
+            | `src/components/UserTable.tsx` | 修改 | 🔴×1 🟡×2 | 主要问题文件 |
+            | `src/services/user.service.ts` | 新增 | 🟡×1 | 缺少错误处理 |
+            | `src/utils/format.ts` | 修改 | 🟢×1 | 小优化建议 |
+            | `src/types/user.ts` | 新增 | ✅ | 无问题 |
+            
+            ---
+            ````
+            
+            ### 第七部分：检查清单（必须完整填写）
+            
+            ```markdown
+            ## ✅ 审查检查清单
+            
+            ### 代码规范
+            
+            - [ ] Biome 格式检查通过
+            - [ ] 命名规范符合要求
+            - [ ] 无调试代码（console.log、debugger）
+            - [ ] 文件组织合理
+            
+            ### TypeScript
+            
+            - [ ] 无 `any` 类型（或有合理注释）
+            - [ ] 类型定义完整
+            - [ ] 正确使用 `import type`
+            
+            ### React 最佳实践
+            
+            - [ ] 组件使用函数式写法
+            - [ ] Hooks 使用规范
+            - [ ] 无性能问题
+            - [ ] 无内存泄漏风险
+            
+            ### 微前端架构
+            
+            - [ ] 路由配置正确
+            - [ ] 无跨应用不当依赖
+            - [ ] 共享依赖版本一致
+            
+            ### 性能优化
+            
+            - [ ] 无大体积依赖未按需加载
+            - [ ] 长列表有优化
+            - [ ] 合理使用缓存
+            
+            ### 错误处理
+            
+            - [ ] API 请求有错误处理
+            - [ ] 边界情况已考虑
+            - [ ] 用户提示完善
+            
+            ### 安全性
+            
+            - [ ] 无 XSS 风险
+            - [ ] 无敏感信息泄露
+            - [ ] 权限校验完整
+            
+            ### 测试
+            
+            - [ ] 关键逻辑有测试
+            - [ ] 测试用例充分
+            
+            ### 文档
+            
+            - [ ] 复杂逻辑有注释
+            - [ ] 公共组件有文档
+            
+            ### Git 规范
+            
+            - [ ] Commit Message 规范
+            - [ ] 无无关文件变更
+            - [ ] MR 描述清晰
+            
+            ---
+            ```
+            
+            ### 第八部分：测试建议（如适用，可选提供）
+            
+            ```markdown
+            ## 🧪 测试建议
+            
+            ### 建议测试的场景
+            
+            1. **[场景 1 名称]**
+            
+               - 测试步骤：[详细步骤]
+               - 预期结果：[预期表现]
+               - 关注点：[需要重点关注的地方]
+            
+            2. **[场景 2 名称]**
+               - 测试步骤：[详细步骤]
+               - 预期结果：[预期表现]
+            
+            ### 回归测试范围（如适用）
+            
+            - [ ] [相关功能模块 1]
+            - [ ] [相关功能模块 2]
+            
+            ### 性能测试（如适用）
+            
+            - [ ] 页面加载时间
+            - [ ] 长列表滚动流畅度
+            - [ ] 内存占用情况
+            
+            ---
+            ```
+            
+            ### 第九部分：后续行动（必须明确）
+            
+            ```markdown
+            ## 🎬 后续行动
+            
+            ### 提交者需要做的事情
+            
+            **立即处理（Blocker）：**
+            
+            1. [ ] [具体任务 1 - 预计耗时 Xmin]
+            2. [ ] [具体任务 2 - 预计耗时 Xmin]
+            
+            **建议处理（Major）：**
+            
+            1. [ ] [具体任务 1 - 预计耗时 Xmin]
+            2. [ ] [具体任务 2 - 预计耗时 Xmin]
+            
+            **可选处理（Minor）：**
+            
+            1. [ ] [具体任务 1]
+            
+            ### 审查者承诺
+            
+            - ⏰ 预计响应时间：[收到修改后 X 小时内完成二次审查]
+            - 📞 可联系方式：[如有疑问可通过 XXX 联系]
+            
+            ---
+            ```
+            
+            ### 第十部分：审查总结（必须有）
+            
+            ```markdown
+            ## 📝 审查总结
+            
+            ### 核心问题
+            
+            [用 2-3 句话概括最核心的问题]
+            
+            ### 改进方向
+            
+            [用 2-3 句话说明主要改进方向]
+            
+            ### 总体评价
+            
+            [用 3-5 句话给出整体评价，包括：
+            
+            1. 代码整体质量
+            2. 是否符合团队规范
+            3. 是否达到合并标准
+            4. 对提交者的鼓励或建议]
+            
+            ---
+            
+            **审查者**：[审查者姓名]
+            **审查完成时间**：YYYY-MM-DD HH:mm
+            
+            ---
+            
+            _本次 Review 基于 [Fox-UI 前端开发规范](https://www.notion.so/mountainwu/296d0703435c4d8686f6f84b44bb06a3) 进行_
+            ```
+            
+            ---
+            
+            ## 🚨 格式规范强制要求
+            
+            ### 必须遵守的规则
+            
+            1. **章节完整性**：必须包含前 7 个部分（MR 基本信息至检查清单），第 8-10 部分根据实际情况提供
+            2. **顺序固定**：必须按照 1-10 的顺序输出，不得调整
+            3. **标题格式**：章节标题必须使用指定的 emoji 和文字
+            4. **表格规范**：表格必须使用 Markdown 格式，保持对齐
+            5. **代码块**：所有代码示例必须使用三个反引号包裹，并标注语言
+            6. **问题编号**：每个严重程度分组内的问题必须连续编号
+            7. **空行规范**：每个大章节之间必须有 `---` 分隔线
+            
+            ### 章节提供规则
+            
+            **必须提供（1-7 部分）：**
+            
+            - ✅ 第一部分：MR 基本信息
+            - ✅ 第二部分：快速结论
+            - ✅ 第三部分：问题汇总
+            - ✅ 第四部分：优点表扬
+            - ✅ 第五部分：问题详情
+            - ✅ 第六部分：文件清单（变更文件 > 5 个时）
+            - ✅ 第七部分：检查清单
+            
+            **根据情况提供（8-10 部分）：**
+            
+            - 🔶 第八部分：测试建议（涉及功能变更或新功能时提供）
+            - 🔶 第九部分：后续行动（有 Blocker 或 Major 问题时提供）
+            - ✅ 第十部分：审查总结（始终提供）
+            
+            ### 评分标准（1-5 星）
+            
+            | 星级       | 说明                     |
+            | ---------- | ------------------------ |
+            | ⭐         | 严重不合格，大量问题     |
+            | ⭐⭐       | 不合格，存在多个严重问题 |
+            | ⭐⭐⭐     | 及格，有改进空间         |
+            | ⭐⭐⭐⭐   | 良好，少量优化建议       |
+            | ⭐⭐⭐⭐⭐ | 优秀，几乎无可挑剔       |
+            
+            ### 问题严重程度判定标准
+            
+            | 级别          | 判定标准                                                                   | 示例                                         |
+            | ------------- | -------------------------------------------------------------------------- | -------------------------------------------- |
+            | 🔴 Blocker    | 1. 安全漏洞<br>2. 严重 Bug<br>3. 破坏现有功能<br>4. 违反核心架构原则       | XSS 风险、类型错误导致运行时崩溃、内存泄漏   |
+            | 🟡 Major      | 1. 性能问题<br>2. 可维护性问题<br>3. 不符合最佳实践<br>4. 缺少重要错误处理 | 未使用 useMemo、复杂逻辑无注释、缺少边界处理 |
+            | 🟢 Minor      | 1. 代码风格问题<br>2. 小的优化空间<br>3. 注释不完善                        | 变量命名可以更清晰、可以抽取常量             |
+            | 💡 Suggestion | 1. 改进思路<br>2. 学习分享<br>3. 可选的重构建议                            | 推荐使用新的 API、分享性能优化技巧           |
+            
+            ---
+            
+            ## 注意事项
+            
+            1. **保持建设性**：指出问题的同时给出解决方案
+            2. **具体明确**：提供代码示例而非模糊描述
+            3. **尊重作者**：肯定优点，委婉指出不足
+            4. **关注重点**：优先关注安全、性能、可维护性
+            5. **避免主观**：基于团队规范和最佳实践，而非个人偏好
+            6. **及时响应**：尽快完成 Review，避免阻塞开发流程
+            7. **格式统一**：严格按照标准输出格式，确保每次审查的输出格式保持一致
+            
+            ---
+            
+            ## 特别关注
+            
+            ### 微前端项目特有问题
+            
+            - 子应用路由冲突
+            - 跨应用状态共享不当
+            - Module Federation 配置错误
+            - 公共依赖版本不一致
+            
+            ### 常见错误模式
+            
+            - useEffect 无限循环
+            - 闭包陷阱导致的状态不同步
+            - 内存泄漏（未清理订阅）
+            - 错误的 key 使用导致的渲染问题
+            
+            ---
+            
+            ## 参考资料
+            
+            - [前端开发规范](/spec/前端开发规范文档.md)
+            - [Modern.js 约定式路由](https://modernjs.dev/guides/concept/entries.html#%E7%BA%A6%E5%AE%9A%E5%BC%8F%E8%B7%AF%E7%94%B1)
+            - [FOX-UI 项目架构](https://fox-ui.figma.site/)
+            - [React 官方文档](https://react.dev/)
+            - [TypeScript 最佳实践](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html)
+            
+            ---
+            
+            **记住**：Code Review 的目的不是挑刺，而是通过集体智慧提升代码质量，帮助团队成长。保持专业、友好、建设性的态度，同时确保每次审查的输出格式保持一致，便于团队成员快速理解和跟进。
+        - id: 1757000000004-user
+          role: user
+          text: '{{#1757000000003.summary_user_input#}}'
+        selected: false
+        title: MR Summary LLM
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 116
+      id: '1757000000004'
+      position:
+        x: 11880
+        y: 180
+      positionAbsolute:
+        x: 11880
+        y: 180
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 360
+    - data:
+        authorization:
+          config:
+            api_key: '{{#env.GITLAB_PRIVATE_TOKEN#}}'
+            header: PRIVATE-TOKEN
+            type: custom
+          type: api-key
+        body:
+          data:
+          - id: key-value-summary-body
+            key: body
+            type: text
+            value: "{{#1757000000003.marker#}}\n{{#1757000000004.text#}}"
+          type: form-data
+        desc: 发送 MR 汇总评论（notes）
+        headers: ''
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: POST MR Summary Note
+        type: http-request
+        url: '{{#env.GITLAB_HOST#}}/api/v4/projects/{{#17346383362280.project_id#}}/merge_requests/{{#17346383362280.iid#}}/notes'
+        variables: []
+      height: 212
+      id: '1757000000005'
+      position:
+        x: 12280
+        y: 180
+      positionAbsolute:
+        x: 12280
+        y: 180
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 360
     - data:
         desc: 检查 Discussions 中的每条 discussion
         error_handle_mode: continue-on-error
-        height: 657
+        height: 664
         is_parallel: false
         iterator_selector:
         - '1734694634848'
         - diffs
         output_selector:
-        - '1735129504155'
-        - new_path
+        - '1757000000002'
+        - summary_item
         output_type: array[string]
         parallel_nums: 10
         selected: false
         start_node_id: 1734625888939start
         title: 迭代 Commits Diff list
         type: iteration
-        width: 3742.1894981084224
-      height: 657
+        width: 5396
+      height: 664
       id: '1734625888939'
       position:
-        x: 6108
-        y: 528.5
+        x: 6400
+        y: 0
       positionAbsolute:
-        x: 6108
-        y: 528.5
+        x: 6400
+        y: 0
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 3742
+      width: 5396
       zIndex: 1
     - data:
         desc: ''
@@ -912,11 +1906,11 @@ workflow:
       id: 1734625888939start
       parentId: '1734625888939'
       position:
-        x: 24
-        y: 68
+        x: 60
+        y: 205
       positionAbsolute:
-        x: 6132
-        y: 596.5
+        x: 6460
+        y: 205
       selectable: false
       sourcePosition: right
       targetPosition: left
@@ -975,19 +1969,19 @@ workflow:
           - '1734623374802'
           - payload
           variable: payload
-      height: 82
+      height: 80
       id: '17346383362280'
       position:
-        x: 334
-        y: 528.5
+        x: 342
+        y: 306
       positionAbsolute:
-        x: 334
-        y: 528.5
+        x: 342
+        y: 306
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
       zIndex: 1002
     - data:
         authorization:
@@ -1016,19 +2010,19 @@ workflow:
         type: http-request
         url: '{{#env.GITLAB_HOST#}}/api/v4/projects/{{#17346383362280.project_id#}}/merge_requests/{{#17346383362280.iid#}}'
         variables: []
-      height: 203
+      height: 222
       id: '17346390565450'
       position:
-        x: 942
-        y: 528.5
+        x: 1046
+        y: 244
       positionAbsolute:
-        x: 942
-        y: 528.5
+        x: 1046
+        y: 244
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
     - data:
         authorization:
           config:
@@ -1056,27 +2050,39 @@ workflow:
         type: http-request
         url: '{{#env.GITLAB_HOST#}}/api/v4/projects/{{#17346383362280.project_id#}}/merge_requests/{{#17346383362280.iid#}}/versions'
         variables: []
-      height: 219
+      height: 222
       id: '17346847020550'
       position:
-        x: 1550
-        y: 528.5
+        x: 1790
+        y: 244
       positionAbsolute:
-        x: 1550
-        y: 528.5
+        x: 1790
+        y: 244
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
     - data:
-        code: "\nfunction main({raw, ignore_files}) {\n    let ignoreReg = new RegExp(ignore_files);\n\
-          \    let obj = JSON.parse(raw);\n    let diffs = obj.diffs\n        .filter(item=>ignoreReg.exec(item.new_path)==null)\n\
-          \        .map(item=>JSON.stringify(item));\n    let diffsTokens = diffs.reduce((pre,curr)=>pre+curr.length,0);\n\
-          \ \n    if(diffsTokens > 80000){\n        diffs = obj.diffs\n          \
-          \  .map((item,index)=>`${index+1}`)        \n    }\n\n    diffs = diffs.slice(0,30)\n\
-          \n    return {\n        diffs,\n        diff_count: diffs.length,\n    \
-          \    diffs_tokens: diffsTokens\n    }\n}\n"
+        code: "function main({raw, ignore_files, MAX_STRING}) {\n    let ignoreReg\
+          \ = new RegExp(ignore_files);\n    // 可配置的多媒体文件扩展名\n    const mediaExtensions\
+          \ = [\n        // 视频\n        'mp4', 'mp3', 'avi', 'mov', 'wmv', 'flv',\
+          \ 'mkv', 'webm', 'm4a', 'm4v',\n        // 音频\n        'wav', 'flac', 'aac',\
+          \ 'ogg', 'opus', 'wma',\n        // 图片\n        'jpg', 'jpeg', 'png', 'gif',\
+          \ 'bmp', 'svg', 'webp', 'ico', 'tiff', 'tif',\n        // 设计文件\n       \
+          \ 'psd', 'ai', 'eps', 'pdf',\n        // 其他\n        'heic', 'heif', '3gp',\
+          \ 'mpeg', 'mpg', 'vob', 'swf'\n    ];\n    \n    let mediaReg = new RegExp(`\\\
+          \\.(${mediaExtensions.join('|')})$`, 'i');\n    \n    let obj = JSON.parse(raw);\n\
+          \    \n    // 过滤函数\n    const filterItem = (item) => {\n        if (ignoreReg.exec(item.new_path)\
+          \ != null) return false;\n        if (mediaReg.test(item.new_path)) return\
+          \ false;\n        return true;\n    };\n    \n    let diffs = obj.diffs\n\
+          \        .filter(filterItem)\n        .map(item => JSON.stringify(item));\n\
+          \    \n    let diffsTokens = diffs.reduce((pre, curr) => pre + curr.length,\
+          \ 0);\n \n    if(diffsTokens > MAX_STRING){\n        diffs = obj.diffs\n\
+          \            .filter(filterItem)\n            .map((item, index) => `${index+1}`);\
+          \        \n    }\n\n    diffs = diffs.slice(0, 30);\n\n    return {\n  \
+          \      diffs,\n        diff_count: diffs.length,\n        diffs_tokens:\
+          \ diffsTokens\n    }\n}"
         code_language: javascript
         desc: 获取本次 MR 修改的文件
         outputs:
@@ -1094,26 +2100,102 @@ workflow:
         type: code
         variables:
         - value_selector:
-          - '17351266890650'
-          - body
+          - '1757000000012'
+          - raw
           variable: raw
         - value_selector:
           - env
           - IGNORE_FILES
           variable: ignore_files
-      height: 82
+        - value_selector:
+          - env
+          - MAX_STRING
+          variable: MAX_STRING
+      height: 80
       id: '1734694634848'
       position:
-        x: 3525
-        y: 528.5
+        x: 4308
+        y: 315
       positionAbsolute:
-        x: 3525
-        y: 528.5
+        x: 4308
+        y: 315
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
+    - data:
+        code: "function main({diffs}) {\n  const arr = Array.isArray(diffs) ? diffs\
+          \ : [];\n  const joined = arr.map(item => typeof item === 'string' ? item\
+          \ : JSON.stringify(item)).join('\\n---\\n');\n  return {\n    query: joined.slice(0,\
+          \ 60000)\n  };\n}\n"
+        code_language: javascript
+        desc: 汇总全部 diff 生成单次检索查询
+        outputs:
+          query:
+            children: null
+            type: string
+        selected: false
+        title: Build Shared Retrieval Query
+        type: code
+        variables:
+        - value_selector:
+          - '1734694634848'
+          - diffs
+          variable: diffs
+      height: 80
+      id: '1757000000000'
+      position:
+        x: 4680
+        y: 199
+      positionAbsolute:
+        x: 4680
+        y: 199
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        dataset_ids:
+        - LRkEOh28w79xVKOqo8gQHtEHUgjyG7qaBZOIoyt/8vGJZ5KVMgPDx2UPSdO3+cPE
+        desc: 全局一次知识检索，复用到所有文件
+        isInIteration: false
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: reranking_model
+          reranking_model:
+            model: gte-rerank
+            provider: langgenius/tongyi/tongyi
+          score_threshold: null
+          top_k: 4
+          weights:
+            keyword_setting:
+              keyword_weight: 0
+            vector_setting:
+              embedding_model_name: text-embedding-v3
+              embedding_provider_name: tongyi
+              vector_weight: 1
+        query_variable_selector:
+        - '1757000000000'
+        - query
+        retrieval_mode: multiple
+        selected: false
+        title: Shared Knowledge Retrieval
+        type: knowledge-retrieval
+      height: 118
+      id: '1757000000001'
+      position:
+        x: 5020
+        y: 199
+      positionAbsolute:
+        x: 5020
+        y: 199
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
     - data:
         code: "function main({ detail_body }) {\n    let mr = JSON.parse(detail_body);\n\
           \    \n    return { \n        title: mr.title,\n        description: mr.description,\n\
@@ -1147,19 +2229,19 @@ workflow:
           - '17346390565450'
           - body
           variable: detail_body
-      height: 82
+      height: 80
       id: '17346946700280'
       position:
-        x: 1246
-        y: 528.5
+        x: 1448
+        y: 315
       positionAbsolute:
-        x: 1246
-        y: 528.5
+        x: 1448
+        y: 315
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
       zIndex: 1002
     - data:
         code: "function main({ version_body }) {\n    // version\n    let versions\
@@ -1194,19 +2276,146 @@ workflow:
           - '17346847020550'
           - body
           variable: version_body
-      height: 82
+      height: 80
       id: '17346946709900'
       position:
-        x: 1854
-        y: 528.5
+        x: 2132
+        y: 315
       positionAbsolute:
-        x: 1854
-        y: 528.5
+        x: 2132
+        y: 315
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
+      zIndex: 1002
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: 7f85566e-6cf0-4e5f-84f6-1b9a1cf4b55c
+            value: update
+            varType: string
+            variable_selector:
+            - '17346383362280'
+            - action
+          - comparison_operator: is not
+            id: 9e4f2b4b-16dd-4ec6-a55d-bb882a67f460
+            value: unknown
+            varType: string
+            variable_selector:
+            - '17346383362280'
+            - oldrev
+          - comparison_operator: is not
+            id: 0cb1f7d2-57e0-4d2e-a40c-0d10cb83b2ce
+            value: '0000000000000000000000000000000000000000'
+            varType: string
+            variable_selector:
+            - '17346383362280'
+            - oldrev
+          id: 'true'
+          logical_operator: and
+        desc: MR open/reopen 时全量审查，MR update 时只审查 oldrev -> head 的增量 diff
+        selected: false
+        title: Use Incremental Diffs
+        type: if-else
+      height: 152
+      id: '1757000000010'
+      position:
+        x: 2474
+        y: 350
+      positionAbsolute:
+        x: 2474
+        y: 350
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        authorization:
+          config:
+            api_key: '{{#env.GITLAB_PRIVATE_TOKEN#}}'
+            header: PRIVATE-TOKEN
+            type: custom
+          type: api-key
+        body:
+          data: []
+          type: none
+        desc: MR update 时，基于 oldrev->head 做增量 diff（只包含本次 push 的变更）
+        headers: ''
+        method: get
+        params: 'from:{{#17346383362280.oldrev#}}
+
+          to:{{#17346946709900.head_commit_sha#}}
+
+          unidiff:1'
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: Read MR Incremental Compare
+        type: http-request
+        url: '{{#env.GITLAB_HOST#}}/api/v4/projects/{{#17346383362280.project_id#}}/repository/compare'
+        variables: []
+      height: 212
+      id: '1757000000011'
+      position:
+        x: 2816
+        y: 424
+      positionAbsolute:
+        x: 2816
+        y: 424
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        code: "function main({ version_raw, compare_raw }) {\n  const hasText = (v) => typeof v === 'string' && v.trim().length > 0;\n\n  if (hasText(compare_raw)) {\n    return { raw: compare_raw, diff_source: 'compare' };\n  }\n\n  if (hasText(version_raw)) {\n    return { raw: version_raw, diff_source: 'mr_version' };\n  }\n\n  return { raw: JSON.stringify({ diffs: [] }), diff_source: 'empty' };\n}\n"
+        code_language: javascript
+        desc: 统一 diffs 原始返回体来源（open/reopen 用 version diffs，update 用 compare）
+        outputs:
+          diff_source:
+            children: null
+            type: string
+          raw:
+            children: null
+            type: string
+        selected: false
+        title: Select Diffs Raw
+        type: code
+        variables:
+        - value_selector:
+          - '17351266890650'
+          - body
+          variable: version_raw
+        - value_selector:
+          - '1757000000011'
+          - body
+          variable: compare_raw
+      height: 96
+      id: '1757000000012'
+      position:
+        x: 3158
+        y: 350
+      positionAbsolute:
+        x: 3158
+        y: 350
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
       zIndex: 1002
     - data:
         authorization:
@@ -1277,20 +2486,20 @@ workflow:
         type: http-request
         url: '{{#env.GITLAB_HOST#}}/api/v4/projects/{{#17346383362280.project_id#}}/merge_requests/{{#17346383362280.iid#}}/discussions'
         variables: []
-      height: 194
+      height: 193
       id: '1734699123251'
       parentId: '1734625888939'
       position:
-        x: 2988.004647229188
-        y: 73.43823791706006
+        x: 4430
+        y: 411
       positionAbsolute:
-        x: 9096.004647229187
-        y: 601.9382379170601
+        x: 10830
+        y: 411
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
       zIndex: 1002
     - data:
         cases:
@@ -1311,20 +2520,20 @@ workflow:
         selected: false
         title: If has content
         type: if-else
-      height: 126
+      height: 124
       id: '1734700071985'
       parentId: '1734625888939'
       position:
-        x: 2343.4560825552617
-        y: 109.07029144221849
+        x: 3766
+        y: 165
       positionAbsolute:
-        x: 8451.456082555262
-        y: 637.5702914422185
+        x: 10166
+        y: 165
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
       zIndex: 1002
     - data:
         cases:
@@ -1344,19 +2553,19 @@ workflow:
         selected: false
         title: Ignore Big Diffs
         type: if-else
-      height: 126
+      height: 124
       id: '1734702859732'
       position:
-        x: 4892
-        y: 528.5
+        x: 4650
+        y: 293
       positionAbsolute:
-        x: 4892
-        y: 528.5
+        x: 4650
+        y: 293
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
     - data:
         authorization:
           config:
@@ -1399,24 +2608,24 @@ workflow:
         type: http-request
         url: '{{#env.GITLAB_HOST#}}/api/v4/projects/{{#17346383362280.project_id#}}/merge_requests/{{#17346383362280.iid#}}/notes'
         variables: []
-      height: 255
+      height: 258
       id: '1734706580846'
       position:
-        x: 5196
-        y: 686
+        x: 5012
+        y: 84
       positionAbsolute:
-        x: 5196
-        y: 686
+        x: 5012
+        y: 84
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
     - data:
         context:
           enabled: true
           variable_selector:
-          - '1754296023869'
+          - '1757000000001'
           - result
         desc: 使用大模型检查文案
         isInIteration: true
@@ -1426,8 +2635,8 @@ workflow:
             temperature: 0.1
             top_p: 0.5
           mode: chat
-          name: deepseek-v3
-          provider: openai_api_compatible
+          name: deepseek-v3.2-exp
+          provider: langgenius/tongyi/tongyi
         prompt_template:
         - id: 77b3d05b-a305-4a8b-bea6-aa4d66497baa
           role: system
@@ -1567,20 +2776,20 @@ workflow:
         variables: []
         vision:
           enabled: false
-      height: 126
+      height: 116
       id: '1734775287920'
       parentId: '1734625888939'
       position:
-        x: 1963.8215474260942
-        y: 105.43715352656955
+        x: 3122
+        y: 169
       positionAbsolute:
-        x: 8071.821547426094
-        y: 633.9371535265695
+        x: 9522
+        y: 169
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
       zIndex: 1002
     - data:
         cases:
@@ -1628,19 +2837,19 @@ workflow:
         selected: false
         title: MR Open Update Check
         type: if-else
-      height: 276
+      height: 274
       id: '1735063824243'
       position:
-        x: 638
-        y: 528.5
+        x: 684
+        y: 209
       positionAbsolute:
-        x: 638
-        y: 528.5
+        x: 684
+        y: 209
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
     - data:
         authorization:
           config:
@@ -1670,19 +2879,19 @@ workflow:
         type: http-request
         url: '{{#env.GITLAB_HOST#}}/api/v4/projects/{{#17346383362280.project_id#}}/merge_requests/{{#17346383362280.iid#}}/versions/{{#17346946709900.version_id#}}'
         variables: []
-      height: 209
+      height: 228
       id: '17351266890650'
       position:
-        x: 2158
-        y: 528.5
+        x: 2474
+        y: 241
       positionAbsolute:
-        x: 2158
-        y: 528.5
+        x: 2474
+        y: 241
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
       zIndex: 1002
     - data:
         code: "\nfunction main({raw, discussions, ignore_files}) {\n    const obj\
@@ -1740,20 +2949,20 @@ workflow:
           - env
           - IGNORE_FILES
           variable: ignore_files
-      height: 98
+      height: 96
       id: '1735129504155'
       parentId: '1734625888939'
       position:
-        x: 890.4143057173369
-        y: 509.76176682577625
+        x: 1512
+        y: 179
       positionAbsolute:
-        x: 6998.414305717337
-        y: 1038.2617668257762
+        x: 7912
+        y: 179
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
       zIndex: 1002
     - data:
         authorization:
@@ -1784,19 +2993,19 @@ workflow:
         type: http-request
         url: '{{#env.GITLAB_HOST#}}/api/v4/projects/{{#17346383362280.project_id#}}/merge_requests/{{#17346383362280.iid#}}/discussions?per_page=100'
         variables: []
-      height: 219
+      height: 238
       id: '17351299823070'
       position:
-        x: 5500
-        y: 528.5
+        x: 5374
+        y: 213
       positionAbsolute:
-        x: 5500
-        y: 528.5
+        x: 5374
+        y: 213
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
       zIndex: 1002
     - data:
         code: "\nfunction main({raw, username}) {\n    const discussions = JSON.parse(raw).filter(item=>\n\
@@ -1828,19 +3037,19 @@ workflow:
           - env
           - GITLAB_REVIEWER_USERNAME
           variable: username
-      height: 54
+      height: 52
       id: '1735130047799'
       position:
-        x: 5804
-        y: 528.5
+        x: 5716
+        y: 306
       positionAbsolute:
-        x: 5804
-        y: 528.5
+        x: 5716
+        y: 306
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
     - data:
         authorization:
           config:
@@ -1870,20 +3079,20 @@ workflow:
         type: http-request
         url: '{{#env.GITLAB_HOST#}}/api/v4/projects/{{#17346383362280.project_id#}}/merge_requests/{{#17346383362280.iid#}}/discussions/{{#1735129504155.discussion_id#}}/notes/{{#1735129504155.note_id#}}'
         variables: []
-      height: 288
+      height: 291
       id: '1735131066155'
       parentId: '1734625888939'
       position:
-        x: 2962.3519249732453
-        y: 324.9749847342846
+        x: 4430
+        y: 60
       positionAbsolute:
-        x: 9070.351924973245
-        y: 853.4749847342846
+        x: 10830
+        y: 60
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
       zIndex: 1002
     - data:
         authorization:
@@ -1914,20 +3123,20 @@ workflow:
         type: http-request
         url: '{{#env.GITLAB_HOST#}}/api/v4/projects/{{#17346383362280.project_id#}}/repository/files/{{#1735129504155.encoded_path#}}'
         variables: []
-      height: 203
+      height: 222
       id: '1735577973160'
       parentId: '1734625888939'
       position:
-        x: 1385.1507629829694
-        y: 68.84237945581401
+        x: 2156
+        y: 116
       positionAbsolute:
-        x: 7493.150762982969
-        y: 597.342379455814
+        x: 8556
+        y: 116
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
       zIndex: 1002
     - data:
         code: "function main({ raw }) {\n    // 解析 JSON 字符串\n    const parsed = JSON.parse(raw);\n\
@@ -1950,20 +3159,20 @@ workflow:
           - '1735577973160'
           - body
           variable: raw
-      height: 82
+      height: 80
       id: '1735578500986'
       parentId: '1734625888939'
       position:
-        x: 1658.4718278801083
-        y: 269.1319747816864
+        x: 2478
+        y: 187
       positionAbsolute:
-        x: 7766.471827880108
-        y: 797.6319747816864
+        x: 8878
+        y: 187
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
       zIndex: 1002
     - data:
         cases:
@@ -1984,20 +3193,20 @@ workflow:
         selected: false
         title: has new_path or not
         type: if-else
-      height: 154
+      height: 152
       id: '1735656398035'
       parentId: '1734625888939'
       position:
-        x: 101.06868624478284
-        y: 96.83004789671816
+        x: 184
+        y: 153
       positionAbsolute:
-        x: 6209.068686244783
-        y: 625.3300478967182
+        x: 6584
+        y: 153
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
       zIndex: 1002
     - data:
         authorization:
@@ -2030,20 +3239,20 @@ workflow:
         type: http-request
         url: '{{#env.GITLAB_HOST#}}/api/v4/projects/{{#17346383362280.project_id#}}/merge_requests/{{#17346383362280.iid#}}/diffs'
         variables: []
-      height: 175
+      height: 194
       id: '1735656485832'
       parentId: '1734625888939'
       position:
-        x: 126.75823302348135
-        y: 366.9559546098319
+        x: 526
+        y: 157
       positionAbsolute:
-        x: 6234.758233023482
-        y: 895.4559546098319
+        x: 6926
+        y: 157
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
       zIndex: 1002
     - data:
         code: "\nfunction main({raw}) {\n    return {\n        result: JSON.stringify(JSON.parse(raw)[0])\n\
@@ -2064,20 +3273,20 @@ workflow:
           - '1735656485832'
           - body
           variable: raw
-      height: 82
+      height: 80
       id: '1735656928069'
       parentId: '1734625888939'
       position:
-        x: 421.36824898905434
-        y: 350.0558861859487
+        x: 848
+        y: 214
       positionAbsolute:
-        x: 6529.368248989054
-        y: 878.5558861859487
+        x: 7248
+        y: 214
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
       zIndex: 1002
     - data:
         advanced_settings:
@@ -2103,20 +3312,20 @@ workflow:
           - result
         - - '1735656928069'
           - result
-      height: 159
+      height: 163
       id: '1735656975326'
       parentId: '1734625888939'
       position:
-        x: 889.4824792377531
-        y: 65
+        x: 1190
+        y: 145
       positionAbsolute:
-        x: 6997.482479237753
-        y: 593.5
+        x: 7590
+        y: 145
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
       zIndex: 1002
     - data:
         code: "\nfunction main({raw}) {\n    return {\n        result: raw\n    }\n\
@@ -2137,20 +3346,73 @@ workflow:
           - '1734625888939'
           - item
           variable: raw
-      height: 82
+      height: 80
       id: '1735657958915'
       parentId: '1734625888939'
       position:
-        x: 426.82323113921893
-        y: 95.96856686697879
+        x: 848
+        y: 74
       positionAbsolute:
-        x: 6534.8232311392185
-        y: 624.4685668669788
+        x: 7248
+        y: 74
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
+      zIndex: 1002
+    - data:
+        code: "function main({review, diff_raw, new_path, encoded_path, web_url, head_sha}) {\n  const fileUrl = `${web_url}/-/blob/${head_sha}/${encoded_path}`;\n\n  let diffText = '';\n  try {\n    const obj = JSON.parse(diff_raw);\n    diffText = obj?.diff || '';\n  } catch (e) {\n    diffText = typeof diff_raw === 'string' ? diff_raw : '';\n  }\n\n  const diffLines = diffText ? diffText.split('\\n').slice(0, 160).join('\\n') : '';\n  const trimmedReview = (review || '').slice(0, 8000);\n\n  const summary_item = [\n    `## ${new_path}`,\n    `\\n${fileUrl}`,\n    diffLines ? `\\n\\n\\`\\`\\`diff\\n${diffLines}\\n\\`\\`\\`` : '',\n    trimmedReview ? `\\n\\n${trimmedReview}` : ''\n  ].join('').trim();\n\n  return { summary_item };\n}\n"
+        code_language: javascript
+        desc: 生成用于 MR 汇总的单文件审查条目（带链接、截断 diff、截断审查结果）
+        isInIteration: true
+        iteration_id: '1734625888939'
+        outputs:
+          summary_item:
+            children: null
+            type: string
+        selected: false
+        title: Compose Summary Item
+        type: code
+        variables:
+        - value_selector:
+          - '1735661041621'
+          - result
+          variable: review
+        - value_selector:
+          - '1735656975326'
+          - output
+          variable: diff_raw
+        - value_selector:
+          - '1735129504155'
+          - new_path
+          variable: new_path
+        - value_selector:
+          - '1735129504155'
+          - encoded_path
+          variable: encoded_path
+        - value_selector:
+          - '17346383362280'
+          - web_url
+          variable: web_url
+        - value_selector:
+          - '17346946709900'
+          - head_commit_sha
+          variable: head_sha
+      height: 96
+      id: '1757000000002'
+      parentId: '1734625888939'
+      position:
+        x: 3444
+        y: 70
+      positionAbsolute:
+        x: 9844
+        y: 70
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
       zIndex: 1002
     - data:
         cases:
@@ -2171,20 +3433,20 @@ workflow:
         selected: false
         title: Skip ignore files
         type: if-else
-      height: 126
+      height: 124
       id: '1735658556053'
       parentId: '1734625888939'
       position:
-        x: 1099.0500868498675
-        y: 270.04096902665935
+        x: 1834
+        y: 165
       positionAbsolute:
-        x: 7207.0500868498675
-        y: 798.5409690266594
+        x: 8234
+        y: 165
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
       zIndex: 1002
     - data:
         code: "function main({ raw }) {\n  const processed = raw\n    // Remove markdown\
@@ -2210,20 +3472,20 @@ workflow:
           - '1734775287920'
           - text
           variable: raw
-      height: 82
+      height: 80
       id: '1735661041621'
       parentId: '1734625888939'
       position:
-        x: 2143.004452807656
-        y: 441.0846019826828
+        x: 3444
+        y: 187
       positionAbsolute:
-        x: 8251.004452807656
-        y: 969.5846019826828
+        x: 9844
+        y: 187
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
       zIndex: 1002
     - data:
         code: "\nfunction main({raw}) {\n    const obj = JSON.parse(raw)\n    const\
@@ -2270,38 +3532,147 @@ workflow:
           - '1734623374802'
           - payload
           variable: raw
-      height: 54
+      height: 52
       id: '1735985486526'
       position:
-        x: 942
-        y: 1009.5
+        x: 1046
+        y: 546
       positionAbsolute:
-        x: 942
-        y: 1009.5
+        x: 1046
+        y: 546
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
     - data:
         desc: ''
         outputs: []
         selected: false
         title: Not open or update
         type: end
-      height: 54
+      height: 52
       id: '1735985496074'
       position:
-        x: 942
-        y: 1103.5
+        x: 1046
+        y: 678
       positionAbsolute:
-        x: 942
-        y: 1103.5
+        x: 1046
+        y: 678
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
+    - data:
+        authorization:
+          config:
+            api_key: '{{#env.GITLAB_PRIVATE_TOKEN#}}'
+            header: PRIVATE-TOKEN
+            type: custom
+          type: api-key
+        body:
+          data: []
+          type: none
+        desc: 获取 MR notes，用 marker 判断是否已提交过汇总评论
+        headers: ''
+        method: get
+        params: 'per_page:100
+
+          order_by:created_at
+
+          sort:desc'
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: Read MR Notes
+        type: http-request
+        url: '{{#env.GITLAB_HOST#}}/api/v4/projects/{{#17346383362280.project_id#}}/merge_requests/{{#17346383362280.iid#}}/notes'
+        variables: []
+      height: 238
+      id: '1757000000013'
+      position:
+        x: 11020
+        y: 88
+      positionAbsolute:
+        x: 11020
+        y: 88
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 360
+      zIndex: 1
+    - data:
+        code: "function main({ raw }) {\n  const marker = '<!-- ai-mr-review-summary -->';\n\n  try {\n    const notes = JSON.parse(raw);\n    const arr = Array.isArray(notes) ? notes : [];\n    const found = arr.find((n) => typeof n?.body === 'string' && n.body.includes(marker));\n\n    return {\n      should_post_summary: found ? 'no' : 'yes',\n      existing_note_id: found?.id || 0\n    };\n  } catch (e) {\n    return { should_post_summary: 'yes', existing_note_id: 0 };\n  }\n}\n"
+        code_language: javascript
+        desc: 检查是否已存在 MR 汇总评论（通过 marker）
+        outputs:
+          existing_note_id:
+            children: null
+            type: number
+          should_post_summary:
+            children: null
+            type: string
+        selected: false
+        title: Has MR Summary Note
+        type: code
+        variables:
+        - value_selector:
+          - '1757000000013'
+          - body
+          variable: raw
+      height: 96
+      id: '1757000000014'
+      position:
+        x: 11440
+        y: 88
+      positionAbsolute:
+        x: 11440
+        y: 88
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 360
+      zIndex: 1
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: 7c2f82c2-746b-4997-9e7d-2871a65a56c9
+            value: 'yes'
+            varType: string
+            variable_selector:
+            - '1757000000014'
+            - should_post_summary
+          id: 'true'
+          logical_operator: and
+        desc: 已贴过汇总评论则跳过 MR 级汇总与提交
+        selected: false
+        title: Should Post MR Summary
+        type: if-else
+      height: 124
+      id: '1757000000015'
+      position:
+        x: 11880
+        y: 88
+      positionAbsolute:
+        x: 11880
+        y: 88
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 360
+      zIndex: 1
     - data:
         authorization:
           config:
@@ -2333,19 +3704,19 @@ workflow:
         type: http-request
         url: '{{#env.GITLAB_HOST#}}/api/v4/projects/{{#17346383362280.project_id#}}/repository/compare'
         variables: []
-      height: 156
+      height: 175
       id: '1735994215169'
       position:
-        x: 1854
-        y: 898
+        x: 2132
+        y: 583
       positionAbsolute:
-        x: 1854
-        y: 898
+        x: 2132
+        y: 583
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
     - data:
         code: "\nfunction main({raw, ignore_files}) {\n    let ignoreReg = new RegExp(ignore_files);\n\
           \    let obj = JSON.parse(raw);\n    let diffs = obj.diffs\n        .filter(item=>ignoreReg.exec(item.new_path)==null)\n\
@@ -2370,19 +3741,19 @@ workflow:
           - env
           - IGNORE_FILES
           variable: ignore_files
-      height: 54
+      height: 52
       id: '17359946280530'
       position:
-        x: 2158
-        y: 1012.5
+        x: 2474
+        y: 645
       positionAbsolute:
-        x: 2158
-        y: 1012.5
+        x: 2474
+        y: 645
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
     - data:
         cases:
         - case_id: 'true'
@@ -2402,20 +3773,20 @@ workflow:
         selected: false
         title: Has Note Id
         type: if-else
-      height: 126
+      height: 124
       id: '1735997609752'
       parentId: '1734625888939'
       position:
-        x: 2637.3109954686424
-        y: 243.8616477686436
+        x: 4088
+        y: 165
       positionAbsolute:
-        x: 8745.310995468642
-        y: 772.3616477686436
+        x: 10488
+        y: 165
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
       zIndex: 1002
     - data:
         desc: ''
@@ -2434,20 +3805,20 @@ workflow:
         start_node_id: 1735997907331start
         title: 迭代 Commits Diff list
         type: iteration
-        width: 2370
+        width: 2458
       height: 392
       id: '17359979073310'
       position:
-        x: 2462
-        y: 780
+        x: 2816
+        y: 475
       positionAbsolute:
-        x: 2462
-        y: 780
+        x: 2816
+        y: 475
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 2370
+      width: 2458
       zIndex: 1
     - data:
         context:
@@ -2461,8 +3832,8 @@ workflow:
             temperature: 0.1
             top_p: 0.5
           mode: chat
-          name: deepseek-v3
-          provider: openai_api_compatible
+          name: deepseek-v3.2-exp
+          provider: langgenius/tongyi/tongyi
         prompt_template:
         - id: 77b3d05b-a305-4a8b-bea6-aa4d66497baa
           role: system
@@ -2596,20 +3967,20 @@ workflow:
         variables: []
         vision:
           enabled: false
-      height: 126
+      height: 116
       id: '1735997907331017359979073322'
       parentId: '17359979073310'
       position:
-        x: 1749.888400775726
-        y: 76.17266311623791
+        x: 1834
+        y: 144
       positionAbsolute:
-        x: 4211.888400775726
-        y: 856.1726631162379
+        x: 4650
+        y: 619
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
       zIndex: 1002
     - data:
         code: "\nfunction main({raw,before_hash,after_hash, web_url, index}) {\n \
@@ -2670,20 +4041,20 @@ workflow:
           - '17359979073310'
           - index
           variable: index
-      height: 54
+      height: 52
       id: '1735997907331017359979073323'
       parentId: '17359979073310'
       position:
-        x: 199.83649002851507
-        y: 66.36420179692107
+        x: 184
+        y: 177
       positionAbsolute:
-        x: 2661.836490028515
-        y: 846.3642017969211
+        x: 3000
+        y: 652
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
       zIndex: 1002
     - data:
         authorization:
@@ -2714,20 +4085,20 @@ workflow:
         type: http-request
         url: '{{#env.GITLAB_HOST#}}/api/v4/projects/{{#17346383362280.project_id#}}/repository/files/{{#1735997907331017359979073323.encoded_path#}}'
         variables: []
-      height: 175
+      height: 194
       id: '1735997907331017359979073325'
       parentId: '17359979073310'
       position:
-        x: 821.913571917155
-        y: 65
+        x: 848
+        y: 127
       positionAbsolute:
-        x: 3283.913571917155
-        y: 845
+        x: 3664
+        y: 602
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
       zIndex: 1002
     - data:
         code: "function main({ raw }) {\n    // 解析 JSON 字符串\n    const parsed = JSON.parse(raw);\n\
@@ -2750,20 +4121,20 @@ workflow:
           - '1735997907331017359979073325'
           - body
           variable: raw
-      height: 54
+      height: 52
       id: '1735997907331017359979073326'
       parentId: '17359979073310'
       position:
-        x: 1135.6355202036825
-        y: 65
+        x: 1170
+        y: 198
       positionAbsolute:
-        x: 3597.6355202036825
-        y: 845
+        x: 3986
+        y: 673
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
       zIndex: 1002
     - data:
         code: "function main({ raw, fileIndex, filePath, gitlabFileUrl, diff }) {\n\
@@ -2804,20 +4175,20 @@ workflow:
           - '1735997907331017359979073323'
           - diff
           variable: diff
-      height: 54
+      height: 52
       id: '17359979073310173599790733313'
       parentId: '17359979073310'
       position:
-        x: 2076.609559806351
-        y: 85.11532361552509
+        x: 2156
+        y: 176
       positionAbsolute:
-        x: 4538.609559806351
-        y: 865.1153236155251
+        x: 4972
+        y: 651
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
       zIndex: 1002
     - data:
         desc: ''
@@ -2830,11 +4201,11 @@ workflow:
       id: 1735997907331start
       parentId: '17359979073310'
       position:
-        x: 24
-        y: 68
+        x: 60
+        y: 179
       positionAbsolute:
-        x: 2486
-        y: 848
+        x: 2876
+        y: 654
       selectable: false
       sourcePosition: right
       targetPosition: left
@@ -2843,27 +4214,23 @@ workflow:
       zIndex: 1002
     - data:
         desc: ''
-        outputs:
-        - value_selector:
-          - '1736002436016'
-          - text
-          variable: output
+        outputs: []
         selected: false
         title: 结束 3
         type: end
-      height: 90
+      height: 52
       id: '1735998423516'
       position:
-        x: 5500
-        y: 999.5
+        x: 6058
+        y: 645
       positionAbsolute:
-        x: 5500
-        y: 999.5
+        x: 6058
+        y: 645
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
     - data:
         cases:
         - case_id: 'true'
@@ -2883,19 +4250,19 @@ workflow:
         selected: false
         title: If need get file content
         type: if-else
-      height: 126
+      height: 124
       id: '1735999461323'
       parentId: '17359979073310'
       position:
-        x: 521.913571917155
-        y: 65
+        x: 506
+        y: 141
       positionAbsolute:
-        x: 2983.913571917155
-        y: 845
+        x: 3322
+        y: 616
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
       zIndex: 1002
     - data:
         desc: ''
@@ -2910,20 +4277,20 @@ workflow:
           - content
         - - '1735999691450'
           - result
-      height: 131
+      height: 135
       id: '1735999561470'
       parentId: '17359979073310'
       position:
-        x: 1441.1160246327404
-        y: 73.31552025909491
+        x: 1512
+        y: 134
       positionAbsolute:
-        x: 3903.1160246327404
-        y: 853.3155202590949
+        x: 4328
+        y: 609
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
       zIndex: 1002
     - data:
         code: "\nfunction main() {\n    return {\n        result: \"\"\n    }\n}\n"
@@ -2939,20 +4306,20 @@ workflow:
         title: Empty File Content
         type: code
         variables: []
-      height: 54
+      height: 52
       id: '1735999691450'
       parentId: '17359979073310'
       position:
-        x: 1165.401738918455
-        y: 173.3155202590949
+        x: 1170
+        y: 60
       positionAbsolute:
-        x: 3627.401738918455
-        y: 953.3155202590949
+        x: 3986
+        y: 535
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
       zIndex: 1002
     - data:
         code: "\nfunction main({raw, user_name, comments, before_hash, after_hash,\
@@ -2963,8 +4330,8 @@ workflow:
           n')\n    const markdown = [\n        markdownToHtml(greetings),\n      \
           \  ...raw.map(item=>markdownToHtml(item))\n    ].join(markdownToHtml('\\\
           n------\\n'))\n \n    const footer = `<div class=\"footer\" style=\"\n \
-          \   text-align: right;\n    \">Powered by <a href=\"https://github.com/zgldh/dify-gitlab-mr-reviewer\"\
-          \ target=\"_blank\">https://github.com/zgldh/dify-gitlab-mr-reviewer</a></div>`\n\
+          \   text-align: right;\n    \">Powered by <a href=\"https://git.kuainiujinke.com/feoe/ai-code-reviewer\"\
+          \ target=\"_blank\">https://git.kuainiujinke.com/feoe/ai-code-reviewer</a></div>`\n\
           \    const emailContent = `${styles}<div>${markdown}${footer}</div>`\n \
           \   \n    return {\n        message: message,\n        result: emailContent,\n\
           \        subject: subject\n    }\n}\n\nconst styles = `<style>\n/* 通用样式\
@@ -3107,19 +4474,19 @@ workflow:
           - '1735985486526'
           - ref
           variable: ref
-      height: 54
+      height: 52
       id: '1736000355076'
       position:
-        x: 4892
-        y: 971
+        x: 5374
+        y: 645
       positionAbsolute:
-        x: 4892
-        y: 971
+        x: 5374
+        y: 645
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
     - data:
         cases:
         - case_id: 'true'
@@ -3151,38 +4518,38 @@ workflow:
         selected: false
         title: Ensure Hashes Exist
         type: if-else
-      height: 178
+      height: 176
       id: '1736003178180'
       position:
-        x: 1550
-        y: 955.5
+        x: 1770
+        y: 565
       positionAbsolute:
-        x: 1550
-        y: 955.5
+        x: 1770
+        y: 565
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
     - data:
         desc: ''
         outputs: []
         selected: false
         title: No Hash nor Email End
         type: end
-      height: 54
+      height: 52
       id: '1736003193053'
       position:
-        x: 1854
-        y: 1094
+        x: 2132
+        y: 838
       positionAbsolute:
-        x: 1854
-        y: 1094
+        x: 2132
+        y: 838
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
     - data:
         cases:
         - case_id: 'true'
@@ -3200,37 +4567,37 @@ workflow:
         selected: false
         title: Not merge branch
         type: if-else
-      height: 126
+      height: 124
       id: '1736228935056'
       position:
-        x: 1246
-        y: 913
+        x: 1408
+        y: 579
       positionAbsolute:
-        x: 1246
-        y: 913
+        x: 1408
+        y: 579
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
     - data:
         desc: ''
         outputs: []
         selected: false
         title: SKIP Merge Branch
         type: end
-      height: 54
+      height: 52
       id: '1736229032478'
       position:
-        x: 1550
-        y: 1173.5
+        x: 1770
+        y: 821
       positionAbsolute:
-        x: 1550
-        y: 1173.5
+        x: 1770
+        y: 821
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
     - data:
         authorization:
           config: null
@@ -3260,19 +4627,19 @@ workflow:
         type: http-request
         url: https://tv-service-alert.kuainiu.chat/alert
         variables: []
-      height: 163
+      height: 165
       id: '1754277742659'
       position:
-        x: 5196
-        y: 981
+        x: 5716
+        y: 588
       positionAbsolute:
-        x: 5196
-        y: 981
+        x: 5716
+        y: 588
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
     - data:
         code: "function main({result, author_username, project_name, web_url, mr_title,\
           \ mr_url, new_path}) {\n    const usereamil = `${author_username}@kn.group`\n\
@@ -3320,20 +4687,83 @@ workflow:
           - '1735129504155'
           - new_path
           variable: new_path
-      height: 82
+      height: 80
       id: '1754278744853'
       parentId: '1734625888939'
       position:
-        x: 3324.4521747177823
-        y: 196.77290635546842
+        x: 4772
+        y: 179
       positionAbsolute:
-        x: 9432.452174717782
-        y: 725.2729063554684
-      selected: true
+        x: 11172
+        y: 179
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
+      zIndex: 1002
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: c73b6e8d-8d1c-4b5c-914c-f25e0c67d45e
+            value: 'true'
+            varType: string
+            variable_selector:
+            - env
+            - ENABLE_LOOP_SEND_MESSAGE
+          id: 'true'
+          logical_operator: and
+        desc: 控制是否在逐文件循环中发送 TV 消息
+        isInIteration: true
+        iteration_id: '1734625888939'
+        selected: false
+        title: Enable Loop Send Message
+        type: if-else
+      height: 124
+      id: '1757000000016'
+      parentId: '1734625888939'
+      position:
+        x: 5094
+        y: 260
+      positionAbsolute:
+        x: 11494
+        y: 260
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        code: "function main() {\n  return { skipped: true };\n}\n"
+        code_language: javascript
+        desc: ENABLE_LOOP_SEND_MESSAGE=false 时跳过发送
+        isInIteration: true
+        iteration_id: '1734625888939'
+        outputs:
+          skipped:
+            children: null
+            type: boolean
+        selected: false
+        title: Skip Loop Send Message
+        type: code
+        variables: []
+      height: 80
+      id: '1757000000017'
+      parentId: '1734625888939'
+      position:
+        x: 5416
+        y: 260
+      positionAbsolute:
+        x: 11816
+        y: 260
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
       zIndex: 1002
     - data:
         authorization:
@@ -3366,65 +4796,23 @@ workflow:
         type: http-request
         url: https://tv-service-alert.kuainiu.chat/alert/v2/inline
         variables: []
-      height: 138
+      height: 136
       id: '1754289121034'
       parentId: '1734625888939'
       position:
-        x: 3324.1281054381707
-        y: 377.28391815444536
+        x: 5094
+        y: 151
       positionAbsolute:
-        x: 9432.12810543817
-        y: 905.7839181544454
+        x: 11494
+        y: 151
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
-      zIndex: 1002
-    - data:
-        dataset_ids:
-        - 42b3b160-55b4-409c-8bfd-ef9db1ed942b
-        desc: 检查是否符合规范
-        isInIteration: true
-        iteration_id: '1734625888939'
-        multiple_retrieval_config:
-          reranking_enable: false
-          reranking_mode: reranking_model
-          reranking_model:
-            model: gte-rerank
-            provider: tongyi
-          score_threshold: null
-          top_k: 4
-          weights:
-            keyword_setting:
-              keyword_weight: 0
-            vector_setting:
-              embedding_model_name: text-embedding-v3
-              embedding_provider_name: tongyi
-              vector_weight: 1
-        query_variable_selector:
-        - '1735578500986'
-        - content
-        retrieval_mode: multiple
-        selected: false
-        title: 知识检索
-        type: knowledge-retrieval
-      height: 120
-      id: '1754296023869'
-      parentId: '1734625888939'
-      position:
-        x: 1798.6075319321299
-        y: 420.7250530397132
-      positionAbsolute:
-        x: 7906.60753193213
-        y: 949.2250530397132
-      selected: false
-      sourcePosition: right
-      targetPosition: left
-      type: custom
-      width: 244
+      width: 242
       zIndex: 1002
     viewport:
-      x: -6518.923549557103
-      y: 273.3435593779811
-      zoom: 0.8145075630702152
+      x: -3442.0130942780224
+      y: 365.4080184320301
+      zoom: 0.5439050881488369
+  rag_pipeline_variables: []
