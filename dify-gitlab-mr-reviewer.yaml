@@ -70,7 +70,7 @@ workflow:
     selector:
     - env
     - GITLAB_PRIVATE_TOKEN
-    value: V2Lgo4UA2_-EHDyQHfqQ
+    value: vZQjhfWs8KD0FR0XZy7OBW86MQp1OnIwCA.01.0y1fodyvq
     value_type: secret
   features:
     file_upload:
@@ -198,10 +198,58 @@ workflow:
     - data:
         isInIteration: false
         sourceType: http-request
-        targetType: end
-      id: 1757000000005-source-1734623951413-target
+        targetType: if-else
+      id: 1757000000005-source-1757000000018-target
       selected: false
       source: '1757000000005'
+      sourceHandle: source
+      target: '1757000000018'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: code
+      id: 1757000000018-true-1757000000019-target
+      selected: false
+      source: '1757000000018'
+      sourceHandle: 'true'
+      target: '1757000000019'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: end
+      id: 1757000000018-false-1734623951413-target
+      selected: false
+      source: '1757000000018'
+      sourceHandle: 'false'
+      target: '1734623951413'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: http-request
+      id: 1757000000019-source-1757000000020-target
+      selected: false
+      source: '1757000000019'
+      sourceHandle: source
+      target: '1757000000020'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: http-request
+        targetType: end
+      id: 1757000000020-source-1734623951413-target
+      selected: false
+      source: '1757000000020'
       sourceHandle: source
       target: '1734623951413'
       targetHandle: target
@@ -1035,10 +1083,10 @@ workflow:
       id: '1734623374802'
       position:
         x: 0
-        y: 302
+        y: 289
       positionAbsolute:
         x: 0
-        y: 302
+        y: 289
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1055,18 +1103,43 @@ workflow:
       height: 80
       id: '1734623951413'
       position:
-        x: 11896
-        y: 292
+        x: 13988
+        y: 361
       positionAbsolute:
-        x: 11896
-        y: 292
+        x: 13988
+        y: 361
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 242
     - data:
-        code: "function main({mr_title, mr_description, author_name, author_username, mr_url, diffs, diff_count, file_reviews, reviewer_username}) {\n  const tryParse = (s) => {\n    try {\n      return JSON.parse(s);\n    } catch {\n      return null;\n    }\n  };\n\n  let additions = 0;\n  let deletions = 0;\n  const arr = Array.isArray(diffs) ? diffs : [];\n  for (const raw of arr) {\n    const obj = typeof raw === 'string' ? tryParse(raw) : raw;\n    const diffText = obj?.diff;\n    if (!diffText || typeof diffText !== 'string') continue;\n    for (const line of diffText.split('\\n')) {\n      if (line.startsWith('+++') || line.startsWith('---')) continue;\n      if (line.startsWith('+')) additions += 1;\n      else if (line.startsWith('-')) deletions += 1;\n    }\n  }\n\n  const fileCount = typeof diff_count === 'number' && diff_count > 0\n    ? diff_count\n    : (Array.isArray(file_reviews) ? file_reviews.length : 0);\n\n  const now = new Date();\n  const pad = (n) => String(n).padStart(2, '0');\n  const ts = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}`;\n\n  const reviewsJoined = (Array.isArray(file_reviews) ? file_reviews : [])\n    .filter(Boolean)\n    .join('\\n\\n---\\n\\n')\n    .slice(0, 120000);\n\n  const marker = '<!-- ai-mr-review-summary -->';\n\n  const summary_user_input = `以下是本次 MR 的信息与逐文件审查结果（请严格按提示词规定的 Markdown 结构输出，章节齐全、顺序固定）：\\n\\n` +\n    `MR 标题：${mr_title || ''}\\n` +\n    `MR 链接：${mr_url || ''}\\n` +\n    `提交者：${author_name || ''} (@${author_username || ''})\\n` +\n    `变更文件数：${fileCount} 个文件\\n` +\n    `变更代码行数：+${additions} -${deletions}\\n` +\n    `审查时间：${ts}\\n` +\n    `关联任务：N/A\\n\\n` +\n    `---\\n\\n` +\n    `MR 描述：\\n${(mr_description || '').slice(0, 8000)}\\n\\n` +\n    `---\\n\\n` +\n    `逐文件审查结果：\\n\\n${reviewsJoined}\\n`;\n\n  return { marker, summary_user_input };\n}\n"
+        code: "function main({mr_title, mr_description, author_name, author_username,\
+          \ mr_url, diffs, diff_count, file_reviews, reviewer_username}) {\n  const\
+          \ tryParse = (s) => {\n    try {\n      return JSON.parse(s);\n    } catch\
+          \ {\n      return null;\n    }\n  };\n\n  let additions = 0;\n  let deletions\
+          \ = 0;\n  const arr = Array.isArray(diffs) ? diffs : [];\n  for (const raw\
+          \ of arr) {\n    const obj = typeof raw === 'string' ? tryParse(raw) : raw;\n\
+          \    const diffText = obj?.diff;\n    if (!diffText || typeof diffText !==\
+          \ 'string') continue;\n    for (const line of diffText.split('\\n')) {\n\
+          \      if (line.startsWith('+++') || line.startsWith('---')) continue;\n\
+          \      if (line.startsWith('+')) additions += 1;\n      else if (line.startsWith('-'))\
+          \ deletions += 1;\n    }\n  }\n\n  const fileCount = typeof diff_count ===\
+          \ 'number' && diff_count > 0\n    ? diff_count\n    : (Array.isArray(file_reviews)\
+          \ ? file_reviews.length : 0);\n\n  const now = new Date();\n  const pad\
+          \ = (n) => String(n).padStart(2, '0');\n  const ts = `${now.getFullYear()}-${pad(now.getMonth()\
+          \ + 1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}`;\n\
+          \n  const reviewsJoined = (Array.isArray(file_reviews) ? file_reviews :\
+          \ [])\n    .filter(Boolean)\n    .join('\\n\\n---\\n\\n')\n    .slice(0,\
+          \ 120000);\n\n  const marker = '<!-- ai-mr-review-summary -->';\n\n  const\
+          \ summary_user_input = `以下是本次 MR 的信息与逐文件审查结果（请严格按提示词规定的 Markdown 结构输出，章节齐全、顺序固定）：\\\
+          n\\n` +\n    `MR 标题：${mr_title || ''}\\n` +\n    `MR 链接：${mr_url || ''}\\\
+          n` +\n    `提交者：${author_name || ''} (@${author_username || ''})\\n` +\n\
+          \    `变更文件数：${fileCount} 个文件\\n` +\n    `变更代码行数：+${additions} -${deletions}\\\
+          n` +\n    `审查时间：${ts}\\n` +\n    `关联任务：N/A\\n\\n` +\n    `---\\n\\n` +\n\
+          \    `MR 描述：\\n${(mr_description || '').slice(0, 8000)}\\n\\n` +\n    `---\\\
+          n\\n` +\n    `逐文件审查结果：\\n\\n${reviewsJoined}\\n`;\n\n  return { marker,\
+          \ summary_user_input };\n}\n"
         code_language: javascript
         desc: 汇总 MR 元信息与逐文件审查内容，生成汇总模型输入
         outputs:
@@ -1119,16 +1192,16 @@ workflow:
       height: 96
       id: '1757000000003'
       position:
-        x: 11480
-        y: 180
+        x: 12942
+        y: 340
       positionAbsolute:
-        x: 11480
-        y: 180
+        x: 12942
+        y: 340
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 360
+      width: 242
     - data:
         context:
           enabled: true
@@ -1146,657 +1219,139 @@ workflow:
         prompt_template:
         - id: 1757000000004-system
           role: system
-          text: |-
-            # MR Review 提示词
-
-            ## 角色设定
-
-            你是一位资深的前端架构师和代码审查专家，负责对 Fox-UI 项目的 Merge Request 进行专业的 Code Review。你精通 React 生态、微前端架构、TypeScript 以及现代化前端工程实践。
-
-            ---
-
-            ## 审查目标
-
-            对提交的代码变更进行**全面、严格、建设性**的审查,确保代码质量、可维护性、性能和安全性符合团队标准。
-
-            ---
-
-            ## 审查维度
-
-            ### 1. 代码规范与风格 (Code Style & Standards)
-
-            **检查项：**
-
-            - ✅ 代码是否符合 [前端开发规范文档](/spec/前端开发规范文档.md)
-            - ✅ 是否通过 Biome 格式化检查（空格缩进、80 字符换行、单/双引号规范）
-            - ✅ 命名是否规范：
-              - React 组件使用 PascalCase（如 `UserTable.tsx`）
-              - 函数/变量使用 camelCase
-              - 类型/接口使用 PascalCase
-              - 常量使用 UPPER_SNAKE_CASE
-            - ✅ 文件组织是否合理（组件、hooks、utils、services 分类清晰）
-            - ✅ 是否有不必要的注释或调试代码（console.log、debugger）
-
-            **重点关注：**
-
-            - 代码是否符合 Biome 配置：单引号（TS/JS）、双引号（JSX）、80 字符行宽
-            - 组件文件名与导出名是否一致
-            - 样式文件命名是否规范（如 `UserTable.module.less`）
-
-            ---
-
-            ### 2. TypeScript 类型安全 (Type Safety)
-
-            **检查项：**
-
-            - ✅ 是否正确定义类型，避免使用 `any`（除非必要且有注释说明）
-            - ✅ 接口定义是否完整、准确
-            - ✅ 泛型使用是否合理
-            - ✅ 类型导入/导出是否使用 `import type`
-            - ✅ 是否有类型断言滥用（`as`）
-            - ✅ Props 类型是否完整定义
-
-            **重点关注：**
-
-            - 避免隐式 `any`
-            - 接口定义应放在 `types.ts` 或组件文件顶部
-            - API 响应数据是否有完整类型定义
-
-            ---
-
-            ### 3. React 最佳实践 (React Best Practices)
-
-            **检查项：**
-
-            - ✅ 组件是否采用函数式写法
-            - ✅ Hooks 使用是否符合规范：
-              - 是否在顶层调用
-              - 依赖数组是否完整
-              - 是否有不必要的 useEffect
-            - ✅ 状态管理是否合理（本地 state vs Zustand）
-            - ✅ 是否有性能优化（useMemo、useCallback、React.memo）
-            - ✅ 组件拆分是否合理（单一职责原则）
-            - ✅ 是否有内存泄漏风险（未清理的订阅、定时器）
-
-            **重点关注：**
-
-            - useEffect 依赖数组完整性
-            - 避免在循环/条件中使用 Hooks
-            - 大列表是否考虑虚拟滚动
-            - 是否有不必要的重渲染
-
-            ---
-
-            ### 4. 微前端架构规范 (Micro-frontend Architecture)
-
-            **检查项：**
-
-            - ✅ 子应用路由是否符合 `/{domain}/*` 通配符规范
-            - ✅ 是否正确使用约定式路由（参考 Modern.js 约定式路由）
-            - ✅ Module Federation 配置是否正确
-            - ✅ 跨应用通信是否规范（避免全局变量污染）
-            - ✅ 共享依赖版本是否一致（检查 `pnpm.overrides`）
-            - ✅ 页面缓存使用是否合理（`@feoe/react-keepalive`）
-
-            **重点关注：**
-
-            - 子应用间是否有不合理的直接依赖
-            - 公共组件是否放在 `packages/components`
-            - 工具函数是否放在 `packages/shared`
-
-            ---
-
-            ### 5. 性能优化 (Performance)
-
-            **检查项：**
-
-            - ✅ 是否有大体积依赖未做按需加载
-            - ✅ 组件是否合理使用懒加载（`@loadable/component`）
-            - ✅ 图片/资源是否优化
-            - ✅ 列表渲染是否有 key 优化
-            - ✅ 是否有不必要的计算或渲染
-            - ✅ API 请求是否有缓存策略
-            - ✅ 是否有防抖/节流处理（搜索、滚动等）
-
-            **重点关注：**
-
-            - Bundle 体积是否合理（可通过 `pnpm analyze` 检查）
-            - 首屏加载性能
-            - 长列表性能
-
-            ---
-
-            ### 6. 错误处理与边界情况 (Error Handling & Edge Cases)
-
-            **检查项：**
-
-            - ✅ API 请求是否有错误处理
-            - ✅ 是否有 ErrorBoundary 保护关键组件
-            - ✅ 表单验证是否完善
-            - ✅ 空状态、加载状态、错误状态是否处理
-            - ✅ 边界条件是否考虑（空数组、null、undefined）
-            - ✅ 是否有合适的用户提示（Toast、Modal）
-
-            **重点关注：**
-
-            - 网络异常处理
-            - 用户输入校验
-            - 空数据展示
-
-            ---
-
-            ### 7. 安全性 (Security)
-
-            **检查项：**
-
-            - ✅ 是否有 XSS 风险（dangerouslySetInnerHTML）
-            - ✅ 敏感信息是否暴露（API Key、Token）
-            - ✅ 用户输入是否正确转义
-            - ✅ 权限校验是否完整
-            - ✅ 接口调用是否有鉴权
-
-            **重点关注：**
-
-            - 不要在代码中硬编码敏感信息
-            - 用户生成内容需要转义
-
-            ---
-
-            ### 8. 测试覆盖 (Testing)
-
-            **检查项：**
-
-            - ✅ 是否有对应的单元测试（关键逻辑）
-            - ✅ 测试用例是否完整（正常/异常/边界）
-            - ✅ Hooks 测试是否正确
-            - ✅ 是否需要集成测试
-
-            **重点关注：**
-
-            - 核心业务逻辑应有测试覆盖
-            - 建议核心模块保持 80% 以上覆盖率
-
-            ---
-
-            ### 9. 文档与注释 (Documentation)
-
-            **检查项：**
-
-            - ✅ 复杂逻辑是否有注释说明
-            - ✅ 公共组件是否有使用文档
-            - ✅ API 接口是否有注释
-            - ✅ README 是否需要更新
-            - ✅ 类型定义是否有 JSDoc 说明
-
-            **重点关注：**
-
-            - 注释应说明\"为什么\"而非\"做什么\"
-            - 公共组件需要有 Props 说明
-
-            ---
-
-            ### 10. Git 与提交规范 (Git & Commit)
-
-            **检查项：**
-
-            - ✅ Commit Message 是否符合规范（`feat:`、`fix:`、`chore:`、`hotfix:`）
-            - ✅ 是否关联任务单号
-            - ✅ MR 描述是否清晰（变更内容、影响范围、测试步骤）
-            - ✅ 是否有不相关的文件变更
-            - ✅ 是否有敏感信息提交（`.env`、密钥）
-
-            **重点关注：**
-
-            - 提交历史是否清晰
-            - 是否需要 rebase 或 squash
-
-            ---
-
-            ## 📋 标准输出格式（必须严格遵守）
-
-            **⚠️ 重要说明：每次 Code Review 必须完全按照以下格式输出，不得遗漏任何章节或改变结构顺序。**
-
-            ---
-
-            ### 第一部分：MR 基本信息
-
-            ```markdown
-            ## 📋 MR Review 报告
-
-            **MR 标题**：[从 MR 中提取]
-            **提交者**：[从 MR 中提取]
-            **变更文件数**：X 个文件
-            **变更代码行数**：+XXX -XXX
-            **关联任务**：[任务单号或 N/A]
-            **审查时间**：YYYY-MM-DD HH:mm
-
-            ---
-            ```
-
-            ### 第二部分：快速结论
-
-            ```markdown
-            ## 🎯 审查结论
-
-            **总体评分**：X/5 ⭐
-
-            | 维度     | 评分       | 说明       |
-            | -------- | ---------- | ---------- |
-            | 代码质量 | ⭐⭐⭐⭐⭐ | [简短说明] |
-            | 类型安全 | ⭐⭐⭐⭐⭐ | [简短说明] |
-            | 性能优化 | ⭐⭐⭐⭐⭐ | [简短说明] |
-            | 可维护性 | ⭐⭐⭐⭐⭐ | [简短说明] |
-            | 测试覆盖 | ⭐⭐⭐⭐⭐ | [简短说明] |
-
-            **合并建议**：
-
-            - ✅ **通过 - 可以直接合并**
-            - ⏸️ **条件通过 - 修改后可合并**（需修复 X 个 Blocker，X 个 Major）
-            - ❌ **不通过 - 需要重大修改**（存在严重问题）
-
-            ---
-            ```
-
-            ### 第三部分：问题汇总
-
-            ```markdown
-            ## 📊 问题统计
-
-            | 严重程度      | 数量 | 说明             |
-            | ------------- | ---- | ---------------- |
-            | 🔴 Blocker    | X    | 必须修改才能合并 |
-            | 🟡 Major      | X    | 强烈建议修改     |
-            | 🟢 Minor      | X    | 可选优化         |
-            | 💡 Suggestion | X    | 改进建议         |
-
-            ---
-            ```
-
-            ### 第四部分：优点表扬（必须有，哪怕只有一条）
-
-            ```markdown
-            ## ✅ 做得好的地方
-
-            1. **[具体优点标题]**
-
-               - [详细描述]
-               - 示例：代码位置或片段
-
-            2. **[具体优点标题]**
-               - [详细描述]
-
-            （至少列出 1-3 条优点）
-
-            ---
-            ```
-
-            ### 第五部分：问题详情（按严重程度分组）
-            
-            ````markdown
-            ## 🔴 Blocker - 必须修改（X 个）
-            
-            ### 问题 1：[问题标题]
-            
-            **文件**：`src/path/to/file.tsx` (行 XX-XX)
-            
-            **问题描述**：
-            [清晰描述问题]
-            
-            **当前代码**：
-            
-            ```typescript
-            // ❌ 问题代码
-            [粘贴问题代码片段];
-            ```
-            
-            **建议修改**：
-            
-            ```typescript
-            // ✅ 推荐写法
-            [提供修改后的代码];
-            ```
-            
-            **原因说明**：
-            [解释为什么这样改，可能导致的风险]
-            
-            ---
-            
-            ### 问题 2：[问题标题]
-            
-            [同样的格式...]
-            
-            ---
-            
-            ## 🟡 Major - 强烈建议修改（X 个）
-            
-            ### 问题 1：[问题标题]
-            
-            **文件**：`src/path/to/file.tsx` (行 XX-XX)
-            
-            **问题描述**：
-            [清晰描述问题]
-            
-            **当前代码**：
-            
-            ```typescript
-            // ⚠️ 可改进代码
-            [粘贴代码片段];
-            ```
-            
-            **建议修改**：
-            
-            ```typescript
-            // ✅ 更好的写法
-            [提供改进方案];
-            ```
-            
-            **原因说明**：
-            [解释改进理由和带来的好处]
-            
-            ---
-            
-            ## 🟢 Minor - 可选优化（X 个）
-            
-            ### 问题 1：[问题标题]
-            
-            **文件**：`src/path/to/file.tsx` (行 XX-XX)
-            
-            **建议**：
-            [简短描述优化建议]
-            
-            **示例**（可选）：
-            
-            ```typescript
-            // 💡 优化建议
-            [可选的代码示例];
-            ```
-            
-            ---
-            
-            ## 💡 Suggestion - 改进建议与学习
-            
-            ### 建议 1：[建议标题]
-            
-            **说明**：
-            [详细的改进思路或最佳实践分享]
-            
-            **参考资料**（如有）：
-            
-            - [相关文档链接]
-            
-            ---
-            
-            ````
-            
-            ### 第六部分：文件清单（变更文件超过 5 个时必须提供）
-            
-            ```markdown
-            ## 📁 变更文件清单
-            
-            | 文件路径 | 变更类型 | 问题数量 | 备注 |
-            |---------|---------|---------|------|
-            | `src/components/UserTable.tsx` | 修改 | 🔴×1 🟡×2 | 主要问题文件 |
-            | `src/services/user.service.ts` | 新增 | 🟡×1 | 缺少错误处理 |
-            | `src/utils/format.ts` | 修改 | 🟢×1 | 小优化建议 |
-            | `src/types/user.ts` | 新增 | ✅ | 无问题 |
-            
-            ---
-            ````
-            
-            ### 第七部分：检查清单（必须完整填写）
-            
-            ```markdown
-            ## ✅ 审查检查清单
-            
-            ### 代码规范
-            
-            - [ ] Biome 格式检查通过
-            - [ ] 命名规范符合要求
-            - [ ] 无调试代码（console.log、debugger）
-            - [ ] 文件组织合理
-            
-            ### TypeScript
-            
-            - [ ] 无 `any` 类型（或有合理注释）
-            - [ ] 类型定义完整
-            - [ ] 正确使用 `import type`
-            
-            ### React 最佳实践
-            
-            - [ ] 组件使用函数式写法
-            - [ ] Hooks 使用规范
-            - [ ] 无性能问题
-            - [ ] 无内存泄漏风险
-            
-            ### 微前端架构
-            
-            - [ ] 路由配置正确
-            - [ ] 无跨应用不当依赖
-            - [ ] 共享依赖版本一致
-            
-            ### 性能优化
-            
-            - [ ] 无大体积依赖未按需加载
-            - [ ] 长列表有优化
-            - [ ] 合理使用缓存
-            
-            ### 错误处理
-            
-            - [ ] API 请求有错误处理
-            - [ ] 边界情况已考虑
-            - [ ] 用户提示完善
-            
-            ### 安全性
-            
-            - [ ] 无 XSS 风险
-            - [ ] 无敏感信息泄露
-            - [ ] 权限校验完整
-            
-            ### 测试
-            
-            - [ ] 关键逻辑有测试
-            - [ ] 测试用例充分
-            
-            ### 文档
-            
-            - [ ] 复杂逻辑有注释
-            - [ ] 公共组件有文档
-            
-            ### Git 规范
-            
-            - [ ] Commit Message 规范
-            - [ ] 无无关文件变更
-            - [ ] MR 描述清晰
-            
-            ---
-            ```
-            
-            ### 第八部分：测试建议（如适用，可选提供）
-            
-            ```markdown
-            ## 🧪 测试建议
-            
-            ### 建议测试的场景
-            
-            1. **[场景 1 名称]**
-            
-               - 测试步骤：[详细步骤]
-               - 预期结果：[预期表现]
-               - 关注点：[需要重点关注的地方]
-            
-            2. **[场景 2 名称]**
-               - 测试步骤：[详细步骤]
-               - 预期结果：[预期表现]
-            
-            ### 回归测试范围（如适用）
-            
-            - [ ] [相关功能模块 1]
-            - [ ] [相关功能模块 2]
-            
-            ### 性能测试（如适用）
-            
-            - [ ] 页面加载时间
-            - [ ] 长列表滚动流畅度
-            - [ ] 内存占用情况
-            
-            ---
-            ```
-            
-            ### 第九部分：后续行动（必须明确）
-            
-            ```markdown
-            ## 🎬 后续行动
-            
-            ### 提交者需要做的事情
-            
-            **立即处理（Blocker）：**
-            
-            1. [ ] [具体任务 1 - 预计耗时 Xmin]
-            2. [ ] [具体任务 2 - 预计耗时 Xmin]
-            
-            **建议处理（Major）：**
-            
-            1. [ ] [具体任务 1 - 预计耗时 Xmin]
-            2. [ ] [具体任务 2 - 预计耗时 Xmin]
-            
-            **可选处理（Minor）：**
-            
-            1. [ ] [具体任务 1]
-            
-            ### 审查者承诺
-            
-            - ⏰ 预计响应时间：[收到修改后 X 小时内完成二次审查]
-            - 📞 可联系方式：[如有疑问可通过 XXX 联系]
-            
-            ---
-            ```
-            
-            ### 第十部分：审查总结（必须有）
-            
-            ```markdown
-            ## 📝 审查总结
-            
-            ### 核心问题
-            
-            [用 2-3 句话概括最核心的问题]
-            
-            ### 改进方向
-            
-            [用 2-3 句话说明主要改进方向]
-            
-            ### 总体评价
-            
-            [用 3-5 句话给出整体评价，包括：
-            
-            1. 代码整体质量
-            2. 是否符合团队规范
-            3. 是否达到合并标准
-            4. 对提交者的鼓励或建议]
-            
-            ---
-            
-            **审查者**：[审查者姓名]
-            **审查完成时间**：YYYY-MM-DD HH:mm
-            
-            ---
-            
-            _本次 Review 基于 [Fox-UI 前端开发规范](https://www.notion.so/mountainwu/296d0703435c4d8686f6f84b44bb06a3) 进行_
-            ```
-            
-            ---
-            
-            ## 🚨 格式规范强制要求
-            
-            ### 必须遵守的规则
-            
-            1. **章节完整性**：必须包含前 7 个部分（MR 基本信息至检查清单），第 8-10 部分根据实际情况提供
-            2. **顺序固定**：必须按照 1-10 的顺序输出，不得调整
-            3. **标题格式**：章节标题必须使用指定的 emoji 和文字
-            4. **表格规范**：表格必须使用 Markdown 格式，保持对齐
-            5. **代码块**：所有代码示例必须使用三个反引号包裹，并标注语言
-            6. **问题编号**：每个严重程度分组内的问题必须连续编号
-            7. **空行规范**：每个大章节之间必须有 `---` 分隔线
-            
-            ### 章节提供规则
-            
-            **必须提供（1-7 部分）：**
-            
-            - ✅ 第一部分：MR 基本信息
-            - ✅ 第二部分：快速结论
-            - ✅ 第三部分：问题汇总
-            - ✅ 第四部分：优点表扬
-            - ✅ 第五部分：问题详情
-            - ✅ 第六部分：文件清单（变更文件 > 5 个时）
-            - ✅ 第七部分：检查清单
-            
-            **根据情况提供（8-10 部分）：**
-            
-            - 🔶 第八部分：测试建议（涉及功能变更或新功能时提供）
-            - 🔶 第九部分：后续行动（有 Blocker 或 Major 问题时提供）
-            - ✅ 第十部分：审查总结（始终提供）
-            
-            ### 评分标准（1-5 星）
-            
-            | 星级       | 说明                     |
-            | ---------- | ------------------------ |
-            | ⭐         | 严重不合格，大量问题     |
-            | ⭐⭐       | 不合格，存在多个严重问题 |
-            | ⭐⭐⭐     | 及格，有改进空间         |
-            | ⭐⭐⭐⭐   | 良好，少量优化建议       |
-            | ⭐⭐⭐⭐⭐ | 优秀，几乎无可挑剔       |
-            
-            ### 问题严重程度判定标准
-            
-            | 级别          | 判定标准                                                                   | 示例                                         |
-            | ------------- | -------------------------------------------------------------------------- | -------------------------------------------- |
-            | 🔴 Blocker    | 1. 安全漏洞<br>2. 严重 Bug<br>3. 破坏现有功能<br>4. 违反核心架构原则       | XSS 风险、类型错误导致运行时崩溃、内存泄漏   |
-            | 🟡 Major      | 1. 性能问题<br>2. 可维护性问题<br>3. 不符合最佳实践<br>4. 缺少重要错误处理 | 未使用 useMemo、复杂逻辑无注释、缺少边界处理 |
-            | 🟢 Minor      | 1. 代码风格问题<br>2. 小的优化空间<br>3. 注释不完善                        | 变量命名可以更清晰、可以抽取常量             |
-            | 💡 Suggestion | 1. 改进思路<br>2. 学习分享<br>3. 可选的重构建议                            | 推荐使用新的 API、分享性能优化技巧           |
-            
-            ---
-            
-            ## 注意事项
-            
-            1. **保持建设性**：指出问题的同时给出解决方案
-            2. **具体明确**：提供代码示例而非模糊描述
-            3. **尊重作者**：肯定优点，委婉指出不足
-            4. **关注重点**：优先关注安全、性能、可维护性
-            5. **避免主观**：基于团队规范和最佳实践，而非个人偏好
-            6. **及时响应**：尽快完成 Review，避免阻塞开发流程
-            7. **格式统一**：严格按照标准输出格式，确保每次审查的输出格式保持一致
-            
-            ---
-            
-            ## 特别关注
-            
-            ### 微前端项目特有问题
-            
-            - 子应用路由冲突
-            - 跨应用状态共享不当
-            - Module Federation 配置错误
-            - 公共依赖版本不一致
-            
-            ### 常见错误模式
-            
-            - useEffect 无限循环
-            - 闭包陷阱导致的状态不同步
-            - 内存泄漏（未清理订阅）
-            - 错误的 key 使用导致的渲染问题
-            
-            ---
-            
-            ## 参考资料
-            
-            - [前端开发规范](/spec/前端开发规范文档.md)
-            - [Modern.js 约定式路由](https://modernjs.dev/guides/concept/entries.html#%E7%BA%A6%E5%AE%9A%E5%BC%8F%E8%B7%AF%E7%94%B1)
-            - [FOX-UI 项目架构](https://fox-ui.figma.site/)
-            - [React 官方文档](https://react.dev/)
-            - [TypeScript 最佳实践](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html)
-            
-            ---
-            
-            **记住**：Code Review 的目的不是挑刺，而是通过集体智慧提升代码质量，帮助团队成长。保持专业、友好、建设性的态度，同时确保每次审查的输出格式保持一致，便于团队成员快速理解和跟进。
+          text: "# MR Review 提示词\n\n## 角色设定\n\n你是一位资深的前端架构师和代码审查专家，负责对 Fox-UI 项目的\
+            \ Merge Request 进行专业的 Code Review。你精通 React 生态、微前端架构、TypeScript 以及现代化前端工程实践。\n\
+            \n---\n\n## 审查目标\n\n对提交的代码变更进行**全面、严格、建设性**的审查,确保代码质量、可维护性、性能和安全性符合团队标准。\n\
+            \n---\n\n## 审查维度\n\n### 1. 代码规范与风格 (Code Style & Standards)\n\n**检查项：**\n\
+            \n- ✅ 代码是否符合 [前端开发规范文档](/spec/前端开发规范文档.md)\n- ✅ 是否通过 Biome 格式化检查（空格缩进、80\
+            \ 字符换行、单/双引号规范）\n- ✅ 命名是否规范：\n  - React 组件使用 PascalCase（如 `UserTable.tsx`）\n\
+            \  - 函数/变量使用 camelCase\n  - 类型/接口使用 PascalCase\n  - 常量使用 UPPER_SNAKE_CASE\n\
+            - ✅ 文件组织是否合理（组件、hooks、utils、services 分类清晰）\n- ✅ 是否有不必要的注释或调试代码（console.log、debugger）\n\
+            \n**重点关注：**\n\n- 代码是否符合 Biome 配置：单引号（TS/JS）、双引号（JSX）、80 字符行宽\n- 组件文件名与导出名是否一致\n\
+            - 样式文件命名是否规范（如 `UserTable.module.less`）\n\n---\n\n### 2. TypeScript 类型安全\
+            \ (Type Safety)\n\n**检查项：**\n\n- ✅ 是否正确定义类型，避免使用 `any`（除非必要且有注释说明）\n-\
+            \ ✅ 接口定义是否完整、准确\n- ✅ 泛型使用是否合理\n- ✅ 类型导入/导出是否使用 `import type`\n- ✅ 是否有类型断言滥用（`as`）\n\
+            - ✅ Props 类型是否完整定义\n\n**重点关注：**\n\n- 避免隐式 `any`\n- 接口定义应放在 `types.ts`\
+            \ 或组件文件顶部\n- API 响应数据是否有完整类型定义\n\n---\n\n### 3. React 最佳实践 (React Best\
+            \ Practices)\n\n**检查项：**\n\n- ✅ 组件是否采用函数式写法\n- ✅ Hooks 使用是否符合规范：\n  -\
+            \ 是否在顶层调用\n  - 依赖数组是否完整\n  - 是否有不必要的 useEffect\n- ✅ 状态管理是否合理（本地 state\
+            \ vs Zustand）\n- ✅ 是否有性能优化（useMemo、useCallback、React.memo）\n- ✅ 组件拆分是否合理（单一职责原则）\n\
+            - ✅ 是否有内存泄漏风险（未清理的订阅、定时器）\n\n**重点关注：**\n\n- useEffect 依赖数组完整性\n- 避免在循环/条件中使用\
+            \ Hooks\n- 大列表是否考虑虚拟滚动\n- 是否有不必要的重渲染\n\n---\n\n### 4. 微前端架构规范 (Micro-frontend\
+            \ Architecture)\n\n**检查项：**\n\n- ✅ 子应用路由是否符合 `/{domain}/*` 通配符规范\n- ✅\
+            \ 是否正确使用约定式路由（参考 Modern.js 约定式路由）\n- ✅ Module Federation 配置是否正确\n- ✅ 跨应用通信是否规范（避免全局变量污染）\n\
+            - ✅ 共享依赖版本是否一致（检查 `pnpm.overrides`）\n- ✅ 页面缓存使用是否合理（`@feoe/react-keepalive`）\n\
+            \n**重点关注：**\n\n- 子应用间是否有不合理的直接依赖\n- 公共组件是否放在 `packages/components`\n-\
+            \ 工具函数是否放在 `packages/shared`\n\n---\n\n### 5. 性能优化 (Performance)\n\n**检查项：**\n\
+            \n- ✅ 是否有大体积依赖未做按需加载\n- ✅ 组件是否合理使用懒加载（`@loadable/component`）\n- ✅ 图片/资源是否优化\n\
+            - ✅ 列表渲染是否有 key 优化\n- ✅ 是否有不必要的计算或渲染\n- ✅ API 请求是否有缓存策略\n- ✅ 是否有防抖/节流处理（搜索、滚动等）\n\
+            \n**重点关注：**\n\n- Bundle 体积是否合理（可通过 `pnpm analyze` 检查）\n- 首屏加载性能\n- 长列表性能\n\
+            \n---\n\n### 6. 错误处理与边界情况 (Error Handling & Edge Cases)\n\n**检查项：**\n\n\
+            - ✅ API 请求是否有错误处理\n- ✅ 是否有 ErrorBoundary 保护关键组件\n- ✅ 表单验证是否完善\n- ✅ 空状态、加载状态、错误状态是否处理\n\
+            - ✅ 边界条件是否考虑（空数组、null、undefined）\n- ✅ 是否有合适的用户提示（Toast、Modal）\n\n**重点关注：**\n\
+            \n- 网络异常处理\n- 用户输入校验\n- 空数据展示\n\n---\n\n### 7. 安全性 (Security)\n\n**检查项：**\n\
+            \n- ✅ 是否有 XSS 风险（dangerouslySetInnerHTML）\n- ✅ 敏感信息是否暴露（API Key、Token）\n\
+            - ✅ 用户输入是否正确转义\n- ✅ 权限校验是否完整\n- ✅ 接口调用是否有鉴权\n\n**重点关注：**\n\n- 不要在代码中硬编码敏感信息\n\
+            - 用户生成内容需要转义\n\n---\n\n### 8. 测试覆盖 (Testing)\n\n**检查项：**\n\n- ✅ 是否有对应的单元测试（关键逻辑）\n\
+            - ✅ 测试用例是否完整（正常/异常/边界）\n- ✅ Hooks 测试是否正确\n- ✅ 是否需要集成测试\n\n**重点关注：**\n\n\
+            - 核心业务逻辑应有测试覆盖\n- 建议核心模块保持 80% 以上覆盖率\n\n---\n\n### 9. 文档与注释 (Documentation)\n\
+            \n**检查项：**\n\n- ✅ 复杂逻辑是否有注释说明\n- ✅ 公共组件是否有使用文档\n- ✅ API 接口是否有注释\n- ✅ README\
+            \ 是否需要更新\n- ✅ 类型定义是否有 JSDoc 说明\n\n**重点关注：**\n\n- 注释应说明\\\"为什么\\\"而非\\\"\
+            做什么\\\"\n- 公共组件需要有 Props 说明\n\n---\n\n### 10. Git 与提交规范 (Git & Commit)\n\
+            \n**检查项：**\n\n- ✅ Commit Message 是否符合规范（`feat:`、`fix:`、`chore:`、`hotfix:`）\n\
+            - ✅ 是否关联任务单号\n- ✅ MR 描述是否清晰（变更内容、影响范围、测试步骤）\n- ✅ 是否有不相关的文件变更\n- ✅ 是否有敏感信息提交（`.env`、密钥）\n\
+            \n**重点关注：**\n\n- 提交历史是否清晰\n- 是否需要 rebase 或 squash\n\n---\n\n## \U0001F4CB\
+            \ 标准输出格式（必须严格遵守）\n\n**⚠️ 重要说明：每次 Code Review 必须完全按照以下格式输出，不得遗漏任何章节或改变结构顺序。**\n\
+            \n---\n\n### 第一部分：MR 基本信息\n\n```markdown\n## \U0001F4CB MR Review 报告\n\
+            \n**MR 标题**：[从 MR 中提取]\n**提交者**：[从 MR 中提取]\n**变更文件数**：X 个文件\n**变更代码行数**：+XXX\
+            \ -XXX\n**关联任务**：[任务单号或 N/A]\n**审查时间**：YYYY-MM-DD HH:mm\n\n---\n```\n\n\
+            ### 第二部分：快速结论\n\n```markdown\n## \U0001F3AF 审查结论\n\n**总体评分**：X/5 ⭐\n\n\
+            | 维度     | 评分       | 说明       |\n| -------- | ---------- | ----------\
+            \ |\n| 代码质量 | ⭐⭐⭐⭐⭐ | [简短说明] |\n| 类型安全 | ⭐⭐⭐⭐⭐ | [简短说明] |\n| 性能优化 | ⭐⭐⭐⭐⭐\
+            \ | [简短说明] |\n| 可维护性 | ⭐⭐⭐⭐⭐ | [简短说明] |\n| 测试覆盖 | ⭐⭐⭐⭐⭐ | [简短说明] |\n\n\
+            **合并建议**：\n\n- ✅ **通过 - 可以直接合并**\n- ⏸️ **条件通过 - 修改后可合并**（需修复 X 个 Blocker，X\
+            \ 个 Major）\n- ❌ **不通过 - 需要重大修改**（存在严重问题）\n\n---\n```\n\n### 第三部分：问题汇总\n\
+            \n```markdown\n## \U0001F4CA 问题统计\n\n| 严重程度      | 数量 | 说明           \
+            \  |\n| ------------- | ---- | ---------------- |\n| \U0001F534 Blocker\
+            \    | X    | 必须修改才能合并 |\n| \U0001F7E1 Major      | X    | 强烈建议修改    \
+            \ |\n| \U0001F7E2 Minor      | X    | 可选优化         |\n| \U0001F4A1 Suggestion\
+            \ | X    | 改进建议         |\n\n---\n```\n\n### 第四部分：优点表扬（必须有，哪怕只有一条）\n\n\
+            ```markdown\n## ✅ 做得好的地方\n\n1. **[具体优点标题]**\n\n   - [详细描述]\n   - 示例：代码位置或片段\n\
+            \n2. **[具体优点标题]**\n   - [详细描述]\n\n（至少列出 1-3 条优点）\n\n---\n```\n\n### 第五部分：问题详情（按严重程度分组）\n\
+            \n````markdown\n## \U0001F534 Blocker - 必须修改（X 个）\n\n### 问题 1：[问题标题]\n\
+            \n**文件**：`src/path/to/file.tsx` (行 XX-XX)\n\n**问题描述**：\n[清晰描述问题]\n\n**当前代码**：\n\
+            \n```typescript\n// ❌ 问题代码\n[粘贴问题代码片段];\n```\n\n**建议修改**：\n\n```typescript\n\
+            // ✅ 推荐写法\n[提供修改后的代码];\n```\n\n**原因说明**：\n[解释为什么这样改，可能导致的风险]\n\n---\n\n\
+            ### 问题 2：[问题标题]\n\n[同样的格式...]\n\n---\n\n## \U0001F7E1 Major - 强烈建议修改（X\
+            \ 个）\n\n### 问题 1：[问题标题]\n\n**文件**：`src/path/to/file.tsx` (行 XX-XX)\n\n\
+            **问题描述**：\n[清晰描述问题]\n\n**当前代码**：\n\n```typescript\n// ⚠️ 可改进代码\n[粘贴代码片段];\n\
+            ```\n\n**建议修改**：\n\n```typescript\n// ✅ 更好的写法\n[提供改进方案];\n```\n\n**原因说明**：\n\
+            [解释改进理由和带来的好处]\n\n---\n\n## \U0001F7E2 Minor - 可选优化（X 个）\n\n### 问题 1：[问题标题]\n\
+            \n**文件**：`src/path/to/file.tsx` (行 XX-XX)\n\n**建议**：\n[简短描述优化建议]\n\n**示例**（可选）：\n\
+            \n```typescript\n// \U0001F4A1 优化建议\n[可选的代码示例];\n```\n\n---\n\n## \U0001F4A1\
+            \ Suggestion - 改进建议与学习\n\n### 建议 1：[建议标题]\n\n**说明**：\n[详细的改进思路或最佳实践分享]\n\
+            \n**参考资料**（如有）：\n\n- [相关文档链接]\n\n---\n\n````\n\n### 第六部分：文件清单（变更文件超过 5\
+            \ 个时必须提供）\n\n```markdown\n## \U0001F4C1 变更文件清单\n\n| 文件路径 | 变更类型 | 问题数量\
+            \ | 备注 |\n|---------|---------|---------|------|\n| `src/components/UserTable.tsx`\
+            \ | 修改 | \U0001F534×1 \U0001F7E1×2 | 主要问题文件 |\n| `src/services/user.service.ts`\
+            \ | 新增 | \U0001F7E1×1 | 缺少错误处理 |\n| `src/utils/format.ts` | 修改 | \U0001F7E2\
+            ×1 | 小优化建议 |\n| `src/types/user.ts` | 新增 | ✅ | 无问题 |\n\n---\n````\n\n\
+            ### 第七部分：检查清单（必须完整填写）\n\n```markdown\n## ✅ 审查检查清单\n\n### 代码规范\n\n- [ ]\
+            \ Biome 格式检查通过\n- [ ] 命名规范符合要求\n- [ ] 无调试代码（console.log、debugger）\n- [\
+            \ ] 文件组织合理\n\n### TypeScript\n\n- [ ] 无 `any` 类型（或有合理注释）\n- [ ] 类型定义完整\n\
+            - [ ] 正确使用 `import type`\n\n### React 最佳实践\n\n- [ ] 组件使用函数式写法\n- [ ] Hooks\
+            \ 使用规范\n- [ ] 无性能问题\n- [ ] 无内存泄漏风险\n\n### 微前端架构\n\n- [ ] 路由配置正确\n- [ ]\
+            \ 无跨应用不当依赖\n- [ ] 共享依赖版本一致\n\n### 性能优化\n\n- [ ] 无大体积依赖未按需加载\n- [ ] 长列表有优化\n\
+            - [ ] 合理使用缓存\n\n### 错误处理\n\n- [ ] API 请求有错误处理\n- [ ] 边界情况已考虑\n- [ ] 用户提示完善\n\
+            \n### 安全性\n\n- [ ] 无 XSS 风险\n- [ ] 无敏感信息泄露\n- [ ] 权限校验完整\n\n### 测试\n\n\
+            - [ ] 关键逻辑有测试\n- [ ] 测试用例充分\n\n### 文档\n\n- [ ] 复杂逻辑有注释\n- [ ] 公共组件有文档\n\
+            \n### Git 规范\n\n- [ ] Commit Message 规范\n- [ ] 无无关文件变更\n- [ ] MR 描述清晰\n\
+            \n---\n```\n\n### 第八部分：测试建议（如适用，可选提供）\n\n```markdown\n## \U0001F9EA 测试建议\n\
+            \n### 建议测试的场景\n\n1. **[场景 1 名称]**\n\n   - 测试步骤：[详细步骤]\n   - 预期结果：[预期表现]\n\
+            \   - 关注点：[需要重点关注的地方]\n\n2. **[场景 2 名称]**\n   - 测试步骤：[详细步骤]\n   - 预期结果：[预期表现]\n\
+            \n### 回归测试范围（如适用）\n\n- [ ] [相关功能模块 1]\n- [ ] [相关功能模块 2]\n\n### 性能测试（如适用）\n\
+            \n- [ ] 页面加载时间\n- [ ] 长列表滚动流畅度\n- [ ] 内存占用情况\n\n---\n```\n\n### 第九部分：后续行动（必须明确）\n\
+            \n```markdown\n## \U0001F3AC 后续行动\n\n### 提交者需要做的事情\n\n**立即处理（Blocker）：**\n\
+            \n1. [ ] [具体任务 1 - 预计耗时 Xmin]\n2. [ ] [具体任务 2 - 预计耗时 Xmin]\n\n**建议处理（Major）：**\n\
+            \n1. [ ] [具体任务 1 - 预计耗时 Xmin]\n2. [ ] [具体任务 2 - 预计耗时 Xmin]\n\n**可选处理（Minor）：**\n\
+            \n1. [ ] [具体任务 1]\n\n### 审查者承诺\n\n- ⏰ 预计响应时间：[收到修改后 X 小时内完成二次审查]\n- \U0001F4DE\
+            \ 可联系方式：[如有疑问可通过 XXX 联系]\n\n---\n```\n\n### 第十部分：审查总结（必须有）\n\n```markdown\n\
+            ## \U0001F4DD 审查总结\n\n### 核心问题\n\n[用 2-3 句话概括最核心的问题]\n\n### 改进方向\n\n[用\
+            \ 2-3 句话说明主要改进方向]\n\n### 总体评价\n\n[用 3-5 句话给出整体评价，包括：\n\n1. 代码整体质量\n2.\
+            \ 是否符合团队规范\n3. 是否达到合并标准\n4. 对提交者的鼓励或建议]\n\n---\n\n**审查者**：[审查者姓名]\n**审查完成时间**：YYYY-MM-DD\
+            \ HH:mm\n\n---\n\n_本次 Review 基于 [Fox-UI 前端开发规范](https://www.notion.so/mountainwu/296d0703435c4d8686f6f84b44bb06a3)\
+            \ 进行_\n```\n\n---\n\n## \U0001F6A8 格式规范强制要求\n\n### 必须遵守的规则\n\n1. **章节完整性**：必须包含前\
+            \ 7 个部分（MR 基本信息至检查清单），第 8-10 部分根据实际情况提供\n2. **顺序固定**：必须按照 1-10 的顺序输出，不得调整\n\
+            3. **标题格式**：章节标题必须使用指定的 emoji 和文字\n4. **表格规范**：表格必须使用 Markdown 格式，保持对齐\n\
+            5. **代码块**：所有代码示例必须使用三个反引号包裹，并标注语言\n6. **问题编号**：每个严重程度分组内的问题必须连续编号\n7.\
+            \ **空行规范**：每个大章节之间必须有 `---` 分隔线\n\n### 章节提供规则\n\n**必须提供（1-7 部分）：**\n\n\
+            - ✅ 第一部分：MR 基本信息\n- ✅ 第二部分：快速结论\n- ✅ 第三部分：问题汇总\n- ✅ 第四部分：优点表扬\n- ✅ 第五部分：问题详情\n\
+            - ✅ 第六部分：文件清单（变更文件 > 5 个时）\n- ✅ 第七部分：检查清单\n\n**根据情况提供（8-10 部分）：**\n\n\
+            - \U0001F536 第八部分：测试建议（涉及功能变更或新功能时提供）\n- \U0001F536 第九部分：后续行动（有 Blocker\
+            \ 或 Major 问题时提供）\n- ✅ 第十部分：审查总结（始终提供）\n\n### 评分标准（1-5 星）\n\n| 星级     \
+            \  | 说明                     |\n| ---------- | ------------------------\
+            \ |\n| ⭐         | 严重不合格，大量问题     |\n| ⭐⭐       | 不合格，存在多个严重问题 |\n| ⭐⭐⭐\
+            \     | 及格，有改进空间         |\n| ⭐⭐⭐⭐   | 良好，少量优化建议       |\n| ⭐⭐⭐⭐⭐ | 优秀，几乎无可挑剔\
+            \       |\n\n### 问题严重程度判定标准\n\n| 级别          | 判定标准                  \
+            \                                                 | 示例               \
+            \                          |\n| ------------- | --------------------------------------------------------------------------\
+            \ | -------------------------------------------- |\n| \U0001F534 Blocker\
+            \    | 1. 安全漏洞<br>2. 严重 Bug<br>3. 破坏现有功能<br>4. 违反核心架构原则       | XSS 风险、类型错误导致运行时崩溃、内存泄漏\
+            \   |\n| \U0001F7E1 Major      | 1. 性能问题<br>2. 可维护性问题<br>3. 不符合最佳实践<br>4.\
+            \ 缺少重要错误处理 | 未使用 useMemo、复杂逻辑无注释、缺少边界处理 |\n| \U0001F7E2 Minor      | 1.\
+            \ 代码风格问题<br>2. 小的优化空间<br>3. 注释不完善                        | 变量命名可以更清晰、可以抽取常量\
+            \             |\n| \U0001F4A1 Suggestion | 1. 改进思路<br>2. 学习分享<br>3. 可选的重构建议\
+            \                            | 推荐使用新的 API、分享性能优化技巧           |\n\n---\n\
+            \n## 注意事项\n\n1. **保持建设性**：指出问题的同时给出解决方案\n2. **具体明确**：提供代码示例而非模糊描述\n3.\
+            \ **尊重作者**：肯定优点，委婉指出不足\n4. **关注重点**：优先关注安全、性能、可维护性\n5. **避免主观**：基于团队规范和最佳实践，而非个人偏好\n\
+            6. **及时响应**：尽快完成 Review，避免阻塞开发流程\n7. **格式统一**：严格按照标准输出格式，确保每次审查的输出格式保持一致\n\
+            \n---\n\n## 特别关注\n\n### 微前端项目特有问题\n\n- 子应用路由冲突\n- 跨应用状态共享不当\n- Module\
+            \ Federation 配置错误\n- 公共依赖版本不一致\n\n### 常见错误模式\n\n- useEffect 无限循环\n- 闭包陷阱导致的状态不同步\n\
+            - 内存泄漏（未清理订阅）\n- 错误的 key 使用导致的渲染问题\n\n---\n\n## 参考资料\n\n- [前端开发规范](/spec/前端开发规范文档.md)\n\
+            - [Modern.js 约定式路由](https://modernjs.dev/guides/concept/entries.html#%E7%BA%A6%E5%AE%9A%E5%BC%8F%E8%B7%AF%E7%94%B1)\n\
+            - [FOX-UI 项目架构](https://fox-ui.figma.site/)\n- [React 官方文档](https://react.dev/)\n\
+            - [TypeScript 最佳实践](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html)\n\
+            \n---\n\n**记住**：Code Review 的目的不是挑刺，而是通过集体智慧提升代码质量，帮助团队成长。保持专业、友好、建设性的态度，同时确保每次审查的输出格式保持一致，便于团队成员快速理解和跟进。"
         - id: 1757000000004-user
           role: user
           text: '{{#1757000000003.summary_user_input#}}'
@@ -1806,19 +1361,19 @@ workflow:
         variables: []
         vision:
           enabled: false
-      height: 116
+      height: 132
       id: '1757000000004'
       position:
-        x: 11880
-        y: 180
+        x: 13284
+        y: 322
       positionAbsolute:
-        x: 11880
-        y: 180
+        x: 13284
+        y: 322
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 360
+      width: 242
     - data:
         authorization:
           config:
@@ -1831,7 +1386,9 @@ workflow:
           - id: key-value-summary-body
             key: body
             type: text
-            value: "{{#1757000000003.marker#}}\n{{#1757000000004.text#}}"
+            value: '{{#1757000000003.marker#}}
+
+              {{#1757000000004.text#}}'
           type: form-data
         desc: 发送 MR 汇总评论（notes）
         headers: ''
@@ -1842,6 +1399,7 @@ workflow:
           retry_enabled: true
           retry_interval: 100
         selected: false
+        ssl_verify: true
         timeout:
           max_connect_timeout: 0
           max_read_timeout: 0
@@ -1850,19 +1408,139 @@ workflow:
         type: http-request
         url: '{{#env.GITLAB_HOST#}}/api/v4/projects/{{#17346383362280.project_id#}}/merge_requests/{{#17346383362280.iid#}}/notes'
         variables: []
-      height: 212
+      height: 222
       id: '1757000000005'
       position:
-        x: 12280
-        y: 180
+        x: 13626
+        y: 277
       positionAbsolute:
-        x: 12280
-        y: 180
+        x: 13626
+        y: 277
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 360
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: 8d2d7b2f-17c6-4a6b-bdba-5e2a58ff2aa2
+            value: 'false'
+            varType: string
+            variable_selector:
+            - env
+            - ENABLE_LOOP_SEND_MESSAGE
+          id: 'true'
+          logical_operator: and
+        desc: 当循环内不发消息时，在 MR 汇总 note 提交后发送一次 TV 消息
+        selected: false
+        title: Send Summary TV When Loop Disabled
+        type: if-else
+      height: 124
+      id: '1757000000018'
+      position:
+        x: 13968
+        y: 277
+      positionAbsolute:
+        x: 13968
+        y: 277
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "function main({summary, author_username, project_name, web_url, mr_title, mr_url}) {\n  const userEmail = `${author_username}@kn.group`;\n  const header = `# AI MR Review Summary\\n@${userEmail}\\n\\n项目：${project_name || ''}\\n仓库：${web_url || ''}\\nMR：${mr_title || ''}\\n链接：${mr_url || ''}\\n\\n---\\n\\n`;\n  const body = (summary || '').toString().slice(0, 12000);\n  const message = (header + body).slice(0, 15000);\n  return { message };\n}\n"
+        code_language: javascript
+        desc: 生成 MR 汇总的 TV 消息内容
+        outputs:
+          message:
+            children: null
+            type: string
+        selected: false
+        title: Gen MR Summary TV Message
+        type: code
+        variables:
+        - value_selector:
+          - '1757000000004'
+          - text
+          variable: summary
+        - value_selector:
+          - '17346946700280'
+          - author_username
+          variable: author_username
+        - value_selector:
+          - '17346383362280'
+          - project_name
+          variable: project_name
+        - value_selector:
+          - '17346383362280'
+          - web_url
+          variable: web_url
+        - value_selector:
+          - '17346946700280'
+          - title
+          variable: mr_title
+        - value_selector:
+          - '17346946700280'
+          - mr_url
+          variable: mr_url
+      height: 96
+      id: '1757000000019'
+      position:
+        x: 14310
+        y: 277
+      positionAbsolute:
+        x: 14310
+        y: 277
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-mr-summary-tv
+            key: ''
+            type: text
+            value: "{\n  \"botId\": \"{{#env.TV_BOOT_ID#}}\",\n  \"message\": \"{{#1757000000019.message#}}\"\n}"
+          type: json
+        desc: 发送 MR 汇总到 TV（仅当 ENABLE_LOOP_SEND_MESSAGE=false）
+        headers: ''
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: false
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: Send MR Summary TV Message
+        type: http-request
+        url: https://tv-service-alert.kuainiu.chat/alert/v2/inline
+        variables: []
+      height: 150
+      id: '1757000000020'
+      position:
+        x: 14652
+        y: 277
+      positionAbsolute:
+        x: 14652
+        y: 277
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
     - data:
         desc: 检查 Discussions 中的每条 discussion
         error_handle_mode: continue-on-error
@@ -1880,20 +1558,20 @@ workflow:
         start_node_id: 1734625888939start
         title: 迭代 Commits Diff list
         type: iteration
-        width: 5396
+        width: 5738
       height: 664
       id: '1734625888939'
       position:
-        x: 6400
-        y: 0
+        x: 6058
+        y: 39
       positionAbsolute:
-        x: 6400
-        y: 0
+        x: 6058
+        y: 39
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 5396
+      width: 5738
       zIndex: 1
     - data:
         desc: ''
@@ -1909,8 +1587,8 @@ workflow:
         x: 60
         y: 205
       positionAbsolute:
-        x: 6460
-        y: 205
+        x: 6118
+        y: 244
       selectable: false
       sourcePosition: right
       targetPosition: left
@@ -1973,10 +1651,10 @@ workflow:
       id: '17346383362280'
       position:
         x: 342
-        y: 306
+        y: 293
       positionAbsolute:
         x: 342
-        y: 306
+        y: 293
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2014,10 +1692,10 @@ workflow:
       id: '17346390565450'
       position:
         x: 1046
-        y: 244
+        y: 231
       positionAbsolute:
         x: 1046
-        y: 244
+        y: 231
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2053,11 +1731,11 @@ workflow:
       height: 222
       id: '17346847020550'
       position:
-        x: 1790
-        y: 244
+        x: 1730
+        y: 231
       positionAbsolute:
-        x: 1790
-        y: 244
+        x: 1730
+        y: 231
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2114,11 +1792,11 @@ workflow:
       height: 80
       id: '1734694634848'
       position:
-        x: 4308
-        y: 315
+        x: 3480
+        y: 354
       positionAbsolute:
-        x: 4308
-        y: 315
+        x: 3480
+        y: 354
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2146,11 +1824,11 @@ workflow:
       height: 80
       id: '1757000000000'
       position:
-        x: 4680
-        y: 199
+        x: 4184
+        y: 391
       positionAbsolute:
-        x: 4680
-        y: 199
+        x: 4184
+        y: 391
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2186,11 +1864,11 @@ workflow:
       height: 118
       id: '1757000000001'
       position:
-        x: 5020
-        y: 199
+        x: 4526
+        y: 372
       positionAbsolute:
-        x: 5020
-        y: 199
+        x: 4526
+        y: 372
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2232,11 +1910,11 @@ workflow:
       height: 80
       id: '17346946700280'
       position:
-        x: 1448
-        y: 315
+        x: 1388
+        y: 302
       positionAbsolute:
-        x: 1448
-        y: 315
+        x: 1388
+        y: 302
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2279,11 +1957,11 @@ workflow:
       height: 80
       id: '17346946709900'
       position:
-        x: 2132
-        y: 315
+        x: 2072
+        y: 302
       positionAbsolute:
-        x: 2132
-        y: 315
+        x: 2072
+        y: 302
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2321,14 +1999,14 @@ workflow:
         selected: false
         title: Use Incremental Diffs
         type: if-else
-      height: 152
+      height: 236
       id: '1757000000010'
       position:
-        x: 2474
-        y: 350
+        x: 2414
+        y: 224
       positionAbsolute:
-        x: 2474
-        y: 350
+        x: 2414
+        y: 224
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2358,6 +2036,7 @@ workflow:
           retry_enabled: true
           retry_interval: 100
         selected: false
+        ssl_verify: true
         timeout:
           max_connect_timeout: 0
           max_read_timeout: 0
@@ -2366,14 +2045,14 @@ workflow:
         type: http-request
         url: '{{#env.GITLAB_HOST#}}/api/v4/projects/{{#17346383362280.project_id#}}/repository/compare'
         variables: []
-      height: 212
+      height: 219
       id: '1757000000011'
       position:
-        x: 2816
-        y: 424
+        x: 2776
+        y: 0
       positionAbsolute:
-        x: 2816
-        y: 424
+        x: 2776
+        y: 0
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2381,7 +2060,12 @@ workflow:
       width: 242
       zIndex: 1002
     - data:
-        code: "function main({ version_raw, compare_raw }) {\n  const hasText = (v) => typeof v === 'string' && v.trim().length > 0;\n\n  if (hasText(compare_raw)) {\n    return { raw: compare_raw, diff_source: 'compare' };\n  }\n\n  if (hasText(version_raw)) {\n    return { raw: version_raw, diff_source: 'mr_version' };\n  }\n\n  return { raw: JSON.stringify({ diffs: [] }), diff_source: 'empty' };\n}\n"
+        code: "function main({ version_raw, compare_raw }) {\n  const hasText = (v)\
+          \ => typeof v === 'string' && v.trim().length > 0;\n\n  if (hasText(compare_raw))\
+          \ {\n    return { raw: compare_raw, diff_source: 'compare' };\n  }\n\n \
+          \ if (hasText(version_raw)) {\n    return { raw: version_raw, diff_source:\
+          \ 'mr_version' };\n  }\n\n  return { raw: JSON.stringify({ diffs: [] }),\
+          \ diff_source: 'empty' };\n}\n"
         code_language: javascript
         desc: 统一 diffs 原始返回体来源（open/reopen 用 version diffs，update 用 compare）
         outputs:
@@ -2403,14 +2087,14 @@ workflow:
           - '1757000000011'
           - body
           variable: compare_raw
-      height: 96
+      height: 112
       id: '1757000000012'
       position:
-        x: 3158
-        y: 350
+        x: 3138
+        y: 338
       positionAbsolute:
-        x: 3158
-        y: 350
+        x: 3138
+        y: 338
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2493,8 +2177,8 @@ workflow:
         x: 4430
         y: 411
       positionAbsolute:
-        x: 10830
-        y: 411
+        x: 10488
+        y: 450
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2527,8 +2211,8 @@ workflow:
         x: 3766
         y: 165
       positionAbsolute:
-        x: 10166
-        y: 165
+        x: 9824
+        y: 204
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2556,11 +2240,11 @@ workflow:
       height: 124
       id: '1734702859732'
       position:
-        x: 4650
-        y: 293
+        x: 3822
+        y: 332
       positionAbsolute:
-        x: 4650
-        y: 293
+        x: 3822
+        y: 332
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2611,11 +2295,11 @@ workflow:
       height: 258
       id: '1734706580846'
       position:
-        x: 5012
-        y: 84
+        x: 4526
+        y: 34
       positionAbsolute:
-        x: 5012
-        y: 84
+        x: 4526
+        y: 34
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2780,11 +2464,11 @@ workflow:
       id: '1734775287920'
       parentId: '1734625888939'
       position:
-        x: 3122
+        x: 2800
         y: 169
       positionAbsolute:
-        x: 9522
-        y: 169
+        x: 8858
+        y: 208
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2841,10 +2525,10 @@ workflow:
       id: '1735063824243'
       position:
         x: 684
-        y: 209
+        y: 196
       positionAbsolute:
         x: 684
-        y: 209
+        y: 196
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2871,6 +2555,7 @@ workflow:
           retry_enabled: true
           retry_interval: 100
         selected: false
+        ssl_verify: true
         timeout:
           max_connect_timeout: 0
           max_read_timeout: 0
@@ -2882,11 +2567,11 @@ workflow:
       height: 228
       id: '17351266890650'
       position:
-        x: 2474
-        y: 241
+        x: 2776
+        y: 299
       positionAbsolute:
-        x: 2474
-        y: 241
+        x: 2776
+        y: 299
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2956,8 +2641,8 @@ workflow:
         x: 1512
         y: 179
       positionAbsolute:
-        x: 7912
-        y: 179
+        x: 7570
+        y: 218
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2996,11 +2681,11 @@ workflow:
       height: 238
       id: '17351299823070'
       position:
-        x: 5374
-        y: 213
+        x: 4888
+        y: 252
       positionAbsolute:
-        x: 5374
-        y: 213
+        x: 4888
+        y: 252
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -3040,11 +2725,11 @@ workflow:
       height: 52
       id: '1735130047799'
       position:
-        x: 5716
-        y: 306
+        x: 5230
+        y: 345
       positionAbsolute:
-        x: 5716
-        y: 306
+        x: 5230
+        y: 345
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -3086,8 +2771,8 @@ workflow:
         x: 4430
         y: 60
       positionAbsolute:
-        x: 10830
-        y: 60
+        x: 10488
+        y: 99
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -3130,8 +2815,8 @@ workflow:
         x: 2156
         y: 116
       positionAbsolute:
-        x: 8556
-        y: 116
+        x: 8214
+        y: 155
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -3166,8 +2851,8 @@ workflow:
         x: 2478
         y: 187
       positionAbsolute:
-        x: 8878
-        y: 187
+        x: 8536
+        y: 226
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -3200,8 +2885,8 @@ workflow:
         x: 184
         y: 153
       positionAbsolute:
-        x: 6584
-        y: 153
+        x: 6242
+        y: 192
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -3246,8 +2931,8 @@ workflow:
         x: 526
         y: 157
       positionAbsolute:
-        x: 6926
-        y: 157
+        x: 6584
+        y: 196
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -3280,8 +2965,8 @@ workflow:
         x: 848
         y: 214
       positionAbsolute:
-        x: 7248
-        y: 214
+        x: 6906
+        y: 253
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -3319,8 +3004,8 @@ workflow:
         x: 1190
         y: 145
       positionAbsolute:
-        x: 7590
-        y: 145
+        x: 7248
+        y: 184
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -3353,8 +3038,8 @@ workflow:
         x: 848
         y: 74
       positionAbsolute:
-        x: 7248
-        y: 74
+        x: 6906
+        y: 113
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -3362,7 +3047,16 @@ workflow:
       width: 242
       zIndex: 1002
     - data:
-        code: "function main({review, diff_raw, new_path, encoded_path, web_url, head_sha}) {\n  const fileUrl = `${web_url}/-/blob/${head_sha}/${encoded_path}`;\n\n  let diffText = '';\n  try {\n    const obj = JSON.parse(diff_raw);\n    diffText = obj?.diff || '';\n  } catch (e) {\n    diffText = typeof diff_raw === 'string' ? diff_raw : '';\n  }\n\n  const diffLines = diffText ? diffText.split('\\n').slice(0, 160).join('\\n') : '';\n  const trimmedReview = (review || '').slice(0, 8000);\n\n  const summary_item = [\n    `## ${new_path}`,\n    `\\n${fileUrl}`,\n    diffLines ? `\\n\\n\\`\\`\\`diff\\n${diffLines}\\n\\`\\`\\`` : '',\n    trimmedReview ? `\\n\\n${trimmedReview}` : ''\n  ].join('').trim();\n\n  return { summary_item };\n}\n"
+        code: "function main({review, diff_raw, new_path, encoded_path, web_url, head_sha})\
+          \ {\n  const fileUrl = `${web_url}/-/blob/${head_sha}/${encoded_path}`;\n\
+          \n  let diffText = '';\n  try {\n    const obj = JSON.parse(diff_raw);\n\
+          \    diffText = obj?.diff || '';\n  } catch (e) {\n    diffText = typeof\
+          \ diff_raw === 'string' ? diff_raw : '';\n  }\n\n  const diffLines = diffText\
+          \ ? diffText.split('\\n').slice(0, 160).join('\\n') : '';\n  const trimmedReview\
+          \ = (review || '').slice(0, 8000);\n\n  const summary_item = [\n    `##\
+          \ ${new_path}`,\n    `\\n${fileUrl}`,\n    diffLines ? `\\n\\n\\`\\`\\`diff\\\
+          n${diffLines}\\n\\`\\`\\`` : '',\n    trimmedReview ? `\\n\\n${trimmedReview}`\
+          \ : ''\n  ].join('').trim();\n\n  return { summary_item };\n}\n"
         code_language: javascript
         desc: 生成用于 MR 汇总的单文件审查条目（带链接、截断 diff、截断审查结果）
         isInIteration: true
@@ -3404,10 +3098,10 @@ workflow:
       parentId: '1734625888939'
       position:
         x: 3444
-        y: 70
+        y: 179
       positionAbsolute:
-        x: 9844
-        y: 70
+        x: 9502
+        y: 218
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -3440,8 +3134,8 @@ workflow:
         x: 1834
         y: 165
       positionAbsolute:
-        x: 8234
-        y: 165
+        x: 7892
+        y: 204
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -3476,11 +3170,11 @@ workflow:
       id: '1735661041621'
       parentId: '1734625888939'
       position:
-        x: 3444
+        x: 3122
         y: 187
       positionAbsolute:
-        x: 9844
-        y: 187
+        x: 9180
+        y: 226
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -3536,10 +3230,10 @@ workflow:
       id: '1735985486526'
       position:
         x: 1046
-        y: 546
+        y: 533
       positionAbsolute:
         x: 1046
-        y: 546
+        y: 533
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -3555,10 +3249,10 @@ workflow:
       id: '1735985496074'
       position:
         x: 1046
-        y: 678
+        y: 665
       positionAbsolute:
         x: 1046
-        y: 678
+        y: 665
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -3598,19 +3292,25 @@ workflow:
       height: 238
       id: '1757000000013'
       position:
-        x: 11020
-        y: 88
+        x: 11896
+        y: 252
       positionAbsolute:
-        x: 11020
-        y: 88
+        x: 11896
+        y: 252
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 360
+      width: 242
       zIndex: 1
     - data:
-        code: "function main({ raw }) {\n  const marker = '<!-- ai-mr-review-summary -->';\n\n  try {\n    const notes = JSON.parse(raw);\n    const arr = Array.isArray(notes) ? notes : [];\n    const found = arr.find((n) => typeof n?.body === 'string' && n.body.includes(marker));\n\n    return {\n      should_post_summary: found ? 'no' : 'yes',\n      existing_note_id: found?.id || 0\n    };\n  } catch (e) {\n    return { should_post_summary: 'yes', existing_note_id: 0 };\n  }\n}\n"
+        code: "function main({ raw }) {\n  const marker = '<!-- ai-mr-review-summary\
+          \ -->';\n\n  try {\n    const notes = JSON.parse(raw);\n    const arr =\
+          \ Array.isArray(notes) ? notes : [];\n    const found = arr.find((n) =>\
+          \ typeof n?.body === 'string' && n.body.includes(marker));\n\n    return\
+          \ {\n      should_post_summary: found ? 'no' : 'yes',\n      existing_note_id:\
+          \ found?.id || 0\n    };\n  } catch (e) {\n    return { should_post_summary:\
+          \ 'yes', existing_note_id: 0 };\n  }\n}\n"
         code_language: javascript
         desc: 检查是否已存在 MR 汇总评论（通过 marker）
         outputs:
@@ -3631,16 +3331,16 @@ workflow:
       height: 96
       id: '1757000000014'
       position:
-        x: 11440
-        y: 88
+        x: 12238
+        y: 323
       positionAbsolute:
-        x: 11440
-        y: 88
+        x: 12238
+        y: 323
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 360
+      width: 242
       zIndex: 1
     - data:
         cases:
@@ -3659,19 +3359,19 @@ workflow:
         selected: false
         title: Should Post MR Summary
         type: if-else
-      height: 124
+      height: 168
       id: '1757000000015'
       position:
-        x: 11880
-        y: 88
+        x: 12580
+        y: 287
       positionAbsolute:
-        x: 11880
-        y: 88
+        x: 12580
+        y: 287
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 360
+      width: 242
       zIndex: 1
     - data:
         authorization:
@@ -3708,10 +3408,10 @@ workflow:
       id: '1735994215169'
       position:
         x: 2132
-        y: 583
+        y: 715
       positionAbsolute:
         x: 2132
-        y: 583
+        y: 715
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -3745,10 +3445,10 @@ workflow:
       id: '17359946280530'
       position:
         x: 2474
-        y: 645
+        y: 777
       positionAbsolute:
         x: 2474
-        y: 645
+        y: 777
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -3780,8 +3480,8 @@ workflow:
         x: 4088
         y: 165
       positionAbsolute:
-        x: 10488
-        y: 165
+        x: 10146
+        y: 204
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -3810,10 +3510,10 @@ workflow:
       id: '17359979073310'
       position:
         x: 2816
-        y: 475
+        y: 607
       positionAbsolute:
         x: 2816
-        y: 475
+        y: 607
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -3975,7 +3675,7 @@ workflow:
         y: 144
       positionAbsolute:
         x: 4650
-        y: 619
+        y: 751
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -4049,7 +3749,7 @@ workflow:
         y: 177
       positionAbsolute:
         x: 3000
-        y: 652
+        y: 784
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -4093,7 +3793,7 @@ workflow:
         y: 127
       positionAbsolute:
         x: 3664
-        y: 602
+        y: 734
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -4129,7 +3829,7 @@ workflow:
         y: 198
       positionAbsolute:
         x: 3986
-        y: 673
+        y: 805
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -4183,7 +3883,7 @@ workflow:
         y: 176
       positionAbsolute:
         x: 4972
-        y: 651
+        y: 783
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -4205,7 +3905,7 @@ workflow:
         y: 179
       positionAbsolute:
         x: 2876
-        y: 654
+        y: 786
       selectable: false
       sourcePosition: right
       targetPosition: left
@@ -4222,10 +3922,10 @@ workflow:
       id: '1735998423516'
       position:
         x: 6058
-        y: 645
+        y: 777
       positionAbsolute:
         x: 6058
-        y: 645
+        y: 777
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -4258,7 +3958,7 @@ workflow:
         y: 141
       positionAbsolute:
         x: 3322
-        y: 616
+        y: 748
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -4285,7 +3985,7 @@ workflow:
         y: 134
       positionAbsolute:
         x: 4328
-        y: 609
+        y: 741
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -4314,7 +4014,7 @@ workflow:
         y: 60
       positionAbsolute:
         x: 3986
-        y: 535
+        y: 667
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -4478,10 +4178,10 @@ workflow:
       id: '1736000355076'
       position:
         x: 5374
-        y: 645
+        y: 777
       positionAbsolute:
         x: 5374
-        y: 645
+        y: 777
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -4522,10 +4222,10 @@ workflow:
       id: '1736003178180'
       position:
         x: 1770
-        y: 565
+        y: 697
       positionAbsolute:
         x: 1770
-        y: 565
+        y: 697
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -4533,7 +4233,9 @@ workflow:
       width: 242
     - data:
         desc: ''
-        outputs: []
+        outputs:
+        - value_selector: []
+          variable: ''
         selected: false
         title: No Hash nor Email End
         type: end
@@ -4541,10 +4243,10 @@ workflow:
       id: '1736003193053'
       position:
         x: 2132
-        y: 838
+        y: 970
       positionAbsolute:
         x: 2132
-        y: 838
+        y: 970
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -4571,10 +4273,10 @@ workflow:
       id: '1736228935056'
       position:
         x: 1408
-        y: 579
+        y: 711
       positionAbsolute:
         x: 1408
-        y: 579
+        y: 711
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -4590,10 +4292,10 @@ workflow:
       id: '1736229032478'
       position:
         x: 1770
-        y: 821
+        y: 953
       positionAbsolute:
         x: 1770
-        y: 821
+        y: 953
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -4631,10 +4333,10 @@ workflow:
       id: '1754277742659'
       position:
         x: 5716
-        y: 588
+        y: 720
       positionAbsolute:
         x: 5716
-        y: 588
+        y: 720
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -4691,11 +4393,11 @@ workflow:
       id: '1754278744853'
       parentId: '1734625888939'
       position:
-        x: 4772
+        x: 4774.0287247979195
         y: 179
       positionAbsolute:
-        x: 11172
-        y: 179
+        x: 10832.02872479792
+        y: 218
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -4721,15 +4423,15 @@ workflow:
         selected: false
         title: Enable Loop Send Message
         type: if-else
-      height: 124
+      height: 152
       id: '1757000000016'
       parentId: '1734625888939'
       position:
         x: 5094
-        y: 260
+        y: 143
       positionAbsolute:
-        x: 11494
-        y: 260
+        x: 11152
+        y: 182
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -4750,15 +4452,15 @@ workflow:
         title: Skip Loop Send Message
         type: code
         variables: []
-      height: 80
+      height: 96
       id: '1757000000017'
       parentId: '1734625888939'
       position:
-        x: 5416
-        y: 260
+        x: 5436
+        y: 322
       positionAbsolute:
-        x: 11816
-        y: 260
+        x: 11494
+        y: 361
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -4788,6 +4490,7 @@ workflow:
           retry_enabled: false
           retry_interval: 100
         selected: false
+        ssl_verify: true
         timeout:
           max_connect_timeout: 0
           max_read_timeout: 0
@@ -4800,11 +4503,11 @@ workflow:
       id: '1754289121034'
       parentId: '1734625888939'
       position:
-        x: 5094
-        y: 151
+        x: 5436
+        y: 126
       positionAbsolute:
         x: 11494
-        y: 151
+        y: 165
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -4812,7 +4515,7 @@ workflow:
       width: 242
       zIndex: 1002
     viewport:
-      x: -3442.0130942780224
-      y: 365.4080184320301
-      zoom: 0.5439050881488369
+      x: -12063.532066226231
+      y: -138.78397184289963
+      zoom: 0.9313006090806359
   rag_pipeline_variables: []
