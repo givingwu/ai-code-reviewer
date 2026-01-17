@@ -22,7 +22,7 @@ workflow:
     selector:
     - env
     - TV_BOOT_ID
-    value: fac78d42-fe63-4a00-877a-8cafe7a67445
+    value: {YOUR_IM_BOT_TOKEN_HERE}
     value_type: string
   - description: 是否在逐文件循环中发送 TV 消息（默认 true）
     id: 9e5d0f4b-2a1b-4b6c-9e46-0d1a3b0f2c1d
