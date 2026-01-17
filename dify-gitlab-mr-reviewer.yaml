@@ -70,7 +70,7 @@ workflow:
     selector:
     - env
     - GITLAB_PRIVATE_TOKEN
-    value: vZQjhfWs8KD0FR0XZy7OBW86MQp1OnIwCA.01.0y1fodyvq
+    value: {YOUR_TOKEN_HERE}
     value_type: secret
   features:
     file_upload:
