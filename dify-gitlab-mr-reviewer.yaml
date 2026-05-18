@@ -3,13 +3,13 @@ app:
   icon: eyes
   icon_background: '#D3F8DF'
   mode: workflow
-  name: GitLab 代码审查助理
+  name: GitLab 前端代码审查助理
   use_icon_as_answer_icon: false
 dependencies:
 - current_identifier: null
   type: marketplace
   value:
-    marketplace_plugin_unique_identifier: langgenius/tongyi:0.1.3@dddcb77e49af30c7089baa305f2320cd40d4c3b931e035c80fce8a78c7b38639
+    marketplace_plugin_unique_identifier: langgenius/tongyi:0.1.17@f006c9711e73d5ef4bb77bda3b99088064890feefd8f75317b6a2eacf5bce6e7
     version: null
 kind: app
 version: 0.4.0
@@ -38,7 +38,7 @@ workflow:
     selector:
     - env
     - IGNORE_FILES
-    value: (pnpm-lock\.yaml|package-lock\.json|yarn\.lock|composer\.lock|openapi\.json|(translation|zh|en)\.json|\.env(\.\w*)?|\.gitignore|package\.json|page\.tsx|\w*\.md|\w\.test\.(j|t)sx?)(?=$|\/|\\)
+    value: (pnpm-lock\.yaml|package-lock\.json|yarn\.lock|composer\.lock|openapi\.json|(translation|zh|en|biome)\.json|\.env(\.\w*)?|\.gitignore|\w\.d\.(j|t)sx?|package\.json|page\.tsx|\w*\.md|\w\.test\.(j|t)sx?)(?=$|\/|\\)
     value_type: string
   - description: ''
     id: 2310b4b5-f214-489d-821d-2d3220af3a70
@@ -1103,11 +1103,11 @@ workflow:
       height: 80
       id: '1734623951413'
       position:
-        x: 13988
-        y: 361
+        x: 15034
+        y: 385
       positionAbsolute:
-        x: 13988
-        y: 361
+        x: 15034
+        y: 385
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1438,21 +1438,27 @@ workflow:
         selected: false
         title: Send Summary TV When Loop Disabled
         type: if-else
-      height: 124
+      height: 168
       id: '1757000000018'
       position:
         x: 13968
-        y: 277
+        y: 304
       positionAbsolute:
         x: 13968
-        y: 277
+        y: 304
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 242
     - data:
-        code: "function main({summary, author_username, project_name, web_url, mr_title, mr_url}) {\n  const userEmail = `${author_username}@kn.group`;\n  const header = `# AI MR Review Summary\\n@${userEmail}\\n\\n项目：${project_name || ''}\\n仓库：${web_url || ''}\\nMR：${mr_title || ''}\\n链接：${mr_url || ''}\\n\\n---\\n\\n`;\n  const body = (summary || '').toString().slice(0, 12000);\n  const message = (header + body).slice(0, 15000);\n  return { message };\n}\n"
+        code: "function main({summary, author_username, project_name, web_url, mr_title,\
+          \ mr_url}) {\n  const userEmail = `${author_username}@kn.group`;\n  const\
+          \ header = `# AI MR Review Summary\\n@${userEmail}\\n\\n项目：${project_name\
+          \ || ''}\\n仓库：${web_url || ''}\\nMR：${mr_title || ''}\\n链接：${mr_url || ''}\\\
+          n\\n---\\n\\n`;\n  const body = (summary || '').toString().slice(0, 12000);\n\
+          \  const message = (header + body).slice(0, 15000);\n  return { message\
+          \ };\n}\n"
         code_language: javascript
         desc: 生成 MR 汇总的 TV 消息内容
         outputs:
@@ -1487,14 +1493,14 @@ workflow:
           - '17346946700280'
           - mr_url
           variable: mr_url
-      height: 96
+      height: 80
       id: '1757000000019'
       position:
-        x: 14310
-        y: 277
+        x: 14330
+        y: 365
       positionAbsolute:
-        x: 14310
-        y: 277
+        x: 14330
+        y: 365
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1509,7 +1515,8 @@ workflow:
           - id: key-value-mr-summary-tv
             key: ''
             type: text
-            value: "{\n  \"botId\": \"{{#env.TV_BOOT_ID#}}\",\n  \"message\": \"{{#1757000000019.message#}}\"\n}"
+            value: "{\n  \"botId\": \"{{#env.TV_BOOT_ID#}}\",\n  \"message\": \"{{#1757000000019.message#}}\"\
+              \n}"
           type: json
         desc: 发送 MR 汇总到 TV（仅当 ENABLE_LOOP_SEND_MESSAGE=false）
         headers: ''
@@ -1528,14 +1535,14 @@ workflow:
         type: http-request
         url: https://tv-service-alert.kuainiu.chat/alert/v2/inline
         variables: []
-      height: 150
+      height: 168
       id: '1757000000020'
       position:
-        x: 14652
-        y: 277
+        x: 14672
+        y: 321
       positionAbsolute:
-        x: 14652
-        y: 277
+        x: 14672
+        y: 321
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1720,6 +1727,7 @@ workflow:
           retry_enabled: true
           retry_interval: 100
         selected: false
+        ssl_verify: true
         timeout:
           max_connect_timeout: 0
           max_read_timeout: 0
@@ -1869,7 +1877,7 @@ workflow:
       positionAbsolute:
         x: 4526
         y: 372
-      selected: false
+      selected: true
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -3359,7 +3367,7 @@ workflow:
         selected: false
         title: Should Post MR Summary
         type: if-else
-      height: 168
+      height: 152
       id: '1757000000015'
       position:
         x: 12580
@@ -3509,11 +3517,11 @@ workflow:
       height: 392
       id: '17359979073310'
       position:
-        x: 2816
-        y: 607
+        x: 2817.5503276741174
+        y: 605.4496723258831
       positionAbsolute:
-        x: 2816
-        y: 607
+        x: 2817.5503276741174
+        y: 605.4496723258831
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -3674,8 +3682,8 @@ workflow:
         x: 1834
         y: 144
       positionAbsolute:
-        x: 4650
-        y: 751
+        x: 4651.550327674117
+        y: 749.4496723258831
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -3748,8 +3756,8 @@ workflow:
         x: 184
         y: 177
       positionAbsolute:
-        x: 3000
-        y: 784
+        x: 3001.5503276741174
+        y: 782.4496723258831
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -3792,8 +3800,8 @@ workflow:
         x: 848
         y: 127
       positionAbsolute:
-        x: 3664
-        y: 734
+        x: 3665.5503276741174
+        y: 732.4496723258831
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -3828,8 +3836,8 @@ workflow:
         x: 1170
         y: 198
       positionAbsolute:
-        x: 3986
-        y: 805
+        x: 3987.5503276741174
+        y: 803.4496723258831
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -3882,8 +3890,8 @@ workflow:
         x: 2156
         y: 176
       positionAbsolute:
-        x: 4972
-        y: 783
+        x: 4973.550327674117
+        y: 781.4496723258831
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -3904,8 +3912,8 @@ workflow:
         x: 60
         y: 179
       positionAbsolute:
-        x: 2876
-        y: 786
+        x: 2877.5503276741174
+        y: 784.4496723258831
       selectable: false
       sourcePosition: right
       targetPosition: left
@@ -3957,8 +3965,8 @@ workflow:
         x: 506
         y: 141
       positionAbsolute:
-        x: 3322
-        y: 748
+        x: 3323.5503276741174
+        y: 746.4496723258831
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -3984,8 +3992,8 @@ workflow:
         x: 1512
         y: 134
       positionAbsolute:
-        x: 4328
-        y: 741
+        x: 4329.550327674117
+        y: 739.4496723258831
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -4013,8 +4021,8 @@ workflow:
         x: 1170
         y: 60
       positionAbsolute:
-        x: 3986
-        y: 667
+        x: 3987.5503276741174
+        y: 665.4496723258831
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -4393,10 +4401,10 @@ workflow:
       id: '1754278744853'
       parentId: '1734625888939'
       position:
-        x: 4774.0287247979195
+        x: 4772
         y: 179
       positionAbsolute:
-        x: 10832.02872479792
+        x: 10830
         y: 218
       selected: false
       sourcePosition: right
@@ -4515,7 +4523,7 @@ workflow:
       width: 242
       zIndex: 1002
     viewport:
-      x: -12063.532066226231
-      y: -138.78397184289963
-      zoom: 0.9313006090806359
+      x: -898.16388769273
+      y: 155.06589903757776
+      zoom: 0.6849164899827833
   rag_pipeline_variables: []
